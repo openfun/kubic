@@ -26,3 +26,9 @@ variable "service_name" {
   type        = string
   description = "The service name to use for the cluster"
 }
+
+variable "k8s_ingress_nginx_version" {
+  type        = string
+  description = "The version of the ingress-nginx chart to use"
+  default     = "4.6.0"
+}
