@@ -32,10 +32,10 @@ variable "s3_endpoint" {
 
 variable "user_desc_prefix" {
   type    = string
-  default = "[TF] User created by s3 terraform script"
+  default = "User for TF backend state storage"
 }
 
 variable "bucket_name" {
   type    = string
-  default = "tf-s3-bucket-only"
+  default = "tf-state-storage"
 }

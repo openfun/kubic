@@ -11,7 +11,15 @@ terraform {
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "2.1.2"
+      version = "2.9.0"
+    }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = "1.13.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.0.1"
     }
   }
 }
@@ -30,4 +38,17 @@ provider "helm" {
     client_key             = base64decode(ovh_cloud_project_kube.cluster.kubeconfig_attributes[0].client_key)
     cluster_ca_certificate = base64decode(ovh_cloud_project_kube.cluster.kubeconfig_attributes[0].cluster_ca_certificate)
   }
+}
+provider "kubectl" {
+  host                   = ovh_cloud_project_kube.cluster.kubeconfig_attributes[0].host
+  client_certificate     = base64decode(ovh_cloud_project_kube.cluster.kubeconfig_attributes[0].client_certificate)
+  client_key             = base64decode(ovh_cloud_project_kube.cluster.kubeconfig_attributes[0].client_key)
+  cluster_ca_certificate = base64decode(ovh_cloud_project_kube.cluster.kubeconfig_attributes[0].cluster_ca_certificate)
+  load_config_file       = false
+}
+provider "kubernetes" {
+  host                   = ovh_cloud_project_kube.cluster.kubeconfig_attributes[0].host
+  client_certificate     = base64decode(ovh_cloud_project_kube.cluster.kubeconfig_attributes[0].client_certificate)
+  client_key             = base64decode(ovh_cloud_project_kube.cluster.kubeconfig_attributes[0].client_key)
+  cluster_ca_certificate = base64decode(ovh_cloud_project_kube.cluster.kubeconfig_attributes[0].cluster_ca_certificate)
 }
