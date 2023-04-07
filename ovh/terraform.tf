@@ -1,4 +1,15 @@
+# This Terraform project is used to create a Kubernetes cluster on OVHcloud, along with an ingress controller and a default node pool.
+
 terraform {
+
+    backend "s3" {
+      bucket = var.s3_bucket_name
+        key    = "terraform.tfstate"
+        region = var.cluster_region
+        access_key = var.s3_access_key
+        secret_key = var.s3_secret_key
+        endpoint = var.s3_endpoint
+    }
   required_providers {
     ovh = {
       source  = "ovh/ovh"
