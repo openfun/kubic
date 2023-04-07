@@ -2,14 +2,8 @@
 
 terraform {
 
-    backend "s3" {
-      bucket = var.s3_bucket_name
-        key    = "terraform.tfstate"
-        region = var.cluster_region
-        access_key = var.s3_access_key
-        secret_key = var.s3_secret_key
-        endpoint = var.s3_endpoint
-    }
+  backend "s3" {
+  }
   required_providers {
     ovh = {
       source  = "ovh/ovh"
