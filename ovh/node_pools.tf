@@ -7,4 +7,10 @@ resource "ovh_cloud_project_kube_nodepool" "pool" {
   monthly_billed = false
   min_nodes      = 1
   max_nodes      = 10
+
+  timeouts {
+    create = "30m"
+    update = "30m"
+    delete = "30m"
+  }
 }

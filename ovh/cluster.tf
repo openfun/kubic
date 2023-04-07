@@ -1,7 +1,7 @@
 resource "ovh_cloud_project_kube" "cluster" {
   service_name = var.service_name
   name         = "cluster"
-  region       = var.cluster-region
+  region       = var.cluster_region
 }
 
 output "kubeconfig" {
