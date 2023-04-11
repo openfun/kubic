@@ -5,3 +5,8 @@ variable "letsencrypt_email" {
   default     = "bralequepautto-8984@yopmail.com"
 }
 
+variable "cluster_issuer_name" {
+  type        = string
+  description = "Name of the clusterIssuer"
+  default     = "cert-manager-global"
+}

@@ -78,7 +78,7 @@ module "cert_manager" {
   source = "terraform-iaac/cert-manager/kubernetes"
 
   cluster_issuer_email                   = var.letsencrypt_email
-  cluster_issuer_name                    = "cert-manager-global"
+  cluster_issuer_name                    = var.cluster_issuer_name
   cluster_issuer_private_key_secret_name = "cert-manager-private-key"
   namespace_name                         = "cert-manager"
   cluster_issuer_server                  = "https://acme-staging-v02.api.letsencrypt.org/directory"
@@ -137,3 +137,17 @@ resource "helm_release" "nginx_ingress" {
   }
 }
 
+resource "helm_release" "kube-prometheus" {
+  name             = "kube-prometheus-stack"
+  namespace        = "prometheus"
+  create_namespace = true
+
+  version    = "45.9.1"
+  repository = "https://prometheus-community.github.io/helm-charts"
+  chart      = "kube-prometheus-stack"
+
+  values = [templatefile("${path.module}/values.yml", {
+    hostname = "grafana.scw-tf.fun-plus.fr"
+    issuer   = var.cluster_issuer_name
+  })]
+}
