@@ -19,6 +19,13 @@ terraform {
   required_version = ">= 0.15"
 }
 
+provider "scaleway" {
+  access_key = var.scaleway_access_key
+  secret_key = var.scaleway_secret_key
+  project_id = var.scaleway_project_id
+  region     = var.scaleway_region
+}
+
 provider "kubectl" {
   host  = null_resource.kubeconfig.triggers.host
   token = null_resource.kubeconfig.triggers.token
@@ -74,16 +81,6 @@ output "kube_config" {
   sensitive   = true
 }
 
-module "cert_manager" {
-  source = "terraform-iaac/cert-manager/kubernetes"
-
-  cluster_issuer_email                   = var.letsencrypt_email
-  cluster_issuer_name                    = var.cluster_issuer_name
-  cluster_issuer_private_key_secret_name = "cert-manager-private-key"
-  namespace_name                         = "cert-manager"
-  cluster_issuer_server                  = "https://acme-staging-v02.api.letsencrypt.org/directory"
-}
-
 resource "scaleway_lb_ip" "nginx_ip" {
   zone       = "fr-par-1"
   project_id = scaleway_k8s_cluster.joy.project_id
@@ -137,17 +134,3 @@ resource "helm_release" "nginx_ingress" {
   }
 }
 
-resource "helm_release" "kube-prometheus" {
-  name             = "kube-prometheus-stack"
-  namespace        = "prometheus"
-  create_namespace = true
-
-  version    = "45.9.1"
-  repository = "https://prometheus-community.github.io/helm-charts"
-  chart      = "kube-prometheus-stack"
-
-  values = [templatefile("${path.module}/grafana-values.yml", {
-    hostname = "grafana.scw-tf.fun-plus.fr"
-    issuer   = var.cluster_issuer_name
-  })]
-}
