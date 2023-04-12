@@ -1,12 +1,24 @@
-variable "letsencrypt_email" {
+variable "scaleway_access_key" {
   type        = string
-  description = "Email address that Let's Encrypt will use to send notifications about expiring certificates and account-related issues to."
+  description = "The access key to use for Scaleway API calls"
   sensitive   = true
-  default     = "bralequepautto-8984@yopmail.com"
 }
 
-variable "cluster_issuer_name" {
+variable "scaleway_secret_key" {
   type        = string
-  description = "Name of the clusterIssuer"
-  default     = "cert-manager-global"
+  description = "The secret key to use for Scaleway API calls"
+  sensitive   = true
 }
+
+variable "scaleway_project_id" {
+  type        = string
+  description = "The project id to use for Scaleway API calls"
+  sensitive   = true
+}
+
+variable "scaleway_region" {
+  type        = string
+  description = "The region to use for the cluster"
+  default     = "fr-par"
+}
+

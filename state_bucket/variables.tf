@@ -25,11 +25,6 @@ variable "region" {
   default = "gra"
 }
 
-variable "s3_endpoint" {
-  type    = string
-  default = "https://s3.gra.io.cloud.ovh.net"
-}
-
 variable "user_desc_prefix" {
   type    = string
   default = "User for TF backend state storage"
