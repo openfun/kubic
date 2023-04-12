@@ -32,3 +32,8 @@ variable "s3_bucket_name" {
   description = "The bucket name to use for S3 API calls"
   default     = "tf-s3-bucket-scaleway"
 }
+
+variable "grafana_hostname" {
+    type        = string
+    description = "The hostname to use for the Grafana ingress"
+}

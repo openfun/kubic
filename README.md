@@ -29,6 +29,7 @@ Now we've got our s3 bucket, fill the `backend.conf.template` with the informati
 
 Next :
 
-- Provide the correct variables in a `.tfvars` file. 
+- Provide the correct variables in a `.tfvars` file.
+- Copy the `credentials.auto.tfvars.json.template` to `credentials.auto.tfvars.json` and fill it with the corresponding credentials
 - Do a `terraform init`, then `terraform plan` then `terraform apply` to create your cluster. 
 
