@@ -18,3 +18,8 @@ variable "grafana_admin_password" {
   type        = string
   description = "The password of the Grafana UI"
 }
+
+variable "install-hashicorp-vault" {
+    type        = bool
+    description = "Install Hashicorp Vault"
+}
