@@ -1,4 +1,6 @@
 terraform {
+  backend "s3" {
+  }
   required_providers {
     scaleway = {
       source = "scaleway/scaleway"
