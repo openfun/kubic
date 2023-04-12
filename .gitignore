@@ -1,5 +1,6 @@
 env/
 *.env
+*.conf
 
 # Local .terraform directories
 **/.terraform/*
