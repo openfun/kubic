@@ -1,8 +1,10 @@
 global:
   enabled: true
-  tlsDisable: true # has to be changed as soon as we have a solution / a certificate
+  tlsDisable: false
 
 server:
+  dataStorage:
+      size: ${vault_data_storage_size}Gi
   affinity: ""
   ha:
     enabled: true
@@ -10,16 +12,45 @@ server:
       enabled: true
       setNodeId: true
       config: |
-        ui = false
+        ui = ${vault_ui}
 
         listener "tcp" {
-          tls_disable = 1
           address = "[::]:8200"
           cluster_address = "[::]:8201"
+
+          tls_disable = false
+          tls_cert_file = "/vault/userconfig/${kubernetes_secret_name_tls_cert}/tls.crt"
+          tls_key_file  = "/vault/userconfig/${kubernetes_secret_name_tls_cert}/tls.key"
+
+          tls_require_and_verify_client_cert = false
+          tls_disable_client_certs           = true
         }
 
         storage "raft" {
           path    = "/vault/data"
+
+          retry_join {
+            auto_join             = "provider=k8s namespace=hashicorp-vault label_selector=\"component=server,app.kubernetes.io/name=vault\""
+            %{ if vault_leader_tls_servername != null }
+            leader_tls_servername = "${vault_leader_tls_servername}"
+            %{ else }
+            leader_tls_servername = "HOSTNAME.hashicorp-vault-internal"
+            %{ endif }
+            leader_ca_cert_file   = "/vault/userconfig/${kubernetes_secret_name_tls_ca}/ca.crt"
+          }
         }
 
         service_registration "kubernetes" {}
+
+        seal "${vault_seal_method}" {}
+  ui:
+    enabled: ${vault_ui}
+    serviceType: ${kubernetes_vault_ui_service_type}
+  extraVolumes:
+      - type: secret
+        name: ${kubernetes_secret_name_tls_cert}
+      - type: secret
+        name: ${kubernetes_secret_name_tls_ca}
+  extraEnvironmentVars:
+    VAULT_CAPATH: /vault/userconfig/tls-ca/ca.crt
+    VAULT_SKIP_VERIFY: true

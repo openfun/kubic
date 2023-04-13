@@ -34,3 +34,60 @@ variable "install-hashicorp-vault" {
   type        = bool
   description = "Install Hashicorp Vault"
 }
+
+variable "vault_leader_tls_servername" {
+  type        = string
+  description = "The servername to use for the TLS certificate"
+  default     = null
+}
+
+variable "vault_data_storage_size" {
+  type        = string
+  description = "The size, in Gi, of the data storage volume"
+  default     = "10"
+}
+
+variable "vault_api_signed_certificate" {
+  type        = string
+  description = "The name of the signed certificate secret in Secrets Manager"
+  default     = null
+  sensitive   = true
+}
+
+variable "vault_api_private_key" {
+  type        = string
+  description = "The name of the certificate private key secret in Secrets Manager"
+  default     = null
+  sensitive   = true
+}
+
+variable "vault_api_ca_bundle" {
+  type        = string
+  description = "The name of the CA bundle secret in Secrets Manager"
+  default     = null
+  sensitive   = true
+}
+
+variable "vault_kms_seal_config" {
+  type        = map(string)
+  description = "A map containing the seal configuration information"
+  default     = null
+}
+
+variable "vault_ui" {
+  type        = bool
+  description = "Enable the Vault UI"
+  default     = false
+}
+
+variable "kubernetes_vault_ui_service_type" {
+  type        = string
+  description = "The Kubernetes service type to use for the Vault UI"
+  default     = "ClusterIP"
+}
+
+variable "vault_seal_method" {
+  type        = string
+  description = "The Vault seal method to use"
+  default     = "shamir"
+}
