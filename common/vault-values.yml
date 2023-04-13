@@ -1,0 +1,25 @@
+global:
+  enabled: true
+  tlsDisable: true # has to be changed as soon as we have a solution / a certificate
+
+server:
+  affinity: ""
+  ha:
+    enabled: true
+    raft: 
+      enabled: true
+      setNodeId: true
+      config: |
+        ui = false
+
+        listener "tcp" {
+          tls_disable = 1
+          address = "[::]:8200"
+          cluster_address = "[::]:8201"
+        }
+
+        storage "raft" {
+          path    = "/vault/data"
+        }
+
+        service_registration "kubernetes" {}

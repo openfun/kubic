@@ -5,5 +5,7 @@ resource "helm_release" "hashicorp-vault" {
   create_namespace = true
 
   repository = "https://helm.releases.hashicorp.com"
-  chart      = "hashicorp/vault"
+  chart      = "vault"
+
+  values = [templatefile("${path.module}/vault-values.yml", {})]
 }
