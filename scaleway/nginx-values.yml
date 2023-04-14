@@ -1,0 +1,19 @@
+---
+controller:
+  config:
+    use-proxy-protocol: true
+  service:
+    annotations:
+      service.beta.kubernetes.io/scw-loadbalancer-proxy-protocol-v2: "true"
+      service.beta.kubernetes.io/scw-loadbalancer-use-hostname: "true"
+      service.beta.kubernetes.io/scw-loadbalancer-zone: ${zone}
+    externalTrafficPolicy: Local
+    loadBalancerIP: ${ip_adress}
+  metrics:
+    enabled: true
+    service:
+      annotations:
+        prometheus.io/port: "10254"
+        prometheus.io/scrape: "true"
+  # extraArgs:
+  #   enable-ssl-passthrough: "true"
