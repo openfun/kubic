@@ -1,8 +1,14 @@
+resource "kubernetes_namespace" "hashicorp-vault" {
+  count = (var.install-hashicorp-vault) ? 1 : 0
+  metadata {
+    name = "hashicorp-vault"
+  }
+}
+
 resource "helm_release" "hashicorp-vault" {
-  count            = var.install-hashicorp-vault ? 1 : 0
+  count            = (var.install-hashicorp-vault) ? 1 : 0
   name             = "hashicorp-vault"
   namespace        = "hashicorp-vault"
-  create_namespace = true
 
   repository = "https://helm.releases.hashicorp.com"
   chart      = "vault"
@@ -17,5 +23,9 @@ resource "helm_release" "hashicorp-vault" {
     vault_leader_tls_servername = var.vault_leader_tls_servername
     vault_seal_method           = var.vault_seal_method
     vault_ui                    = var.vault_ui
+
+    cluster_issuer_name         = var.cluster_issuer_name
+    vault_server_hostname       = var.vault_server_hostname
+    enable_vault_server_ingress = var.vault_server_hostname != "" ? true : false
   })]
 }
