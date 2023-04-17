@@ -13,3 +13,8 @@ variable "grafana_hostname" {
   type        = string
   description = "The hostname to use for the Grafana ingress"
 }
+
+variable "grafana_admin_password" {
+  type        = string
+  description = "The password of the Grafana UI"
+}
