@@ -12,8 +12,18 @@ resource "helm_release" "ingress-nginx" {
   }
 
   set {
-    name  = "controller.enableSSLPassthrough"
+    name  = "controller.metrics.enabled"
     value = "true"
+  }
+
+  set {
+    name  = "controller.metrics.serviceMonitor.enabled"
+    value = "true"
+  }
+
+  set {
+    name  = "controller.metrics.serviceMonitor.additionalLabels.release"
+    value = "prometheus"
   }
 
   set {
