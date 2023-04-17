@@ -39,20 +39,22 @@ provider "registry.terraform.io/hashicorp/helm" {
 }
 
 provider "registry.terraform.io/hashicorp/kubernetes" {
-  version     = "2.0.1"
-  constraints = ">= 2.0.1, 2.0.1"
+  version     = "2.19.0"
+  constraints = ">= 2.0.1, 2.19.0"
   hashes = [
-    "h1:MlKp+R32gnNeODxsj30XigkGOTLXeEEsgT9xwCmi5xU=",
-    "zh:19a5656300f92e265b521a91b70fa822139589f5b53d7be5a990462b4bc93c8e",
-    "zh:2c1a8faffaa1cce16f651a60e02f26979772def6e1d30bf2efcb6daa343dbc36",
-    "zh:465d6b4c29c82a1b3ad9bbb16b35d2706ac120a24ea301f9d3fe155ad243ae3b",
-    "zh:4e32ff62f73732b629b66298a22884707a814e82d4025e04d08893ee0f9cf389",
-    "zh:7de1c9cf8524d2c2320dc18601aa20451a0a8ea31662fd54f5bbf125cf7b477b",
-    "zh:a5f8c5cd8c91eb27791261c07745e7143349594fd058278031a85e97fbbe830e",
-    "zh:a8f1b39f69e0dd29635ce5b1c88527ec5e4ef308a45088842e32ff825c32ab21",
-    "zh:ae8ce3e057f2645efca1fe10b65e9b80d60de37d8a8f01cb6e7ed19d12782be2",
-    "zh:cf1326f8e253b1cc27f8b4367696e07efc1020f9828ed56df17f5bb4e4bf65ad",
-    "zh:d3c1942e8cc5a1bbc84e89c9320bf55840ee079937003a0d6e245b3f9c744d55",
+    "h1:WXTbK59MHZVtikifTCvqpH/3TKMnj3MyQke4ymmUjlg=",
+    "zh:028d346460de2d1d19b4c863dfc36be51c7bcd97d372b54a3a946bcb19f3f613",
+    "zh:391d0b38c455437d0a2ab1beb6ce6e1230aa4160bbae11c58b2810b258b44280",
+    "zh:40ea742f91b67f66e71d7091cfd40cc604528c4947651924bd6d8bd8d9793708",
+    "zh:48a99d341c8ba3cadaafa7cb99c0f11999f5e23f5cfb0f8469b4e352d9116e74",
+    "zh:4a5ade940eff267cbf7dcd52c1a7ac3999e7cc24996a409bd8b37bdb48a97f02",
+    "zh:5063742016a8249a4be057b9cc0ef24a684ec76d0ae5463d4b07e9b2d21e047e",
+    "zh:5d36b3a5662f840a6788f5e2a19d02139e87318feb3c5d82c7d076be1366fec4",
+    "zh:75edd9960cb30e54ef7de1b7df2761a274f17d4d41f54e72f86b43f41af3eb6d",
+    "zh:b85cadef3e6f25f1a10a617472bf5e8449decd61626733a1bc723de5edc08f64",
+    "zh:dc565b17b4ea6dde6bd1b92bc37e5e850fcbf9400540eec00ad3d9552a76ac2e",
+    "zh:deb665cc2123f2701aa3d653987b2ca35fb035a08a76a2382efb215c209f19a5",
+    "zh:f569b65999264a9416862bca5cd2a6177d94ccb0424f3a4ef424428912b9cb3c",
   ]
 }
 
