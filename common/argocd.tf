@@ -4,7 +4,7 @@ resource "helm_release" "argocd" {
   create_namespace = true
 
   repository = "https://argoproj.github.io/argo-helm"
-  chart      = "argo/argo-cd"
+  chart      = "argo-cd"
 
   values = [
     templatefile("${path.module}/argocd-values.yaml.tftpl",
