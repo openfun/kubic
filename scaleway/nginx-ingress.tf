@@ -6,7 +6,7 @@ resource "scaleway_lb_ip" "nginx_ip" {
 
 output "ingress_ip" {
   value       = scaleway_lb_ip.nginx_ip.ip_address
-  description = "Adress of the loadbalancer"
+  description = "Address of the loadbalancer"
   sensitive   = true
 }
 
