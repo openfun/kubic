@@ -15,4 +15,9 @@ resource "helm_release" "ingress-nginx" {
     name  = "controller.enableSSLPassthrough"
     value = "true"
   }
+
+  set {
+    name  = "controller.extraArgs.enable-ssl-passthrough"
+    value = "true"
+  }
 }

@@ -6,9 +6,9 @@ resource "kubernetes_namespace" "hashicorp-vault" {
 }
 
 resource "helm_release" "hashicorp-vault" {
-  count            = (var.install-hashicorp-vault) ? 1 : 0
-  name             = "hashicorp-vault"
-  namespace        = "hashicorp-vault"
+  count     = (var.install-hashicorp-vault) ? 1 : 0
+  name      = "hashicorp-vault"
+  namespace = "hashicorp-vault"
 
   repository = "https://helm.releases.hashicorp.com"
   chart      = "vault"
