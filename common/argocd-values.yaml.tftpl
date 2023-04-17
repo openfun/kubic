@@ -9,11 +9,18 @@ server:
       nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     ingressClassName: nginx
     hosts:
-      - ${hostName}
+      - ${host_name}
     tls:
       - hosts:
-          - ${hostName}
+          - ${host_name}
         secretName: argocd-secret # do not change, this is provided by Argo CD
 configs:
   secret:
     argocdServerAdminPassword: ${password}
+  repositories:
+    applications-repo:
+      name: applications-repo
+      type: git
+      url: ${repo_url}
+      username: ${repo_username}
+      password: ${repo_password}
