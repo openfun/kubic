@@ -46,6 +46,21 @@ server:
   ui:
     enabled: ${vault_ui}
     serviceType: ${kubernetes_vault_ui_service_type}
+  %{ if enable_vault_server_ingress }
+  ingress:
+    enabled: true
+    activeService: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: ${cluster_issuer_name}
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    tls:
+      - hosts:
+        - ${vault_server_hostname}
+        secretName: ${vault_server_hostname}
+    hosts:
+      - host: ${vault_server_hostname}
+  %{ endif }
   extraVolumes:
       - type: secret
         name: ${kubernetes_secret_name_tls_cert}

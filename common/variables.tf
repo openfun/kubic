@@ -28,6 +28,10 @@ variable "grafana_admin_password" {
   type        = string
   description = "The password of the Grafana UI"
   sensitive   = true
+variable "vault_server_hostname" {
+  type        = string
+  description = "The hostname to use for the Vault server ingress"
+  default     = ""
 }
 
 variable "install-hashicorp-vault" {
