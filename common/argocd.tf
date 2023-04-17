@@ -7,7 +7,7 @@ resource "helm_release" "argocd" {
   chart      = "argo/argo-cd"
 
   values = [
-    templatefile("argocd-values.yaml",
+    templatefile("${path.module}/argocd-values.yaml.tftpl",
       {
         hostName = var.argocd_hostname
         password = var.argocd_password
