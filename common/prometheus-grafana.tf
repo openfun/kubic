@@ -11,4 +11,5 @@ resource "helm_release" "kube-prometheus" {
     issuer   = var.cluster_issuer_name
     grafana_admin_password = var.grafana_admin_password
   })]
+
 }
