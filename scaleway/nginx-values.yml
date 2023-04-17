@@ -11,9 +11,9 @@ controller:
     loadBalancerIP: ${ip_adress}
   metrics:
     enabled: true
-    service:
-      annotations:
-        prometheus.io/port: "10254"
-        prometheus.io/scrape: "true"
+    serviceMonitor:
+      additionalLabels:
+        release: prometheus
+      enabled: true
   # extraArgs:
   #   enable-ssl-passthrough: "true"

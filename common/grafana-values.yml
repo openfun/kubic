@@ -14,3 +14,7 @@ grafana:
       - secretName: ${hostname}
         hosts:
           - ${hostname}
+prometheus:
+  prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false

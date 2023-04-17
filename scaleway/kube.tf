@@ -28,32 +28,6 @@ provider "scaleway" {
   region     = var.scaleway_region
 }
 
-provider "kubectl" {
-  host  = null_resource.kubeconfig.triggers.host
-  token = null_resource.kubeconfig.triggers.token
-  cluster_ca_certificate = base64decode(
-    null_resource.kubeconfig.triggers.cluster_ca_certificate
-  )
-}
-
-provider "helm" {
-  kubernetes {
-    host  = null_resource.kubeconfig.triggers.host
-    token = null_resource.kubeconfig.triggers.token
-    cluster_ca_certificate = base64decode(
-      null_resource.kubeconfig.triggers.cluster_ca_certificate
-    )
-  }
-}
-
-provider "kubernetes" {
-  host  = null_resource.kubeconfig.triggers.host
-  token = null_resource.kubeconfig.triggers.token
-  cluster_ca_certificate = base64decode(
-    null_resource.kubeconfig.triggers.cluster_ca_certificate
-  )
-}
-
 resource "scaleway_k8s_cluster" "joy" {
   name                        = "joy"
   version                     = "1.26.2"
@@ -81,4 +55,32 @@ output "kube_config" {
   value       = scaleway_k8s_cluster.joy.kubeconfig[0].config_file
   description = "kubeconfig for kubectl access."
   sensitive   = true
+}
+
+
+provider "kubectl" {
+  host  = null_resource.kubeconfig.triggers.host
+  token = null_resource.kubeconfig.triggers.token
+  cluster_ca_certificate = base64decode(
+    null_resource.kubeconfig.triggers.cluster_ca_certificate
+  )
+  load_config_file = false
+}
+
+provider "helm" {
+  kubernetes {
+    host  = null_resource.kubeconfig.triggers.host
+    token = null_resource.kubeconfig.triggers.token
+    cluster_ca_certificate = base64decode(
+      null_resource.kubeconfig.triggers.cluster_ca_certificate
+    )
+  }
+}
+
+provider "kubernetes" {
+  host  = null_resource.kubeconfig.triggers.host
+  token = null_resource.kubeconfig.triggers.token
+  cluster_ca_certificate = base64decode(
+    null_resource.kubeconfig.triggers.cluster_ca_certificate
+  )
 }
