@@ -5,7 +5,7 @@ server:
     https: true
     annotations:
       cert-manager.io/cluster-issuer: ${cluster_issuer_name}
-      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/ssl-passthrough: true
       nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     ingressClassName: nginx
     hosts:
