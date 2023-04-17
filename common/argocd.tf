@@ -9,8 +9,9 @@ resource "helm_release" "argocd" {
   values = [
     templatefile("${path.module}/argocd-values.yaml.tftpl",
       {
-        hostName = var.argocd_hostname
-        password = var.argocd_password
+        hostName            = var.argocd_hostname
+        password            = var.argocd_password
+        cluster_issuer_name = var.cluster_issuer_name
       }
     )
   ]
