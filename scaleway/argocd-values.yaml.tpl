@@ -1,1 +1,0 @@
-../common/argocd-values.yaml.tpl
