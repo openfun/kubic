@@ -14,6 +14,21 @@ variable "argocd_password" {
   description = "ArgoCD password hash, can be defined with `argocd account bcrypt --password change_me` after installing ArgoCD CLI"
 }
 
+variable "argocd_repo_url" {
+  type        = string
+  description = "ArgoCD applications repo URL"
+}
+
+variable "argocd_repo_username" {
+  type        = string
+  description = "ArgoCD applications repo username"
+}
+
+variable "argocd_repo_password" {
+  type        = string
+  description = "ArgoCD applications repo password"
+}
+
 variable "letsencrypt_email" {
   type        = string
   description = "Email address to use for the clusterIssuer"
