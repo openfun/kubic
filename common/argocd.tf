@@ -31,7 +31,7 @@ resource "helm_release" "argocd-apps" {
   values = [
     templatefile("${path.module}/argocd-apps-values.yaml.tftpl",
       {
-
+        repo_url = var.argocd_repo_url
       }
     )
   ]

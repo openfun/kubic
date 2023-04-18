@@ -1,1 +1,30 @@
 ---
+applicationsets:
+  - name: applications
+    namespace: argocd
+    generators:
+      - git:
+          repoURL: ${repo_url}
+          revision: HEAD
+          directories:
+            - path: applications/*
+    template:
+      metadata:
+        name: "{{path.basename}}"
+      spec:
+        project: default
+        source:
+          repoURL: ${repo_url}
+          targetRevision: HEAD
+          path: "{{path}}"
+        destination:
+          server: https://kubernetes.default.svc
+          namespace: "{{path.basename}}"
+        syncPolicy:
+          automated:
+            prune: true
+            selfHeal: false
+          syncOptions:
+            - CreateNamespace=true
+    syncPolicy:
+      preserveResourcesOnDeletion: false
