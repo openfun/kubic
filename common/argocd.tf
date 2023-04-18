@@ -22,8 +22,7 @@ resource "helm_release" "argocd" {
 }
 
 resource "helm_release" "argocd-apps" {
-  name      = "argocd-apps"
-  namespace = "argocd"
+  name = "argocd-apps"
 
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argocd-apps"
