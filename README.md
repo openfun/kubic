@@ -56,6 +56,7 @@ This command generates a `cluster-keys.json` file containing :
 *If you read the doc, you might want to make the pods join the Raft cluster. The vault is here automatically set up to join the Raft cluster, so no action is required from the user here.*
 
 **Unsealing of the vault**
+
 The vault is still not available. Each pod must be *unsealed* to be operational. This can be achieved by doing so (still in the `hashicorp-vault` namespace), here with *n* = *m* = 1 :
 
 `kubectl exec hashicorp-vault-i -- vault operator unseal $VAULT_UNSEAL_KEY`, with *i* going from 0 to the number of pods.
