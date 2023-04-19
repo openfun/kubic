@@ -7,19 +7,19 @@ terraform {
   required_providers {
     ovh = {
       source  = "ovh/ovh"
-      version = "0.29.0"
+      version = "~> 0.29.0"
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "2.9.0"
+      version = "~> 2.9.0"
     }
     kubectl = {
       source  = "gavinbunney/kubectl"
-      version = "1.13.0"
+      version = "~> 1.14.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.19.0"
+      version = "~> 2.19.0"
     }
   }
 }

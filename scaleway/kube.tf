@@ -4,21 +4,21 @@ terraform {
   required_providers {
     scaleway = {
       source = "scaleway/scaleway"
+      version = "~> 2.16.0"
     }
     helm = {
       source  = "hashicorp/helm"
-      version = ">= 2.0.1"
+      version = "~> 2.9.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.0.1"
+      version = "~> 2.19.0"
     }
     kubectl = {
       source  = "gavinbunney/kubectl"
-      version = "1.13.0"
+      version = "~> 1.14.0"
     }
   }
-  required_version = ">= 0.15"
 }
 
 provider "scaleway" {
