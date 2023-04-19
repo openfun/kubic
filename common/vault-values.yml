@@ -61,6 +61,15 @@ server:
     hosts:
       - host: ${vault_server_hostname}
   %{ endif }
+  affinity: |
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: vault
+            app.kubernetes.io/instance: hashicorp-vault
+            component: server
+        topologyKey: kubernetes.io/hostname
   extraVolumes:
       - type: secret
         name: ${kubernetes_secret_name_tls_cert}
