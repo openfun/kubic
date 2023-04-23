@@ -30,7 +30,7 @@ repoServer:
       image: registry.access.redhat.com/ubi8
       env:
         - name: AVP_VERSION
-          value: 1.14.0
+          value: ${avp_version}
       command: [sh, -c]
       args:
         - >-
@@ -46,7 +46,7 @@ repoServer:
     # argocd-vault-plugin with plain YAML
     - name: avp
       command: [/var/run/argocd/argocd-cmp-server]
-      image: quay.io/argoproj/argocd:v2.6.7
+      image: quay.io/argoproj/argocd:{{ .Chart.AppVersion }}
       securityContext:
         runAsNonRoot: true
         runAsUser: 999
@@ -74,7 +74,7 @@ repoServer:
     # argocd-vault-plugin with Helm
     - name: avp-helm
       command: [/var/run/argocd/argocd-cmp-server]
-      image: quay.io/argoproj/argocd:v2.6.7
+      image: quay.io/argoproj/argocd:{{ .Chart.AppVersion }}
       securityContext:
         runAsNonRoot: true
         runAsUser: 999
@@ -102,7 +102,7 @@ repoServer:
     # argocd-vault-plugin with Kustomize
     - name: avp-kustomize
       command: [/var/run/argocd/argocd-cmp-server]
-      image: quay.io/argoproj/argocd:v2.6.7
+      image: quay.io/argoproj/argocd:{{ .Chart.AppVersion }}
       securityContext:
         runAsNonRoot: true
         runAsUser: 999

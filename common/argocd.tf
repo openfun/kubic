@@ -15,6 +15,7 @@ resource "helm_release" "argocd" {
         repo_url            = var.argocd_repo_url
         repo_username       = var.argocd_repo_username
         repo_password       = var.argocd_repo_password
+        avp_version         = var.argocd_avp_version
       }
     )
   ]
