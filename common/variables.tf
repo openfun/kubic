@@ -29,6 +29,12 @@ variable "argocd_repo_password" {
   description = "ArgoCD applications repo password"
 }
 
+variable "argocd_avp_version" {
+  type        = string
+  description = "ArgoCD argo-vault-plugin version"
+  default     = "1.14.0"
+}
+
 variable "letsencrypt_email" {
   type        = string
   description = "Email address to use for the clusterIssuer"
