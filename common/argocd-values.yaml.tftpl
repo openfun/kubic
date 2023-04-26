@@ -1,4 +1,7 @@
 ---
+crds:
+  keep: false
+
 server:
   ingress:
     enabled: true
@@ -68,7 +71,7 @@ repoServer:
           subPath: argocd-vault-plugin
           mountPath: /usr/local/bin/argocd-vault-plugin
       envFrom:
-        - secretRef:
+        - configMapRef:
             name: vault-configuration
 
     # argocd-vault-plugin with Helm
@@ -96,7 +99,7 @@ repoServer:
           subPath: argocd-vault-plugin
           mountPath: /usr/local/bin/argocd-vault-plugin
       envFrom:
-        - secretRef:
+        - configMapRef:
             name: vault-configuration
 
     # argocd-vault-plugin with Kustomize
@@ -124,7 +127,7 @@ repoServer:
           subPath: argocd-vault-plugin
           mountPath: /usr/local/bin/argocd-vault-plugin
       envFrom:
-        - secretRef:
+        - configMapRef:
             name: vault-configuration
 
 configs:
@@ -198,3 +201,15 @@ configs:
             - "-c"
             - "kustomize build . | argocd-vault-plugin generate -"
         lockRepo: false
+
+extraObjects:
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: vault-configuration
+      namespace: argocd
+    data:
+      VAULT_ADDR: ${vault_addr}
+      AVP_TYPE: vault
+      AVP_AUTH_TYPE: k8s
+      AVP_K8S_ROLE: argocd
