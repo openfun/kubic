@@ -22,3 +22,8 @@ variable "scaleway_region" {
   default     = "fr-par"
 }
 
+variable "k8s_cluster_name" {
+  type        = string
+  description = "The name of the cluster"
+  default     = "joy"
+}

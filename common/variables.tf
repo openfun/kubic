@@ -40,6 +40,11 @@ variable "letsencrypt_email" {
   description = "Email address to use for the clusterIssuer"
 }
 
+variable "cluster_issuer_server" {
+  type        = string
+  description = "Server to use for the clusterIssuer"
+}
+
 variable "grafana_hostname" {
   type        = string
   description = "The hostname to use for the Grafana ingress"

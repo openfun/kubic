@@ -28,15 +28,15 @@ provider "scaleway" {
   region     = var.scaleway_region
 }
 
-resource "scaleway_k8s_cluster" "joy" {
-  name                        = "joy"
+resource "scaleway_k8s_cluster" "k8s_cluster" {
+  name                        = var.k8s_cluster_name
   version                     = "1.26.2"
   cni                         = "cilium"
   delete_additional_resources = true
 }
 
 resource "scaleway_k8s_pool" "john" {
-  cluster_id = scaleway_k8s_cluster.joy.id
+  cluster_id = scaleway_k8s_cluster.k8s_cluster.id
   name       = "john"
   node_type  = "DEV1-M"
   size       = 1
@@ -45,14 +45,14 @@ resource "scaleway_k8s_pool" "john" {
 resource "null_resource" "kubeconfig" {
   depends_on = [scaleway_k8s_pool.john] # at least one pool here
   triggers = {
-    host                   = scaleway_k8s_cluster.joy.kubeconfig[0].host
-    token                  = scaleway_k8s_cluster.joy.kubeconfig[0].token
-    cluster_ca_certificate = scaleway_k8s_cluster.joy.kubeconfig[0].cluster_ca_certificate
+    host                   = scaleway_k8s_cluster.k8s_cluster.kubeconfig[0].host
+    token                  = scaleway_k8s_cluster.k8s_cluster.kubeconfig[0].token
+    cluster_ca_certificate = scaleway_k8s_cluster.k8s_cluster.kubeconfig[0].cluster_ca_certificate
   }
 }
 
 output "kube_config" {
-  value       = scaleway_k8s_cluster.joy.kubeconfig[0].config_file
+  value       = scaleway_k8s_cluster.k8s_cluster.kubeconfig[0].config_file
   description = "kubeconfig for kubectl access."
   sensitive   = true
 }
