@@ -209,7 +209,7 @@ extraObjects:
       name: vault-configuration
       namespace: argocd
     data:
-      VAULT_ADDR: ${vault_addr}
+      VAULT_ADDR: https://${vault_addr}
       AVP_TYPE: vault
       AVP_AUTH_TYPE: k8s
       AVP_K8S_ROLE: argocd
