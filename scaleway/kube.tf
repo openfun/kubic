@@ -35,15 +35,15 @@ resource "scaleway_k8s_cluster" "k8s_cluster" {
   delete_additional_resources = true
 }
 
-resource "scaleway_k8s_pool" "john" {
+resource "scaleway_k8s_pool" "k8s_pool" {
   cluster_id = scaleway_k8s_cluster.k8s_cluster.id
-  name       = "john"
+  name       = var.k8s_pool
   node_type  = "DEV1-M"
   size       = 1
 }
 
 resource "null_resource" "kubeconfig" {
-  depends_on = [scaleway_k8s_pool.john] # at least one pool here
+  depends_on = [scaleway_k8s_pool.k8s_pool] # at least one pool here
   triggers = {
     host                   = scaleway_k8s_cluster.k8s_cluster.kubeconfig[0].host
     token                  = scaleway_k8s_cluster.k8s_cluster.kubeconfig[0].token

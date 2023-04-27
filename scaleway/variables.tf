@@ -25,5 +25,11 @@ variable "scaleway_region" {
 variable "k8s_cluster_name" {
   type        = string
   description = "The name of the cluster"
-  default     = "joy"
+  default     = "my_cluster"
+}
+
+variable "k8s_pool" {
+  type        = string
+  description = "The name of the pool"
+  default     = "my_pool"
 }
