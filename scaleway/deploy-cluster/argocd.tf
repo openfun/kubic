@@ -1,1 +1,1 @@
-../common/argocd.tf
+../../common/argocd.tf

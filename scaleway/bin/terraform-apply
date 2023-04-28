@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -eo pipefail
+var_file="deploy-cluster/terraform.tfvars"
+
+if [ ! -f $var_file ]; then
+    echo "Please run ./terraform-init first."
+    exit 1
+fi
+
+DOCKER_USER="$(id -u):$(id -g)" \
+    docker-compose run --rm deploy-loadbalancer apply -auto-approve
+
+lb_ip="$(DOCKER_USER="$(id -u):$(id -g)" \
+    docker-compose run --rm deploy-loadbalancer output -raw lb_ip)"
+
+lb_ip_zone="$(DOCKER_USER="$(id -u):$(id -g)" \
+    docker-compose run --rm deploy-loadbalancer output -raw lb_ip_zone)"
+
+if grep -q "^lb_ip " "$var_file"; then
+    sed -i '' 's/^lb_ip .*/lb_ip = "'"$lb_ip"'"/' "$var_file"
+else
+    last_char=$(tail -c 1 "$var_file")
+    if [ "$last_char" != "" ]; then
+        echo "" >>"$var_file"
+    fi
+    echo "lb_ip = \"$lb_ip\"" >>"$var_file"
+fi
+
+if grep -q "^lb_ip_zone " "$var_file"; then
+    sed -i '' 's/^lb_ip_zone .*/lb_ip_zone = "'"$lb_ip_zone"'"/' "$var_file"
+else
+    last_char=$(tail -c 1 "$var_file")
+    if [ "$last_char" != "" ]; then
+        echo "" >>"$var_file"
+    fi
+    echo "lb_ip_zone = \"$lb_ip_zone\"" >>"$var_file"
+fi
+
+echo ""
+echo "Your ingress controller is now running at $lb_ip."
+echo "Please update your DNS records accordingly, and associate this IP with the following domains:"
+grep "hostname" $var_file | cut -d= -f2- | tr -d ' "' | xargs -n1 -I % echo "   - %"
+echo ""
+echo "Press enter to continue."
+read
+
+DOCKER_USER="$(id -u):$(id -g)" \
+    docker-compose run --rm deploy-cluster apply -auto-approve

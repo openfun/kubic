@@ -1,1 +1,1 @@
-../common/prometheus-grafana.tf
+../../common/prometheus-grafana.tf

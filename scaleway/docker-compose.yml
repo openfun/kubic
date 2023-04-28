@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+
+  deploy-cluster:
+    image: hashicorp/terraform:1.4.5
+    user: ${DOCKER_USER:-1000}
+    working_dir: /app/scaleway/deploy-cluster
+    environment:
+      # Without this value, the Helm provider fails to fetch chart repository data
+      - XDG_CACHE_HOME=/tmp
+      #
+    volumes:
+      - ./deploy-cluster:/app/scaleway/deploy-cluster
+      - ../common:/app/common
+
+  deploy-loadbalancer:
+    image: hashicorp/terraform:1.4.5
+    user: ${DOCKER_USER:-1000}
+    working_dir: /app/scaleway/deploy-loadbalancer
+    environment:
+      # Without this value, the Helm provider fails to fetch chart repository data
+      - XDG_CACHE_HOME=/tmp
+      #
+    volumes:
+      - ./deploy-loadbalancer:/app/scaleway/deploy-loadbalancer
+      - ../common:/app/common
+
+  debug:
+    image: bash
+    user: ${DOCKER_USER:-1000}
+    working_dir: /app/scaleway/deploy-cluster
+    volumes:
+      - ./deploy-cluster:/app/scaleway/deploy-cluster
+      - ../common:/app/common
+

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+DOCKER_USER="$(id -u):$(id -g)" \
+    docker-compose run --rm deploy-loadbalancer init -backend-config=backend.conf
+
+DOCKER_USER="$(id -u):$(id -g)" \
+    docker-compose run --rm deploy-cluster init -backend-config=backend.conf

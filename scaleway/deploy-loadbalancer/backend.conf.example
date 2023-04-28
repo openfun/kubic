@@ -1,0 +1,8 @@
+bucket     = "<NAME OF YOUR BUCKET>"
+key        = "terraform-scaleway.tfstate"
+region     = "gra" # The region of your bucket, default is gra for OVHcloud
+access_key = "<ACCESS KEY OF YOUR USER>"
+secret_key = "<SECRET KEY OF YOUR USER>"
+endpoint   = "https://s3.gra.io.cloud.ovh.net" # The endpoint of your bucket, default is https://s3.gra.io.cloud.ovh.net for OVHcloud
+skip_region_validation = true # AWS does not recognize GRA or SBG as valid regions
+skip_credentials_validation = true # OVH does not owns a STS service

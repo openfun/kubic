@@ -1,1 +1,1 @@
-../common/hashicorp_vault.tf
+../../common/hashicorp_vault.tf

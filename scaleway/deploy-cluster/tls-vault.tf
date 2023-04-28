@@ -1,1 +1,1 @@
-../common/tls-vault.tf
+../../common/tls-vault.tf
