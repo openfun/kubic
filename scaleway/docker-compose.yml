@@ -34,3 +34,6 @@ services:
       - ./deploy-cluster:/app/scaleway/deploy-cluster
       - ../common:/app/common
 
+  argocd-cli:
+    image: argoproj/argocd:v2.6.7
+    user: ${DOCKER_USER:-1000}

@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
-# Parse the variables.tf file and extract the variable names and descriptions
-mapfile -t variable_names < <(sed -n 's/^.*variable "\(.*\)".*$/\1/p' variables.tf)
-mapfile -t variable_descs < <(sed -n 's/^.*description *= *"\(.*\)".*$/\1/p' variables.tf)
+# Concatenate the contents of variables.tf and variables-common.tf into a single file
+if [ -f variables.tf ]; then cp variables.tf all-variables.tf; fi
+if [ -f variables-common.tf ]; then cat variables-common.tf >>all-variables.tf; fi
+
+# Parse the all-variables.tf file and extract the variable names and descriptions
+mapfile -t variable_names < <(sed -n 's/^.*variable "\(.*\)".*$/\1/p' all-variables.tf)
+mapfile -t variable_descs < <(sed -n 's/^.*description *= *"\(.*\)".*$/\1/p' all-variables.tf)
 
 # Create the terraform.tfvars file if it doesn't exist else, clean it
 if [ ! -f terraform.tfvars ]; then
@@ -17,7 +21,20 @@ for i in "${!variable_names[@]}"; do
     var_desc=${variable_descs[i]}
 
     # Extract the default value for the current variable (if available)
-    var_default=$(sed -n "/variable \"$var_name\"/,/^}/p" variables.tf | grep "default" | sed -E 's/^.*default *= *"?([^"]*)"?.*$/\1/')
+    var_default=$(sed -n "/variable \"$var_name\"/,/^}/p" all-variables.tf | grep "default" | sed -E 's/^.*default *= *"?([^"]*)"?.*$/\1/')
+
+    if [ "$var_name" == "argocd_password" ]; then
+        read -p "ArgoCD password : " argocd_password
+        while [ -z "$argocd_password" ]; do
+            read -p "You have to specify a value for \"argocd_password\": " argocd_password
+        done
+        DOCKER_USER="$(id -u):$(id -g)" \
+        argocd_password_hashed="$(docker-compose run --quiet-pull --rm argocd-cli argocd account bcrypt --password $argocd_password)"
+
+        echo $argocd_password_hashed
+        echo "argocd_password=\"$argocd_password_hashed\"" >>terraform.tfvars
+        continue
+    fi
 
     # If a default value is available, display it to the user
     if [ -n "$var_default" ]; then
@@ -33,12 +50,13 @@ for i in "${!variable_names[@]}"; do
 
         # If the user entered nothing and there is no default value, prompt again
         while [ -z "$var_value" ]; do
-            echo
             read -p "You have to specify a value for \"$var_name\": " var_value
         done
     fi
 
-    echo
     # Store the variable name and value in the terraform.tfvars file
     echo "$var_name=\"$var_value\"" >>terraform.tfvars
 done
+
+# Remove the all-variables.tf file
+rm all-variables.tf
