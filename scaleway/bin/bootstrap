@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 
 # Parse the variables.tf file and extract the variable names and descriptions
-variable_names=($(grep "variable " variables.tf | awk '{print $2}'))
+mapfile -t variable_names < <(sed -n 's/^.*variable "\(.*\)".*$/\1/p' variables.tf)
 mapfile -t variable_descs < <(sed -n 's/^.*description *= *"\(.*\)".*$/\1/p' variables.tf)
+
+# Create the terraform.tfvars file if it doesn't exist else, clean it
+if [ ! -f terraform.tfvars ]; then
+    touch terraform.tfvars
+else
+    >terraform.tfvars
+fi
 
 # Loop through each variable and prompt the user for a value
 for i in "${!variable_names[@]}"; do
@@ -11,25 +18,27 @@ for i in "${!variable_names[@]}"; do
 
     # Extract the default value for the current variable (if available)
     var_default=$(sed -n "/variable \"$var_name\"/,/^}/p" variables.tf | grep "default" | sed -E 's/^.*default *= *"?([^"]*)"?.*$/\1/')
-    echo $var_default
+
     # If a default value is available, display it to the user
     if [ -n "$var_default" ]; then
-        echo "Variable \"$var_name\" has a default value of \"$var_default\"."
+        read -p "$var_desc (default \"$var_default\", leave blank): " var_value
+
+        # If the user entered nothing, use the default value
+        if [ -z "$var_value" ]; then
+            var_value="$var_default"
+        fi
+    else
+        # Prompt the user for a value
+        read -p "$var_desc: " var_value
+
+        # If the user entered nothing and there is no default value, prompt again
+        while [ -z "$var_value" ]; do
+            echo
+            read -p "You have to specify a value for \"$var_name\": " var_value
+        done
     fi
 
-    # Prompt the user for a value
-    read -p "$var_desc: " var_value
-
-    # If the user entered nothing and there is a default value, use the default value
-    if [ -z "$var_value" ] && [ -n "$var_default" ]; then
-        var_value="$var_default"
-    fi
-
-    # If the user entered nothing and there is no default value, prompt again
-    while [ -z "$var_value" ]; do
-        read -p "Please specify a value for \"$var_name\": " var_value
-    done
-
+    echo
     # Store the variable name and value in the terraform.tfvars file
     echo "$var_name=\"$var_value\"" >>terraform.tfvars
 done
