@@ -1,21 +1,50 @@
 #!/usr/bin/env bash
 
-tfvars_file="terraform.tfvars"
+var_files=("test1/variables.tf" "test1/variables-common.tf" "test2/vairables.tf")
+tfvars_files=("test1/terraform.tfvars" "test2/terraform.tfvars")
 
-# Concatenate the contents of variables.tf and variables-common.tf into a single file
-if [ -f variables.tf ]; then cp variables.tf all-variables.tf; fi
-if [ -f variables-common.tf ]; then cat variables-common.tf >>all-variables.tf; fi
+# Concatenate the contents of the elements of var_files into a single file
+for var_file in "${var_files[@]}"; do
+    if [ -f "$var_file" ]; then
+        cat "$var_file" >>all-variables.tf
+    fi
+done
+
+var_file="all-variables.tf"
+
+# Ajout d'une ligne vide à la fin du fichier
+echo "" >>$var_file
+
+# Récupération des noms de variables déclarées dans le fichier
+varnames=$(grep "^variable" $var_file | sed 's/^.*variable "\(.*\)".*$/\1/p' | awk '!a[$0]++')
+
+# Création d'un fichier temporaire qui contiendra les variables triées et sans doublons
+while read -r varname; do
+    sed -n "/variable \"$varname\"/,/^}/p" $var_file | sed -n '1,/^}/p' >>tmp.tf
+    echo "" >>tmp.tf
+done <<<"$varnames"
+
+# Suppression des doublons
+cat tmp.tf >$var_file
+# Suppression du fichier temporaire
+rm tmp.tf
 
 # Parse the all-variables.tf file and extract the variable names and descriptions
 mapfile -t variable_names < <(sed -n 's/^.*variable "\(.*\)".*$/\1/p' all-variables.tf)
 mapfile -t variable_descs < <(sed -n 's/^.*description *= *"\(.*\)".*$/\1/p' all-variables.tf)
 
-# Create the $tfvars_file file if it doesn't exist else, clean it
-if [ ! -f $tfvars_file ]; then
-    touch $tfvars_file
-else
-    >$tfvars_file
-fi
+# Create the tfvars_file of tfvars_files from their templates
+for tfvars_file in "${tfvars_files[@]}"; do
+    if [ -f "$tfvars_file" ]; then
+        read -p "Are you sure you want to overwrite $tfvars_file? (y/n) " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            echo "Aborting..."
+            continue
+        fi
+    fi
+    cat "${tfvars_file}.template" >"$tfvars_file"
+done
 
 # Loop through each variable and prompt the user for a value
 for i in "${!variable_names[@]}"; do
@@ -49,7 +78,13 @@ for i in "${!non_default_variables[@]}"; do
         DOCKER_USER="$(id -u):$(id -g)" \
         argocd_password_hashed="$(docker-compose run --quiet-pull --rm argocd-cli argocd account bcrypt --password $argocd_password)"
 
-        echo "argocd_password=\"$argocd_password_hashed\"" >>$tfvars_file
+        # Store the variable name and value in the $tfvars_file file if the variable is declared in the file
+        for tfvars_file in "${tfvars_files[@]}"; do
+            if [ grep -q "argocd_password" $tfvars_file ]; then
+                sed -i "s/^argocd_password *= *\".*\"$/argocd_password=\"$argocd_password_hashed\"/" $tfvars_file
+            fi
+        done
+
     else
         # Prompt the user for a value
         read -p "$var_desc: " var_value
@@ -59,8 +94,12 @@ for i in "${!non_default_variables[@]}"; do
             read -p "You have to specify a value for \"$var_name\": " var_value
         done
 
-        # Store the variable name and value in the $tfvars_file file
-        echo "$var_name=\"$var_value\"" >>$tfvars_file
+        # Store the variable name and value in the $tfvars_file file if the variable is declared in the file
+        for tfvars_file in "${tfvars_files[@]}"; do
+            if [ grep -q $var_name $tfvars_file ]; then
+                sed -i "s/^$var_name *= *\".*\"$/$var_name=\"$var_value\"/" $tfvars_file
+            fi
+        done
     fi
 done
 
@@ -78,8 +117,12 @@ for i in "${!default_variables[@]}"; do
         var_value="$var_default"
     fi
 
-    # Store the variable name and value in the $tfvars_file file
-    echo "$var_name=\"$var_value\"" >>$tfvars_file
+    # Store the variable name and value in the $tfvars_file file if the variable is declared in the file
+    for tfvars_file in "${tfvars_files[@]}"; do
+        if [ grep -q $var_name $tfvars_file ]; then
+            sed -i "s/^$var_name *= *\".*\"$/$var_name=\"$var_value\"/" $tfvars_file
+        fi
+    done
 done
 
 # Remove the all-variables.tf file
