@@ -38,6 +38,7 @@ Next :
 Once the cluster has been setup, Hashicorp Vault (now referred to as "vault") is not ready for use. It has to be initialized and to be unsealed. *Secrets will be handled in the following steps.*
 To ensure HA on the cluster, the deployment consists of 3 pods, spread on 3 nodes. (the node autoscaling feature is used here). More pods can be created by modifying Terraform's vars. (HPA is not available though). 
 
+### Manual initialization
 **Initialization of the vault**
 
 Shamir's algorithm is used to encrypt the vault. *n* keys (with *n* > 0) are generated, and *m* keys (with 0 < *m* <= *n*) are needed to unseal the vault. This is achieved with the following command (using `kubectl` in the `hashicorp-vault` namespace):
@@ -61,7 +62,11 @@ The vault is still not available. Each pod must be *unsealed* to be operational.
 
 `kubectl exec hashicorp-vault-i -- vault operator unseal $VAULT_UNSEAL_KEY`, with *i* going from 0 to the number of pods.
 
-Now, your vault is fully operational. First authentication is possible with the root token. The vault has to been unsealed everytime a pod is destroyed, or for any other reasons detailed in Hashicorp Vault's documentation. 
+Now, your vault is fully operational. First authentication is possible with the root token. The vault has to been unsealed everytime a pod is destroyed, or for any other reasons detailed in Hashicorp Vault's documentation.
+
+### Automatic configuration
+
+The Vault may be automatically initialized and unsealed. This is done by executing the script `init.sh` in the `vault` folder, with the following command : `./init.sh`. Then follow the instructions and your Vault should be ready to use at the end.
 
 **Initial configuration**
 
