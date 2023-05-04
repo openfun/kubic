@@ -9,6 +9,10 @@ module "cert_manager" {
   cluster_issuer_server                  = var.cluster_issuer_server
   namespace_name                         = "cert-manager"
   create_namespace                       = true
+
+  depends_on = [
+    helm_release.ingress-nginx
+  ]
 }
 
 resource "helm_release" "cert_manager" {

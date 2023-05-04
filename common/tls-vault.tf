@@ -83,6 +83,10 @@ resource "kubernetes_secret" "tls" {
   }
 
   type = "kubernetes.io/tls"
+
+  depends_on = [
+    kubernetes_namespace.hashicorp-vault
+  ]
 }
 
 resource "kubernetes_secret" "tls_ca" {
@@ -94,4 +98,8 @@ resource "kubernetes_secret" "tls_ca" {
   data = {
     "ca.crt" = local.generate_tls_certs ? tls_self_signed_cert.ca[0].cert_pem : var.vault_api_ca_bundle
   }
+
+  depends_on = [
+    kubernetes_namespace.hashicorp-vault
+  ]
 }
