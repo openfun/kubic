@@ -30,7 +30,9 @@ resource "helm_release" "ingress-nginx" {
     name  = "controller.extraArgs.enable-ssl-passthrough"
     value = "true"
   }
+}
 
+resource "null_resource" "ingress-nginx" {
   depends_on = [
     ovh_cloud_project_kube_nodepool.pool
   ]

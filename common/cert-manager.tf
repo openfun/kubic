@@ -11,7 +11,7 @@ module "cert_manager" {
   create_namespace                       = true
 
   depends_on = [
-    helm_release.ingress-nginx
+    null_resource.ingress-nginx
   ]
 }
 

@@ -5,7 +5,7 @@ resource "kubernetes_namespace" "hashicorp-vault" {
   }
 
   depends_on = [
-    helm_release.ingress-nginx
+    null_resource.ingress-nginx
   ]
 }
 
