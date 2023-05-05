@@ -80,6 +80,7 @@ do
     number=$(($i-2))
     echo "Unsealing pod ${j} with key ${number} out of ${key_nd} needed..."
     kubectl exec -n hashicorp-vault hashicorp-vault-$j -- vault operator unseal $key
+    sleep 1
   done
 done
 echo
