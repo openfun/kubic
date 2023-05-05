@@ -123,3 +123,32 @@ variable "vault_seal_method" {
   description = "The Vault seal method to use"
   default     = "shamir"
 }
+
+variable "velero_s3_bucket_name" {
+  type        = string
+  description = "The name of the S3 bucket to use for Velero backups"
+}
+
+variable "velero_s3_bucket_region" {
+  type        = string
+  description = "The region of the S3 bucket to use for Velero backups"
+}
+
+variable "velero_s3_bucket_endpoint" {
+  type        = string
+  description = "The endpoint of the S3 bucket to use for Velero backups"
+  default     = "s3.amazonaws.com"
+}
+
+variable "velero_s3_bucket_access_key" {
+  type        = string
+  description = "The access key of the S3 bucket to use for Velero backups"
+  sensitive   = true
+}
+
+variable "velero_s3_bucket_secret_key" {
+  type        = string
+  description = "The secret key of the S3 bucket to use for Velero backups"
+  sensitive   = true
+}
+
