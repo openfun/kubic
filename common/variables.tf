@@ -45,6 +45,16 @@ variable "cluster_issuer_server" {
   description = "Server to use for the clusterIssuer"
 }
 
+variable "issuers" {
+  type = list(object({
+    name                    = string
+    email                   = string
+    server                  = string
+    private_key_secret_name = string
+  }))
+  description = "List of issuers to create"
+}
+
 variable "grafana_hostname" {
   type        = string
   description = "The hostname to use for the Grafana ingress"
