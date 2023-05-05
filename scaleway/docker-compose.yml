@@ -26,13 +26,12 @@ services:
       - ./deploy-loadbalancer:/app/scaleway/deploy-loadbalancer
       - ../common:/app/common
 
-  debug:
+  bash:
     image: bash
     user: ${DOCKER_USER:-1000}
-    working_dir: /app/scaleway/deploy-cluster
+    working_dir: /app
     volumes:
-      - ./deploy-cluster:/app/scaleway/deploy-cluster
-      - ../common:/app/common
+      - ./:/app
 
   argocd-cli:
     image: argoproj/argocd:v2.6.7

@@ -1,12 +1,29 @@
 #!/usr/bin/env bash
 
-var_files=("test1/variables.tf" "test1/variables-common.tf" "test2/vairables.tf")
-tfvars_files=("test1/terraform.tfvars" "test2/terraform.tfvars")
+# Define function sed_inplace that works on both GNU and BSD sed
+function sed_inplace() {
+    local file=$2
+    local command=$1
+    local tmp_file=$(mktemp)
+
+    sed -e "${command}" "${file}" >"${tmp_file}"
+    mv "${tmp_file}" "${file}"
+}
+
+var_files=("deploy-cluster/variables.tf" "deploy-cluster/variables-common.tf" "deploy-loadbalancer/vairables.tf")
+tfvars_files=("deploy-cluster/terraform.tfvars" "deploy-loadbalancer/terraform.tfvars")
 
 # Concatenate the contents of the elements of var_files into a single file
 for var_file in "${var_files[@]}"; do
     if [ -f "$var_file" ]; then
         cat "$var_file" >>all-variables.tf
+    fi
+done
+
+# Concatenate the contents of the elements of tfvars_files into a single file
+for tfvars_file in "${tfvars_files[@]}"; do
+    if [ -f "$tfvars_file" ]; then
+        cat "$tfvars_file" >>all-tfvars.tf
     fi
 done
 
@@ -19,15 +36,16 @@ echo "" >>$var_file
 varnames=$(grep "^variable" $var_file | sed 's/^.*variable "\(.*\)".*$/\1/p' | awk '!a[$0]++')
 
 # Création d'un fichier temporaire qui contiendra les variables triées et sans doublons
+tmp_file=$(mktemp)
 while read -r varname; do
-    sed -n "/variable \"$varname\"/,/^}/p" $var_file | sed -n '1,/^}/p' >>tmp.tf
-    echo "" >>tmp.tf
+    sed -n "/variable \"$varname\"/,/^}/p" $var_file | sed -n '1,/^}/p' >>$tmp_file
+    echo "" >>$tmp_file
 done <<<"$varnames"
 
 # Suppression des doublons
-cat tmp.tf >$var_file
+cat $tmp_file >$var_file
 # Suppression du fichier temporaire
-rm tmp.tf
+rm $tmp_file
 
 # Parse the all-variables.tf file and extract the variable names and descriptions
 mapfile -t variable_names < <(sed -n 's/^.*variable "\(.*\)".*$/\1/p' all-variables.tf)
@@ -53,6 +71,11 @@ for i in "${!variable_names[@]}"; do
 
     # Extract the default value for the current variable (if available)
     var_default=$(sed -n "/variable \"$var_name\"/,/^}/p" all-variables.tf | grep "default" | sed -E 's/^.*default *= *"?([^"]*)"?.*$/\1/')
+
+    # If the var_name doesn't exist in the .tfvars files, continue to the next loop iteration
+    if ! $(grep -q "$var_name" all-tfvars.tf); then
+        continue
+    fi
 
     # Check if the variable has a default value
     if [ -n "$var_default" ]; then
@@ -80,8 +103,8 @@ for i in "${!non_default_variables[@]}"; do
 
         # Store the variable name and value in the $tfvars_file file if the variable is declared in the file
         for tfvars_file in "${tfvars_files[@]}"; do
-            if [ grep -q "argocd_password" $tfvars_file ]; then
-                sed -i "s/^argocd_password *= *\".*\"$/argocd_password=\"$argocd_password_hashed\"/" $tfvars_file
+            if $(grep -q "argocd_password" "$tfvars_file"); then
+                sed_inplace "s/^argocd_password *= *\".*\"$/argocd_password=\"$argocd_password_hashed\"/" "$tfvars_file"
             fi
         done
 
@@ -96,9 +119,10 @@ for i in "${!non_default_variables[@]}"; do
 
         # Store the variable name and value in the $tfvars_file file if the variable is declared in the file
         for tfvars_file in "${tfvars_files[@]}"; do
-            if [ grep -q $var_name $tfvars_file ]; then
-                sed -i "s/^$var_name *= *\".*\"$/$var_name=\"$var_value\"/" $tfvars_file
+            if $(grep -q "$var_name" "$tfvars_file"); then
+                sed_inplace "s/^$var_name *= *\".*\"$/$var_name=\"$var_value\"/" "$tfvars_file"
             fi
+
         done
     fi
 done
@@ -119,11 +143,11 @@ for i in "${!default_variables[@]}"; do
 
     # Store the variable name and value in the $tfvars_file file if the variable is declared in the file
     for tfvars_file in "${tfvars_files[@]}"; do
-        if [ grep -q $var_name $tfvars_file ]; then
-            sed -i "s/^$var_name *= *\".*\"$/$var_name=\"$var_value\"/" $tfvars_file
+        if $(grep -q "$var_name" "$tfvars_file"); then
+            sed_inplace "s/^$var_name *= *\".*\"$/$var_name=\"$var_value\"/" $tfvars_file
         fi
     done
 done
 
-# Remove the all-variables.tf file
-rm all-variables.tf
+# Remove all-variables.tf and all-tfvars.tf
+rm all-variables.tf all-tfvars.tf
