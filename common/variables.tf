@@ -140,13 +140,13 @@ variable "velero_s3_bucket_endpoint" {
   default     = "s3.amazonaws.com"
 }
 
-variable "velero_s3_bucket_access_key" {
+variable "velero_s3_access_key_id" {
   type        = string
   description = "The access key of the S3 bucket to use for Velero backups"
   sensitive   = true
 }
 
-variable "velero_s3_bucket_secret_key" {
+variable "velero_s3_secret_access_key" {
   type        = string
   description = "The secret key of the S3 bucket to use for Velero backups"
   sensitive   = true
