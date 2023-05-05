@@ -1,9 +1,3 @@
-variable "main_cluster_issuer_name" {
-  type        = string
-  description = "Name of the clusterIssuer"
-  default     = "letsencrypt-prod"
-}
-
 variable "argocd_hostname" {
   type        = string
   description = "The hostname to use for the ArgoCD ingress"
@@ -45,6 +39,12 @@ variable "cluster_issuer_server" {
   description = "Server to use for the clusterIssuer"
 }
 
+variable "main_cluster_issuer_name" {
+  type        = string
+  description = "Name of the clusterIssuer"
+  default     = "letsencrypt-prod"
+}
+
 variable "issuers" {
   type = list(object({
     name                    = string
@@ -53,6 +53,19 @@ variable "issuers" {
     private_key_secret_name = string
   }))
   description = "List of issuers to create"
+  default = [
+    {
+      name                    = "letsencrypt-prod"
+      server                  = "https://acme-v02.api.letsencrypt.org/directory"
+      email                   = "admin@admin.fr",
+      private_key_secret_name = "letsencrypt-prod"
+      }, {
+      name                    = "letsencrypt-staging"
+      server                  = "https://acme-staging-v02.api.letsencrypt.org/directory"
+      email                   = "admin@admin.fr"
+      private_key_secret_name = "letsencrypt-staging"
+    }
+  ]
 }
 
 variable "grafana_hostname" {
