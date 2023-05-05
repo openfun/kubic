@@ -103,7 +103,7 @@ for i in "${!non_default_variables[@]}"; do
         # Store the variable name and value in the $tfvars_file file if the variable is declared in the file
         for tfvars_file in "${tfvars_files[@]}"; do
             if $(grep -q "argocd_password" "$tfvars_file"); then
-                sed_inplace "s@^argocd_password *= *\".*\"@argocd_password=\"$argocd_password_hashed\"@" "$tfvars_file"
+                sed_inplace "s%^argocd_password *= *\".*\"%argocd_password=\"$argocd_password_hashed\"%" "$tfvars_file"
             fi
         done
 
@@ -119,8 +119,7 @@ for i in "${!non_default_variables[@]}"; do
         # Store the variable name and value in the $tfvars_file file if the variable is declared in the file
         for tfvars_file in "${tfvars_files[@]}"; do
             if $(grep -q "$var_name" "$tfvars_file"); then
-                # echo "sed_inplace \"s/^$var_name *= *\".*\"$/$var_name=\"$var_value\"/\" \"$tfvars_file\""
-                sed_inplace "s/^$var_name *= *\".*\"$/$var_name=\"$var_value\"/" "$tfvars_file"
+                sed_inplace "s%^$var_name *= *\".*\"%$var_name=\"$var_value\"%" "$tfvars_file"
             fi
 
         done
@@ -144,7 +143,7 @@ for i in "${!default_variables[@]}"; do
     # Store the variable name and value in the $tfvars_file file if the variable is declared in the file
     for tfvars_file in "${tfvars_files[@]}"; do
         if $(grep -q "$var_name" "$tfvars_file"); then
-            sed_inplace "s/^$var_name *= *\".*\"$/$var_name=\"$var_value\"/" $tfvars_file
+            sed_inplace "s%^$var_name *= *\".*\"%$var_name=\"$var_value\"%" $tfvars_file
         fi
     done
 done

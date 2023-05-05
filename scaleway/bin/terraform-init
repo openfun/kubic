@@ -2,7 +2,7 @@
 set -eo pipefail
 
 DOCKER_USER="$(id -u):$(id -g)" \
-    docker-compose run --rm deploy-loadbalancer init -backend-config=backend.conf
+    docker-compose run --rm deploy-loadbalancer init -backend-config=backend.conf -reconfigure
 
 DOCKER_USER="$(id -u):$(id -g)" \
-    docker-compose run --rm deploy-cluster init -backend-config=backend.conf
+    docker-compose run --rm deploy-cluster init -backend-config=backend.conf -reconfigure
