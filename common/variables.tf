@@ -1,7 +1,7 @@
-variable "cluster_issuer_name" {
+variable "main_cluster_issuer_name" {
   type        = string
   description = "Name of the clusterIssuer"
-  default     = "cert-manager-global"
+  default     = "letsencrypt-prod"
 }
 
 variable "argocd_hostname" {

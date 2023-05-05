@@ -4,7 +4,7 @@ module "cert_manager" {
   version = "2.5.0"
 
   cluster_issuer_email                   = var.letsencrypt_email
-  cluster_issuer_name                    = var.cluster_issuer_name
+  cluster_issuer_name                    = var.main_cluster_issuer_name
   cluster_issuer_private_key_secret_name = "cert-manager-private-key"
   cluster_issuer_server                  = var.cluster_issuer_server
   namespace_name                         = "cert-manager"
