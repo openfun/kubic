@@ -1,1 +1,56 @@
 #!/usr/bin/env bash
+
+# Check if the backend.conf file already exists and ask if the user wants to overwrite it
+if [ -e "deploy-cluster/backend.conf" ] && [ -e "deploy-loadbalancer/backend.conf" ]; then
+    read -p "Are you sure you want to overwrite your backend.conf? (y/n) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo "Aborting..."
+        exit 1
+    fi
+fi
+
+# Ask for the required values
+read -p "Bucket: " bucket
+read -p "Region: " region
+read -p "Access Key: " access_key
+read -p "Secret Key: " secret_key
+read -p "Endpoint: " endpoint
+read -p "Skip Region Validation (true/false): " skip_region_validation
+read -p "Skip Credentials Validation (true/false): " skip_credentials_validation
+
+echo "The key used will be terraform-lb.tfstate and terraform-cluster.tfstate"
+read -p "Would you like to use a differents key? (y/n): " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    read -p "Loadbalancer state key: " key1
+    read -p "Cluster state key: " key2
+else
+    key1="terraform-lb.tfstate"
+    key2="terraform-cluster.tfstate"
+fi
+
+# Write the backend configurations
+echo "bucket = \"$bucket\"" >deploy-cluster/backend.conf
+echo "bucket = \"$bucket\"" >deploy-loadbalancer/backend.conf
+
+echo "key = \"$key2\"" >>deploy-cluster/backend.conf
+echo "key = \"$key1\"" >>deploy-loadbalancer/backend.conf
+
+echo "region = \"$region\"" >>deploy-cluster/backend.conf
+echo "region = \"$region\"" >>deploy-loadbalancer/backend.conf
+
+echo "access_key = \"$access_key\"" >>deploy-cluster/backend.conf
+echo "access_key = \"$access_key\"" >>deploy-loadbalancer/backend.conf
+
+echo "secret_key = \"$secret_key\"" >>deploy-cluster/backend.conf
+echo "secret_key = \"$secret_key\"" >>deploy-loadbalancer/backend.conf
+
+echo "endpoint = \"$endpoint\"" >>deploy-cluster/backend.conf
+echo "endpoint = \"$endpoint\"" >>deploy-loadbalancer/backend.conf
+
+echo "skip_region_validation = $skip_region_validation" >>deploy-cluster/backend.conf
+echo "skip_region_validation = $skip_region_validation" >>deploy-loadbalancer/backend.conf
+
+echo "skip_credentials_validation = $skip_credentials_validation" >>deploy-cluster/backend.conf
+echo "skip_credentials_validation = $skip_credentials_validation" >>deploy-loadbalancer/backend.conf
