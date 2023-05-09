@@ -196,11 +196,12 @@ configs:
 
 extraObjects:
   - apiVersion: v1
-    kind: ConfigMap
+    kind: Secret
     metadata:
       name: default-vault-credentials
       namespace: argocd
-    data:
+    type: Opaque
+    stringData:
       VAULT_ADDR: https://${vault_addr}
       AVP_TYPE: vault
       AVP_AUTH_TYPE: k8s
