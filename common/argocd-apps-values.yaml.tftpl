@@ -1,25 +1,33 @@
 ---
 applicationsets:
-  - name: applications
+  - name: apps
     namespace: argocd
     generators:
       - git:
           repoURL: ${repo_url}
           revision: HEAD
-          directories:
-            - path: applications/*
+          files:
+            - path: "apps/**/*.json"
+    goTemplate: true
     template:
       metadata:
-        name: "{{path.basename}}"
+        name: '{{index .path.segments 1}}-{{ index (splitList "." .path.filename) 0 }}'
       spec:
         project: default
         source:
           repoURL: ${repo_url}
           targetRevision: HEAD
-          path: "{{path}}"
+          path: "helm/{{index .path.segments 1}}"
+          plugin:
+            name: avp-helm
+            env:
+              - name: HELM_ARGS
+                value: "{{ range .valueFiles }}-f ../../apps/{{index $.path.segments 1}}/{{ . }} {{ end }}"
+              - name: AVP_SECRET
+                value: '{{ default "default-vault-credentials" .vaultCredentials }}'
         destination:
           server: https://kubernetes.default.svc
-          namespace: "{{path.basename}}"
+          namespace: '{{index .path.segments 1}}-{{ index (splitList "." .path.filename) 0 }}'
         syncPolicy:
           automated:
             prune: true
