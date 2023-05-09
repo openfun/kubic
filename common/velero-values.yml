@@ -52,8 +52,6 @@ configuration:
     # for details of required/optional fields for your provider.
     config:
       region: sbg
-      s3ForcePathStyle: true
-      s3Url: "${velero_s3_bucket_endpoint}"
   #    apiTimeout:
   #    resourceGroup:
   #    The ID of the subscription where volume snapshots should be stored, if different from the cluster’s subscription. If specified, also requires `configuration.volumeSnapshotLocation.config.resourceGroup`to be set. (Azure only)
@@ -61,27 +59,6 @@ configuration:
   #    incremental:
   #    snapshotLocation:
   #    project:
-
-
-# Backup schedules to create.
-# Eg:
-schedules:
-  daily-backup:
-    disabled: false
-    labels:
-      # TODO: Compléter ceci
-      myenv: nginx
-    annotations:
-      # TODO: Compléter ceci
-      myenv: nginx
-    schedule: "0 0 * * *"
-    useOwnerReferencesInBackup: false
-    template:
-      ttl: "240h"
-      storageLocation: default
-      includedNamespaces:
-      # TODO: Compléter ceci
-      - nginx
 
 # Info about the secret to be used by the Velero deployment, which
 # should contain credentials for the cloud provider IAM account you've
