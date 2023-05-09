@@ -147,7 +147,7 @@ configs:
             - argocd-vault-plugin
             - generate
             - "."
-            - "-s ${ARGOCD_ENV_AVP_SECRET}"
+            - "-s $${ARGOCD_ENV_AVP_SECRET}"
         lockRepo: false
 
       avp-helm:
@@ -171,8 +171,8 @@ configs:
             - sh
             - "-c"
             - |
-              helm template $ARGOCD_APP_NAME -n $ARGOCD_APP_NAMESPACE ${ARGOCD_ENV_HELM_ARGS} --include-crds . |
-              argocd-vault-plugin generate - -s ${ARGOCD_ENV_AVP_SECRET}
+              helm template $ARGOCD_APP_NAME -n $ARGOCD_APP_NAMESPACE $${ARGOCD_ENV_HELM_ARGS} --include-crds . |
+              argocd-vault-plugin generate - -s $${ARGOCD_ENV_AVP_SECRET}
         lockRepo: false
 
       avp-kustomize:
@@ -191,7 +191,7 @@ configs:
           command:
             - sh
             - "-c"
-            - "kustomize build . | argocd-vault-plugin generate - -s ${ARGOCD_ENV_AVP_SECRET}"
+            - "kustomize build . | argocd-vault-plugin generate - -s $${ARGOCD_ENV_AVP_SECRET}"
         lockRepo: false
 
 extraObjects:
