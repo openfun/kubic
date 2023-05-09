@@ -31,9 +31,10 @@ resource "helm_release" "ingress-nginx" {
     value = "true"
   }
 
-  depends_on = [
-    ovh_cloud_project_kube_nodepool.pool
-  ]
+  set {
+    name  = "controller.admissionWebhooks.timeoutSeconds"
+    value = "30"
+  }
 }
 
 resource "null_resource" "ingress-nginx" {
