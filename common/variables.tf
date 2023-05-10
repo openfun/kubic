@@ -29,16 +29,6 @@ variable "argocd_avp_version" {
   default     = "1.14.0"
 }
 
-variable "letsencrypt_email" {
-  type        = string
-  description = "Email address to use for the clusterIssuer"
-}
-
-variable "cluster_issuer_server" {
-  type        = string
-  description = "Server to use for the clusterIssuer"
-}
-
 variable "main_cluster_issuer_name" {
   type        = string
   description = "Name of the clusterIssuer"
