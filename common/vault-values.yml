@@ -63,7 +63,7 @@ server:
   %{ endif }
   affinity: |
     podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
+      preferredDuringSchedulingIgnoredDuringExecution:
       - labelSelector:
           matchLabels:
             app.kubernetes.io/name: vault
