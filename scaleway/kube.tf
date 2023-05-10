@@ -30,7 +30,7 @@ provider "scaleway" {
 
 resource "scaleway_k8s_cluster" "k8s_cluster" {
   name                        = var.k8s_cluster_name
-  version                     = "1.26.2"
+  version                     = var.k8s_cluster_version
   cni                         = "cilium"
   delete_additional_resources = true
 }
