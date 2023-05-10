@@ -28,6 +28,12 @@ variable "k8s_cluster_name" {
   default     = "my_cluster"
 }
 
+variable "k8s_cluster_version" {
+  type        = string
+  description = "The version of the cluster"
+  default     = "1.27.1"
+}
+
 variable "k8s_pool" {
   type        = string
   description = "The name of the pool"
