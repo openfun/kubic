@@ -9,12 +9,6 @@ image:
   tag: v1.11.0
 
 initContainers:
-  # - name: velero-plugin-for-csi
-  #   image: velero/velero-plugin-for-csi:v0.5.0
-  #   imagePullPolicy: IfNotPresent
-  #   volumeMounts:
-  #     - mountPath: /target
-  #       name: plugins
   - name: velero-plugin-for-aws
     image: velero/velero-plugin-for-aws:v1.7.0
     imagePullPolicy: IfNotPresent
@@ -37,9 +31,9 @@ configuration:
     # Additional provider-specific configuration. See link above
     # for details of required/optional fields for your provider.
     config:
-      region: "${velero_s3_bucket_region}"
+      region: ${velero_s3_bucket_region}
       s3ForcePathStyle: true
-      s3Url: "${velero_s3_bucket_endpoint}"
+      s3Url: ${velero_s3_bucket_endpoint}
   # Parameters for the VolumeSnapshotLocation(s). Configure multiple by adding other element(s) to the volumeSnapshotLocation slice.
   # See https://velero.io/docs/v1.6/api-types/volumesnapshotlocation/
   volumeSnapshotLocation:
@@ -51,7 +45,7 @@ configuration:
     # Additional provider-specific configuration. See link above
     # for details of required/optional fields for your provider.
     config:
-      region: sbg
+      region: ${velero_s3_bucket_region}
   #    apiTimeout:
   #    resourceGroup:
   #    The ID of the subscription where volume snapshots should be stored, if different from the cluster’s subscription. If specified, also requires `configuration.volumeSnapshotLocation.config.resourceGroup`to be set. (Azure only)

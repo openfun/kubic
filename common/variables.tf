@@ -124,6 +124,12 @@ variable "vault_seal_method" {
   default     = "shamir"
 }
 
+variable "velero_version" {
+  type        = string
+  description = "The version of Velero to install"
+  default     = "4.0.2"
+}
+
 variable "velero_s3_bucket_name" {
   type        = string
   description = "The name of the S3 bucket to use for Velero backups"
