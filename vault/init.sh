@@ -45,12 +45,7 @@ then
     exit 1
 fi
 echo
-read -p "How many Vault replicas do you have? (kubectl get pods -n hashicorp-vault) " -r nb_replicas
-if [[ ! $nb_replicas =~ ^[0-9]+$ ]]
-then
-    echo 'This is not a number. Exiting.'
-    exit 1
-fi
+nb_replicas=$(kubectl get pods -n hashicorp-vault | grep -cE 'hashicorp-vault-[0-9]+')
 
 if [ -s "cluster-keys.json" ]
 then
@@ -80,7 +75,7 @@ do
     number=$(($i-2))
     echo "Unsealing pod ${j} with key ${number} out of ${key_nd} needed..."
     kubectl exec -n hashicorp-vault hashicorp-vault-$j -- vault operator unseal $key
-    sleep 1
+    sleep 2
   done
 done
 echo
