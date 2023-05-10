@@ -49,6 +49,9 @@ grafana:
       k8s-views-pods:
         url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
         datasource: Prometheus
+  grafana.ini:
+    dashboards:
+      default_home_dashboard_path: /var/lib/grafana/dashboards/k8s/k8s-views-global.json
 prometheus:
   prometheusSpec:
     podMonitorSelectorNilUsesHelmValues: false
