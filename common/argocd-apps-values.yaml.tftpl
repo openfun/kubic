@@ -11,23 +11,23 @@ applicationsets:
     goTemplate: true
     template:
       metadata:
-        name: '{{index .path.segments 1}}-{{ index (splitList "." .path.filename) 0 }}'
+        name: '{{ index .path.segments 1 }}-{{ index (splitList "." .path.filename) 0 }}'
       spec:
         project: default
         source:
-          repoURL: ${repo_url}
+          repoURL: '{{ default "${repo_url}" .externalRepoURL }}'
           targetRevision: HEAD
-          path: "helm/{{index .path.segments 1}}"
+          path: '{{default (print "helm/" (index .path.segments 1)) .externalRepoPath}}'
           plugin:
             name: avp-helm
             env:
               - name: HELM_ARGS
-                value: "{{ range .valueFiles }}-f ../../apps/{{index $.path.segments 1}}/{{ . }} {{ end }}"
+                value: "{{ range $i, $value := .valueFiles }}{{ if $i }} {{ end }}-f ../../apps/{{ index $.path.segments 1 }}/{{ $value }}{{ end }}"
               - name: AVP_SECRET
                 value: '{{ default "default-vault-credentials" .vaultCredentials }}'
         destination:
           server: https://kubernetes.default.svc
-          namespace: '{{index .path.segments 1}}-{{ index (splitList "." .path.filename) 0 }}'
+          namespace: '{{ index .path.segments 1 }}-{{ index (splitList "." .path.filename) 0 }}'
         syncPolicy:
           automated:
             prune: true
