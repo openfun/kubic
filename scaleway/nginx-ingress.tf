@@ -23,6 +23,9 @@ resource "helm_release" "ingress-nginx" {
     ip_adress = scaleway_lb_ip.nginx_ip.ip_address
   })]
 
+}
+
+resource "null_resource" "ingress-nginx" {
   depends_on = [
     scaleway_k8s_pool.k8s_pool
   ]
