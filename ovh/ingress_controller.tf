@@ -31,3 +31,9 @@ resource "helm_release" "ingress-nginx" {
     value = "true"
   }
 }
+
+resource "null_resource" "ingress-nginx" {
+  depends_on = [
+    ovh_cloud_project_kube_nodepool.pool
+  ]
+}

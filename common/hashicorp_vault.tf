@@ -3,6 +3,10 @@ resource "kubernetes_namespace" "hashicorp-vault" {
   metadata {
     name = "hashicorp-vault"
   }
+
+  depends_on = [
+    null_resource.ingress-nginx
+  ]
 }
 
 resource "helm_release" "hashicorp-vault" {
@@ -24,8 +28,13 @@ resource "helm_release" "hashicorp-vault" {
     vault_seal_method           = var.vault_seal_method
     vault_ui                    = var.vault_ui
 
-    cluster_issuer_name         = var.cluster_issuer_name
+    cluster_issuer_name         = var.main_cluster_issuer_name
     vault_server_hostname       = var.vault_server_hostname
     enable_vault_server_ingress = var.vault_server_hostname != "" ? true : false
   })]
+
+  depends_on = [
+    kubernetes_namespace.hashicorp-vault,
+    helm_release.ingress-nginx
+  ]
 }

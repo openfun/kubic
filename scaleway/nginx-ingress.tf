@@ -10,8 +10,8 @@ output "ingress_ip" {
   sensitive   = true
 }
 
-resource "helm_release" "nginx_ingress" {
-  name             = "nginx-ingress"
+resource "helm_release" "ingress-nginx" {
+  name             = "ingress-nginx"
   namespace        = "nginx"
   create_namespace = true
 
@@ -23,4 +23,10 @@ resource "helm_release" "nginx_ingress" {
     ip_adress = scaleway_lb_ip.nginx_ip.ip_address
   })]
 
+}
+
+resource "null_resource" "ingress-nginx" {
+  depends_on = [
+    scaleway_k8s_pool.k8s_pool
+  ]
 }
