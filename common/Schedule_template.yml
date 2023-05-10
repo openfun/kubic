@@ -1,0 +1,15 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: daily-snapshot # ENTER NAME HERE
+  namespace: velero
+spec:
+  schedule: '0 0 * * *' # Every day at 00:00 am
+  template:
+    defaultVolumesToRestic: false
+
+    includedNamespaces:
+    - hashicorp-vault # SET NAMESPACE HERE
+
+    ttl: 168h0m0s # Keep the backup 7 days
+    storageLocation: default

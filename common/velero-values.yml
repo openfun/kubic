@@ -1,0 +1,80 @@
+##
+## Configuration settings that directly affect the Velero deployment YAML.
+##
+
+# Details of the container image to use in the Velero deployment & daemonset (if
+# enabling node-agent). Required.
+image:
+  repository: velero/velero
+  tag: v1.11.0
+
+initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.7.0
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+
+configuration:
+  # Parameters for the BackupStorageLocation(s). Configure multiple by adding other element(s) to the backupStorageLocation slice.
+  # See https://velero.io/docs/v1.6/api-types/backupstoragelocation/
+  backupStorageLocation:
+    # name is the name of the backup storage location where backups should be stored. If a name is not provided,
+    # a backup storage location will be created with the name "default". Optional.
+  - name: default
+    # provider is the name for the backup storage location provider. If omitted
+    # `configuration.provider` will be used instead.
+    provider: aws
+    # bucket is the name of the bucket to store backups in. Required.
+    bucket: ${velero_s3_bucket_name}
+    # Additional provider-specific configuration. See link above
+    # for details of required/optional fields for your provider.
+    config:
+      region: ${velero_s3_bucket_region}
+      s3ForcePathStyle: true
+      s3Url: ${velero_s3_bucket_endpoint}
+  # Parameters for the VolumeSnapshotLocation(s). Configure multiple by adding other element(s) to the volumeSnapshotLocation slice.
+  # See https://velero.io/docs/v1.6/api-types/volumesnapshotlocation/
+  volumeSnapshotLocation:
+    # name is the name of the volume snapshot location where snapshots are being taken. Required.
+  - name: default
+    # provider is the name for the volume snapshot provider. If omitted
+    # `configuration.provider` will be used instead.
+    provider: aws
+    # Additional provider-specific configuration. See link above
+    # for details of required/optional fields for your provider.
+    config:
+      region: ${velero_s3_bucket_region}
+  #    apiTimeout:
+  #    resourceGroup:
+  #    The ID of the subscription where volume snapshots should be stored, if different from the cluster’s subscription. If specified, also requires `configuration.volumeSnapshotLocation.config.resourceGroup`to be set. (Azure only)
+  #    subscriptionId:
+  #    incremental:
+  #    snapshotLocation:
+  #    project:
+
+# Info about the secret to be used by the Velero deployment, which
+# should contain credentials for the cloud provider IAM account you've
+# set up for Velero.
+credentials:
+  # Whether a secret should be used. Set to false if, for examples:
+  # - using kube2iam or kiam to provide AWS IAM credentials instead of providing the key file. (AWS only)
+  # - using workload identity instead of providing the key file. (GCP only)
+  useSecret: true
+  # Name of the secret to create if `useSecret` is true and `existingSecret` is empty
+  name: cloud-credentials
+  # Data to be stored in the Velero secret, if `useSecret` is true and `existingSecret` is empty.
+  # As of the current Velero release, Velero only uses one secret key/value at a time.
+  # The key must be named `cloud`, and the value corresponds to the entire content of your IAM credentials file.
+  # Note that the format will be different for different providers, please check their documentation.
+  # Here is a list of documentation for plugins maintained by the Velero team:
+  # [AWS] https://github.com/vmware-tanzu/velero-plugin-for-aws/blob/main/README.md
+  # [GCP] https://github.com/vmware-tanzu/velero-plugin-for-gcp/blob/main/README.md
+  # [Azure] https://github.com/vmware-tanzu/velero-plugin-for-microsoft-azure/blob/main/README.md
+  secretContents:
+    cloud: |
+      [default]
+      aws_access_key_id=${velero_s3_access_key_id}
+      aws_secret_access_key=${velero_s3_secret_access_key}
+  
