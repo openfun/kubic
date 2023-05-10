@@ -64,12 +64,14 @@ server:
   affinity: |
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: vault
-            app.kubernetes.io/instance: hashicorp-vault
-            component: server
-        topologyKey: kubernetes.io/hostname
+      - weight: 1
+        podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: vault
+              app.kubernetes.io/instance: hashicorp-vault
+              component: server
+          topologyKey: kubernetes.io/hostname
   extraVolumes:
       - type: secret
         name: ${kubernetes_secret_name_tls_cert}
