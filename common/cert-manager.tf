@@ -14,7 +14,7 @@ resource "helm_release" "cert_manager" {
 
 }
 
-resource "kubectl_manifest" "clusterissuer_letsencrypt_prod" {
+resource "kubectl_manifest" "clusterissuer" {
   for_each = { for issuer in var.issuers : issuer.name => issuer }
   provider = kubectl
   yaml_body = templatefile("issuer.yml.tftpl", {
