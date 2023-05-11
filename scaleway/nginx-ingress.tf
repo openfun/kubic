@@ -23,6 +23,10 @@ resource "helm_release" "ingress-nginx" {
     ip_adress = scaleway_lb_ip.nginx_ip.ip_address
   })]
 
+depends_on = [
+  helm_release.kube-prometheus,
+  helm_release.cert_manager
+]
 }
 
 resource "null_resource" "ingress-nginx" {
