@@ -34,7 +34,6 @@ resource "helm_release" "hashicorp-vault" {
   })]
 
   depends_on = [
-    kubernetes_namespace.hashicorp-vault,
-    helm_release.ingress-nginx
+    kubernetes_namespace.hashicorp-vault
   ]
 }
