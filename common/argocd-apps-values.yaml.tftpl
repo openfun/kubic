@@ -17,7 +17,7 @@ applicationsets:
         source:
           repoURL: '{{ default "${repo_url}" .externalRepoURL }}'
           targetRevision: HEAD
-          path: "helm/{{index .path.segments 1}}"
+          path: "helm/{{ index .path.segments 1 }}"
           plugin:
             name: avp-helm
             env:
