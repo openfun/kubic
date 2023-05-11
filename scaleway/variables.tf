@@ -34,8 +34,20 @@ variable "k8s_cluster_version" {
   default     = "1.27.1"
 }
 
-variable "k8s_pool" {
+variable "k8s_nodepool_name" {
   type        = string
   description = "The name of the pool"
   default     = "my_pool"
+}
+
+variable "k8s_nodepool_flavor" {
+  type        = string
+  description = "The flavor of the pool"
+  default     = "DEV1-M"
+}
+
+variable "k8s_nodepool_size" {
+  type        = number
+  description = "The size of the pool"
+  default     = 1
 }

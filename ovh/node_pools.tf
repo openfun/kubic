@@ -1,12 +1,12 @@
 resource "ovh_cloud_project_kube_nodepool" "pool" {
   service_name   = var.service_name
   kube_id        = ovh_cloud_project_kube.cluster.id
-  name           = "default-pool"
-  flavor_name    = "d2-4" # 2 vCPU, 4 GB RAM, à ajuster au besoin
+  name           = var.k8s_nodepool_name
+  flavor_name    = var.k8s_nodepool_flavor
+  monthly_billed = var.k8s_nodepool_monthly_billed
+  min_nodes      = var.k8s_nodepool_min_nodes
+  max_nodes      = var.k8s_nodepool_max_nodes
   autoscale      = true
-  monthly_billed = false
-  min_nodes      = 1
-  max_nodes      = 10
 
   timeouts {
     create = "30m"
