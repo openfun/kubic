@@ -1,7 +1,8 @@
 resource "ovh_cloud_project_kube" "cluster" {
   service_name = var.service_name
-  name         = "cluster"
-  region       = var.cluster_region
+  name         = var.k8s_cluster_name
+  region       = var.k8s_cluster_region
+  version      = var.k8s_cluster_version
 }
 
 output "kubeconfig" {

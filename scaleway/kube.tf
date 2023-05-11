@@ -37,9 +37,9 @@ resource "scaleway_k8s_cluster" "k8s_cluster" {
 
 resource "scaleway_k8s_pool" "k8s_pool" {
   cluster_id = scaleway_k8s_cluster.k8s_cluster.id
-  name       = var.k8s_pool
-  node_type  = "DEV1-M"
-  size       = 1
+  name       = var.k8s_nodepool_name
+  node_type  = var.k8s_nodepool_flavor
+  size       = var.k8s_nodepool_size
 }
 
 resource "null_resource" "kubeconfig" {
