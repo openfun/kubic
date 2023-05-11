@@ -30,6 +30,10 @@ resource "helm_release" "ingress-nginx" {
     name  = "controller.extraArgs.enable-ssl-passthrough"
     value = "true"
   }
+  depends_on = [
+    helm_release.kube-prometheus,
+    helm_release.cert_manager
+  ]
 }
 
 resource "null_resource" "ingress-nginx" {
