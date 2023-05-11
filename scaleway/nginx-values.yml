@@ -14,3 +14,5 @@ controller:
       enabled: true
   extraArgs:
     enable-ssl-passthrough: "true"
+  admissionWebhooks:
+    timeoutSeconds: 30
