@@ -18,7 +18,8 @@ This repository provides a Terraform to create a bucket on OVH.
 
 - Go to `/state_bucket`, and do a `terraform init`
 - Provide the correct variables in a `.tfvars` file. (the needed variables are listed in the `variables.tf` file)
-- At this step, we need to do a tiny trick coming from OVH : 
+- At this step, we need to do a tiny trick coming from [OVH](https://github.com/yomovh/tf-at-ovhcloud/blob/main/s3_bucket_only/README.md) : 
+
 *If you have AWS CLI already configured, you are good to go !*
 
 *Else, due to a limitation in Terraform dependency graph for providers initialization (see this long lasting issue) it is required to have the following environement variables defined (even if they are dummy one and overridden during the script execution) : AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY*
