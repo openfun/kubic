@@ -36,7 +36,7 @@ variable "k8s_cluster_region" {
 variable "k8s_cluster_version" {
   type        = string
   description = "The version to use for the cluster"
-  default     = "1.26.4-0"
+  default     = "1.26"
 }
 
 variable "k8s_nodepool_name" {
