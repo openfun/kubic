@@ -30,7 +30,7 @@ variable "k8s_cluster_name" {
 variable "k8s_cluster_region" {
   type        = string
   description = "The region to use for the cluster"
-  default     = "GRA5"
+  default     = "SBG5"
 }
 
 variable "k8s_cluster_version" {
