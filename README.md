@@ -37,13 +37,13 @@ export AWS_SECRET_ACCESS_KEY="no_need_to_define_a_secret_key"
 
 *Put yourself in the folder corresponding to the provider you want*
 
-Now we've got our s3 bucket, fill the `backend.conf.template` with the information you previously obtained. They are needed for Terraform to know in what state your cluster is or will be or has been.
+Now we've got our s3 bucket, fill the `backend.conf.template` with the information you previously obtained. You may choose a name for your state file (using the `key` field). They are needed for Terraform to know in what state your cluster is or will be or has been.
 
 Next :
 
-- Provide the correct variables in a `.tfvars` file.
-- Copy the `credentials.auto.tfvars.json.template` to `credentials.auto.tfvars.json` and fill it with the corresponding credentials
-- Do a `terraform init`, then `terraform plan` then `terraform apply` to create your cluster. 
+- Provide the correct variables in a `.tfvars` file. List of variables is available in the `variables.tf` file, along with description and default values;
+- Copy the `credentials.auto.tfvars.json.template` to `credentials.auto.tfvars.json` and fill it with the corresponding credentials;
+- Do a `terraform init -backend=backend.conf`, then `terraform plan` then `terraform apply` to create your cluster. Doing so, your Terraform state will be saved in the s3 bucket.
 
 ## Hashicorp Vault
 
