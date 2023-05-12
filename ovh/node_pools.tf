@@ -1,5 +1,5 @@
 resource "ovh_cloud_project_kube_nodepool" "pool" {
-  service_name   = var.service_name
+  service_name   = var.ovh_public_cloud_project_id
   kube_id        = ovh_cloud_project_kube.cluster.id
   name           = var.k8s_nodepool_name
   flavor_name    = var.k8s_nodepool_flavor

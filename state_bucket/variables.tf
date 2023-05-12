@@ -1,5 +1,6 @@
 variable "ovh_public_cloud_project_id" {
-  type = string
+  type        = string
+  description = "The OVH public cloud project id"
 }
 
 variable "application_key" {
@@ -21,15 +22,15 @@ variable "consumer_key" {
 }
 
 variable "s3_region" {
-  type    = string
+  type        = string
   description = "The region for the s3 bucket"
-  default = "gra"
+  default     = "gra"
 }
 
 variable "s3_endpoint" {
-  type    = string
+  type        = string
   description = "The endpoint for the s3 bucket"
-  default = "https://s3.gra.io.cloud.ovh.net/"
+  default     = "https://s3.gra.io.cloud.ovh.net/"
 }
 
 variable "user_desc_prefix" {

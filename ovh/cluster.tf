@@ -1,5 +1,5 @@
 resource "ovh_cloud_project_kube" "cluster" {
-  service_name = var.service_name
+  service_name = var.ovh_public_cloud_project_id
   name         = var.k8s_cluster_name
   region       = var.k8s_cluster_region
   version      = var.k8s_cluster_version

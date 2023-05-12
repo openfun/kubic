@@ -16,9 +16,9 @@ variable "consumer_key" {
   sensitive   = true
 }
 
-variable "service_name" {
+variable "ovh_public_cloud_project_id" {
   type        = string
-  description = "The service name to use for the cluster"
+  description = "The OVH public cloud project id"
 }
 
 variable "k8s_cluster_name" {
