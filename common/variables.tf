@@ -75,7 +75,7 @@ variable "vault_server_hostname" {
   default     = ""
 }
 
-variable "install-hashicorp-vault" {
+variable "install_hashicorp_vault" {
   type        = bool
   description = "Install Hashicorp Vault"
 }
