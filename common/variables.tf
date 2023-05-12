@@ -113,12 +113,6 @@ variable "vault_api_ca_bundle" {
   sensitive   = true
 }
 
-variable "vault_kms_seal_config" {
-  type        = map(string)
-  description = "A map containing the seal configuration information"
-  default     = null
-}
-
 variable "vault_ui" {
   type        = bool
   description = "Enable the Vault UI"
