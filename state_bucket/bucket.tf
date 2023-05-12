@@ -19,7 +19,7 @@ resource "ovh_cloud_project_user_s3_credential" "s3_admin_cred" {
 #     Bucket
 ########################################################################################
 resource "aws_s3_bucket" "bucket" {
-  bucket = "${var.bucket_name}"
+  bucket = var.bucket_name
 }
 
 

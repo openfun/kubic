@@ -47,7 +47,7 @@ data "kubernetes_service" "ingress-svc" {
 }
 
 output "ingress_ip" {
-  value = data.kubernetes_service.ingress-svc.status.0.load_balancer.0.ingress.0.ip
+  value       = data.kubernetes_service.ingress-svc.status.0.load_balancer.0.ingress.0.ip
   description = "Address of the loadbalancer"
 }
 
