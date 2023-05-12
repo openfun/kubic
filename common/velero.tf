@@ -1,10 +1,12 @@
 resource "helm_release" "velero" {
   name             = "velero"
+  namespace        = "velero"
+  create_namespace = true
+
   repository       = "https://vmware-tanzu.github.io/helm-charts"
   chart            = "velero"
-  namespace        = "velero"
   version          = var.velero_version
-  create_namespace = true
+  timeout = 600
 
   values = [templatefile("${path.module}/velero-values.yml", {
     velero_s3_bucket_name       = var.velero_s3_bucket_name
