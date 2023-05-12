@@ -1,5 +1,5 @@
 bucket     = "<NAME OF YOUR BUCKET>"
-key        = "terraform.tfstate"
+key        = "terraform-ovh.tfstate"
 region     = "gra" # The region of your bucket, default is gra for OVHcloud
 access_key = "<ACCESS KEY OF YOUR USER>"
 secret_key = "<SECRET KEY OF YOUR USER>"
