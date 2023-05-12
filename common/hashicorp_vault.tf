@@ -1,5 +1,5 @@
 resource "kubernetes_namespace" "hashicorp-vault" {
-  count = (var.install-hashicorp-vault) ? 1 : 0
+  count = (var.install_hashicorp_vault) ? 1 : 0
   metadata {
     name = "hashicorp-vault"
   }
@@ -10,7 +10,7 @@ resource "kubernetes_namespace" "hashicorp-vault" {
 }
 
 resource "helm_release" "hashicorp-vault" {
-  count     = (var.install-hashicorp-vault) ? 1 : 0
+  count     = (var.install_hashicorp_vault) ? 1 : 0
   name      = "hashicorp-vault"
   namespace = "hashicorp-vault"
 
@@ -23,7 +23,6 @@ resource "helm_release" "hashicorp-vault" {
     kubernetes_vault_ui_service_type = var.kubernetes_vault_ui_service_type
 
     vault_data_storage_size     = var.vault_data_storage_size
-    vault_leader_tls_servername = var.vault_leader_tls_servername
     vault_leader_tls_servername = var.vault_leader_tls_servername
     vault_seal_method           = var.vault_seal_method
     vault_ui                    = var.vault_ui
