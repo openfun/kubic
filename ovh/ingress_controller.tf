@@ -36,6 +36,21 @@ resource "helm_release" "ingress-nginx" {
   ]
 }
 
+data "kubernetes_service" "ingress-svc" {
+  metadata {
+    name      = "ingress-nginx-controller"
+    namespace = helm_release.ingress-nginx.namespace
+  }
+  depends_on = [
+    helm_release.ingress-nginx
+  ]
+}
+
+output "ingress_ip" {
+  value = data.kubernetes_service.ingress-svc.status.0.load_balancer.0.ingress.0.ip
+  description = "Address of the loadbalancer"
+}
+
 resource "null_resource" "ingress-nginx" {
   depends_on = [
     ovh_cloud_project_kube_nodepool.pool
