@@ -41,3 +41,4 @@ resource "null_resource" "ingress-nginx" {
     ovh_cloud_project_kube_nodepool.pool
   ]
 }
+

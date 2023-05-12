@@ -20,3 +20,17 @@ output "url" {
   value       = ovh_cloud_project_kube.cluster.url
   description = "The URL to access the cluster"
 }
+
+data "kubernetes_service" "ingress-svc" {
+  metadata {
+    name      = "ingress-nginx-controller"
+    namespace = helm_release.ingress-nginx.namespace
+  }
+  depends_on = [
+    helm_release.ingress-nginx
+  ]
+}
+
+output "public-ip-address" {
+  value = data.kubernetes_service.ingress-svc.status.0.load_balancer.0.ingress.0.ip
+}
