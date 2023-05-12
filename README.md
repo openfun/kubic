@@ -12,14 +12,25 @@ The cluster can be deployed either on OVHCloud or on Scaleway.
 
 ## Create Terraform's state
 
-First, we have to create an s3 bucket to store the Terraform's state, so that it can be available everywhere (and not only on your computer).
+First, we need a s3 bucket to store the Terraform's state, so that it can be available everywhere (and not only on your computer). If you already have a bucket, you can skip this step.
+
+This repository provides a Terraform to create a bucket on OVH. 
 
 - Go to `/state_bucket`, and do a `terraform init`
-- Provide the correct variables in a `.tfvars` file
-- Create the bucket with a `terraform plan` followed by a `terraform apply`
-- Save the provided `access_key` et `secret_key`
+- Provide the correct variables in a `.tfvars` file. (the needed variables are listed in the `variables.tf` file)
+- At this step, we need to do a tiny trick coming from OVH : 
+*If you have AWS CLI already configured, you are good to go !*
 
-**There is no need to create two buckets, unless you explicitly want to do so. Both states can be stored in the same bucket** 
+*Else, due to a limitation in Terraform dependency graph for providers initialization (see this long lasting issue) it is required to have the following environement variables defined (even if they are dummy one and overridden during the script execution) : AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY*
+
+*If they are not already defined you can use the following:*
+
+```bash
+export AWS_ACCESS_KEY_ID="no_need_to_define_an_access_key"  
+export AWS_SECRET_ACCESS_KEY="no_need_to_define_a_secret_key"
+```
+- Then create the bucket with a `terraform plan` followed by a `terraform apply`
+- Save the provided `access_key` et `secret_key` (because the `secret_key` is a secret, you need to use the `terraform output secret_key` command to get it)
 
 ## Create and provision the cluster
 

@@ -20,9 +20,16 @@ variable "consumer_key" {
   sensitive   = true
 }
 
-variable "region" {
+variable "s3_region" {
   type    = string
+  description = "The region for the s3 bucket"
   default = "gra"
+}
+
+variable "s3_endpoint" {
+  type    = string
+  description = "The endpoint for the s3 bucket"
+  default = "https://s3.gra.io.cloud.ovh.net/"
 }
 
 variable "user_desc_prefix" {
@@ -32,5 +39,5 @@ variable "user_desc_prefix" {
 
 variable "bucket_name" {
   type    = string
-  default = "tf-state-storage"
+  default = "tf-k8s-state-storage"
 }
