@@ -17,7 +17,7 @@ First, we need a s3 bucket to store the Terraform's state, so that it can be ava
 This repository provides a Terraform to create a bucket on OVH. 
 
 - Go to `/state_bucket`, and do a `terraform init`
-- Provide the correct variables in a `.tfvars` file. (the needed variables are listed in the `variables.tf` file)
+- Provide the correct variables in a `terraform.tfvars` file. (the needed variables are listed in the `variables.tf` file)
 - At this step, we need to do a tiny trick coming from [OVH](https://github.com/yomovh/tf-at-ovhcloud/blob/main/s3_bucket_only/README.md) : 
 
 *If you have AWS CLI already configured, you are good to go !*
