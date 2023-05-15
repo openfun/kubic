@@ -50,22 +50,22 @@ if [ -f "$tfvars_file" ]; then
 fi
 cat "${tfvars_file}.template" >"$tfvars_file"
 
-# Ajout d'une ligne vide à la fin du fichier
+# Add a mandatory empty line at the end of the file
 echo "" >>$all_variables
 
-# Récupération des noms de variables déclarées dans le fichier
+# Retrieving the names of variables declared in the file
 varnames=$(grep "^variable" $all_variables | sed 's/^.*variable "\(.*\)".*$/\1/p' | awk '!a[$0]++')
 
-# Création d'un fichier temporaire qui contiendra les variables triées et sans doublons
+# Creation of a temporary file that will contain the sorted and unique variables
 tmp_file=$(mktemp)
 while read -r varname; do
     sed -n "/variable \"$varname\"/,/^}/p" $all_variables | sed -n '1,/^}/p' >>$tmp_file
     echo "" >>$tmp_file
 done <<<"$varnames"
 
-# Suppression des doublons
+# Delete duplicates
 cat $tmp_file >$all_variables
-# Suppression du fichier temporaire
+# Delete the temporary file
 rm $tmp_file
 
 # Parse the $all_variables file and extract the variable names and descriptions
@@ -120,8 +120,20 @@ for i in "${!non_default_variables[@]}"; do
         fi
 
     else
+        # Add (true/false) to the description if the variable is a boolean
+        if [ "$var_type" == "bool" ]; then
+            var_desc="$var_desc (true/false)"
+        fi
+
         # Prompt the user for a value
         read -p "$var_desc: " var_value
+
+        # if the variable is a boolean and if the user imput is not true or false, prompt again
+        if [ "$var_type" == "bool" ]; then
+            while [ "$var_value" != "true" ] && [ "$var_value" != "false" ]; do
+                read -p "Your value has to be true or flase: " var_value
+            done
+        fi
 
         # If the user entered nothing, prompt again
         while [ -z "$var_value" ]; do
@@ -147,8 +159,20 @@ for i in "${!default_variables[@]}"; do
     var_default=${default_defaults[i]}
     var_type=${default_types[i]}
 
+    # Add (true/false) to the description if the variable is a boolean
+    if [ "$var_type" == "bool" ]; then
+        var_desc="$var_desc (true/false)"
+    fi
+
     # Display the default value to the user
     read -p "$var_desc (default \"$var_default\", leave blank): " var_value
+
+    # if the variable is a boolean and if the user imput is not true or false or nothing, prompt again
+    if [ "$var_type" == "bool" ]; then
+        while [ "$var_value" != "true" ] && [ "$var_value" != "false" ] && [ -n "$var_value" ]; do
+            read -p "Your value has to be true or flase, leave blank for the default value: " var_value
+        done
+    fi
 
     # If the user entered nothing, use the default value
     if [ -z "$var_value" ]; then
