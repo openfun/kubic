@@ -41,7 +41,7 @@ Now we've got our s3 bucket, fill the `backend.conf.template` with the informati
 
 Next :
 
-- Provide the correct variables in a `.tfvars` file. List of variables is available in the `variables.tf` file, along with description and default values;
+- Provide the correct variables in a `terraform.tfvars` file. List of variables is available in the `variables.tf` file, along with description and default values;
 - Copy the `credentials.auto.tfvars.json.template` to `credentials.auto.tfvars.json` and fill it with the corresponding credentials;
 - Do a `terraform init -backend-config=backend.conf`, then `terraform plan` then `terraform apply` to create your cluster. Doing so, your Terraform state will be saved in the s3 bucket.
 
