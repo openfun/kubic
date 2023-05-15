@@ -11,4 +11,4 @@ if [ ! -d "$directory" ]; then
 fi
 
 DOCKER_USER="$(id -u):$(id -g)" \
-    docker-compose run --rm tf-$directory plan -out=/app/$directory/tfplan -input=false
+    docker-compose run --rm tf-$directory destroy -input=false -auto-approve
