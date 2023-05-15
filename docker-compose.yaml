@@ -1,0 +1,31 @@
+version: '3.4'
+services:
+  tf-scaleway:
+    image: hashicorp/terraform:1.4.5
+    user: ${DOCKER_USER:-1000}
+    working_dir: /app/scaleway
+    environment:
+      # Without this value, the Helm provider fails to fetch chart repository data
+      - XDG_CACHE_HOME=/tmp
+      #
+    volumes:
+      - ./scaleway:/app/scaleway
+      - ./common:/app/common
+  tf-ovh:
+    image: hashicorp/terraform:1.4.5
+    user: ${DOCKER_USER:-1000}
+    working_dir: /app/ovh
+    environment:
+      # Without this value, the Helm provider fails to fetch chart repository data
+      - XDG_CACHE_HOME=/tmp
+      #
+    volumes:
+      - ./ovh:/app/ovh
+      - ./common:/app/common
+  bash:
+    image: bash
+    user: ${DOCKER_USER:-1000}
+    working_dir: /app
+  argocd-cli:
+    image: argoproj/argocd:v2.6.7
+    user: ${DOCKER_USER:-1000}
