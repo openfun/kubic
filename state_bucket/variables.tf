@@ -35,10 +35,11 @@ variable "s3_endpoint" {
 
 variable "user_desc_prefix" {
   type    = string
-  default = "User for TF backend state storage"
+  default = "User for TF backend state storage of shared-k8s"
 }
 
 variable "bucket_name" {
   type    = string
   default = "tf-k8s-state-storage"
+  description = "Name of the bucket. Warning: only lowercase alphanumeric characters and hyphens are allowed"
 }
