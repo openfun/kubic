@@ -37,7 +37,7 @@ export AWS_SECRET_ACCESS_KEY="no_need_to_define_a_secret_key"
 
 *Put yourself in the folder corresponding to the provider you want*
 
-Now we've got our s3 bucket, fill the `backend.conf.template` with the information you previously obtained. You may choose a name for your state file (using the `key` field). They are needed for Terraform to know in what state your cluster is or will be or has been.
+Now we've got our s3 bucket, copy the `backend.conf.template` in a `backend.conf` file and fill it with the information you previously obtained. You may choose a name for your state file (using the `key` field). They are needed for Terraform to know in what state your cluster is or will be or has been.
 
 Next :
 
