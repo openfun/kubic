@@ -1,0 +1,21 @@
+.vscode/
+.idea/
+.DS_Store
+vendor/
+dist/*
+ui/dist/app/*
+!ui/dist/app/gitkeep
+site/
+*.iml
+# delve debug binaries
+cmd/**/debug
+debug.test
+coverage.out
+test-results
+.scannerwork
+.scratch
+node_modules/
+.kube/
+./test/cmp/*.sock
+.envrc.remote
+.*.swp
