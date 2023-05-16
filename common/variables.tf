@@ -94,21 +94,21 @@ variable "vault_data_storage_size" {
 
 variable "vault_api_signed_certificate" {
   type        = string
-  description = "The name of the signed certificate secret in Secrets Manager"
+  description = "The signed certificate secret in Secrets Manager (not the filename)"
   default     = null
   sensitive   = true
 }
 
 variable "vault_api_private_key" {
   type        = string
-  description = "The name of the certificate private key secret in Secrets Manager"
+  description = "The certificate private key secret in Secrets Manager (not the filename)"
   default     = null
   sensitive   = true
 }
 
 variable "vault_api_ca_bundle" {
   type        = string
-  description = "The name of the CA bundle secret in Secrets Manager"
+  description = "The CA bundle secret in Secrets Manager (not the filename)"
   default     = null
   sensitive   = true
 }
