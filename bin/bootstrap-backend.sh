@@ -31,7 +31,7 @@ read -p "Skip Credentials Validation (true/false): " skip_credentials_validation
 echo "The key used will be terraform.tfstate by default."
 read -p "Would you like to use a differents key? (y/n): " -n 1 -r
 echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
+if [[ ! $REPLY =~ ^[Nn]$ ]]; then
     read -p "State key: " key2
 else
     key="terraform.tfstate"

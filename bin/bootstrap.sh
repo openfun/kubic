@@ -102,7 +102,6 @@ done
 
 # Loop through variables with no default values first
 for i in "${!non_default_variables[@]}"; do
-    continue
     var_name=${non_default_variables[i]}
     var_desc=${non_default_descs[i]}
     var_type=${non_default_types[i]}
