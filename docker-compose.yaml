@@ -29,3 +29,9 @@ services:
   argocd-cli:
     image: argoproj/argocd:v2.6.7
     user: ${DOCKER_USER:-1000}
+  kubectld:
+    image: bitnami/kubectl:1.26.4
+    user: ${DOCKER_USER:-1000}
+    working_dir: /app
+    volumes:
+      - ~/.kube:/app/.kube
