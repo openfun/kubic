@@ -60,11 +60,23 @@ variable "k8s_nodepool_monthly_billed" {
 variable "k8s_nodepool_min_nodes" {
   type        = number
   description = "The minimum number of nodes to use for the nodepool"
-  default     = 1
+  default     = 2
 }
 
 variable "k8s_nodepool_max_nodes" {
   type        = number
   description = "The maximum number of nodes to use for the nodepool"
   default     = 10
+}
+
+variable "k8s_nodepool_desired_nodes" {
+  type        = number
+  description = "The desired number of nodes to use for the nodepool"
+  default     = 2
+}
+
+variable "k8s_nodepool_autoscale" {
+  type        = bool
+  description = "Enable autoscaling feature (WIP)"
+  default     = false
 }
