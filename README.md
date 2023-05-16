@@ -42,6 +42,7 @@ Now we've got our s3 bucket, copy the `backend.conf.template` in a `backend.conf
 Next :
 
 - Provide the correct variables in a `terraform.tfvars` file. List of variables is available in the `variables.tf` file and in the `variables-common.tf` file, along with description and default values;
+  * For Hashicorp Vault: if you do not have a custom certificate, just leave the following variables empty: `vault_api_signed_certificate`, `vault_api_private_key`, `vault_api_ca_bundle`.
 - Copy the `credentials.auto.tfvars.json.template` to `credentials.auto.tfvars.json` and fill it with the corresponding credentials (you need to create API keys from your providers);
   * For OVH, see [here](https://help.ovhcloud.com/csm/en-api-getting-started-ovhcloud-api?id=kb_article_view&sysparm_article=KB0042777#advanced-usage-pair-ovhcloud-apis-with-an-application)
   * For Scaleway, see [here](https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/)
