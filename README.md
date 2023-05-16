@@ -17,7 +17,7 @@ First, we need a s3 bucket to store the Terraform's state, so that it can be ava
 This repository provides a Terraform to create a bucket on OVH. 
 
 - Go to `/state_bucket`, and do a `terraform init`
-- Provide the correct variables in a `.tfvars` file. (the needed variables are listed in the `variables.tf` file)
+- Provide the correct variables in a `terraform.tfvars` file. (the needed variables are listed in the `variables.tf` file)
 - At this step, we need to do a tiny trick coming from [OVH](https://github.com/yomovh/tf-at-ovhcloud/blob/main/s3_bucket_only/README.md) : 
 
 *If you have AWS CLI already configured, you are good to go !*
@@ -37,13 +37,18 @@ export AWS_SECRET_ACCESS_KEY="no_need_to_define_a_secret_key"
 
 *Put yourself in the folder corresponding to the provider you want*
 
-Now we've got our s3 bucket, fill the `backend.conf.template` with the information you previously obtained. You may choose a name for your state file (using the `key` field). They are needed for Terraform to know in what state your cluster is or will be or has been.
+Now we've got our s3 bucket, copy the `backend.conf.template` in a `backend.conf` file and fill it with the information you previously obtained. You may choose a name for your state file (using the `key` field). They are needed for Terraform to know in what state your cluster is or will be or has been.
 
 Next :
 
-- Provide the correct variables in a `.tfvars` file. List of variables is available in the `variables.tf` file, along with description and default values;
-- Copy the `credentials.auto.tfvars.json.template` to `credentials.auto.tfvars.json` and fill it with the corresponding credentials;
-- Do a `terraform init -backend=backend.conf`, then `terraform plan` then `terraform apply` to create your cluster. Doing so, your Terraform state will be saved in the s3 bucket.
+- Provide the correct variables in a `terraform.tfvars` file. List of variables is available in the `variables.tf` file and in the `variables-common.tf` file, along with description and default values;
+  * For Hashicorp Vault: if you do not have a custom certificate, just leave the following variables empty: `vault_api_signed_certificate`, `vault_api_private_key`, `vault_api_ca_bundle`.
+- Copy the `credentials.auto.tfvars.json.template` to `credentials.auto.tfvars.json` and fill it with the corresponding credentials (you need to create API keys from your providers). Terraform will automaticaly generate a certificate and use it for the vault;
+  * For OVH, see [here](https://help.ovhcloud.com/csm/en-api-getting-started-ovhcloud-api?id=kb_article_view&sysparm_article=KB0042777#advanced-usage-pair-ovhcloud-apis-with-an-application)
+  * For Scaleway, see [here](https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/)
+- Do a `terraform init -backend-config=backend.conf`, then `terraform plan` then `terraform apply` to create your cluster. Doing so, your Terraform state will be saved in the s3 bucket.
+
+*Using the OVH provider, you may encounter timeouts, or other errors. (coming from OVH) If so, simply re-run the `terraform apply` command. It will continue where it stopped and will eventually complete.*
 
 ## Hashicorp Vault
 
@@ -87,6 +92,6 @@ The Vault may be automatically initialized and unsealed. This is done by executi
 This part is not mandatory. It deploys the Key/Value engine on the Vault, as well as a Kubernetes backend for authentication (for instance used by the argocd-vault plugin).
 The k8s backend has read-access on the path `kv/*`.
 
-Go to the `vault` folder, create a `terraform.tfvars` and fill it with the required variables. Then do a `terraform init`, then `terraform plan` then `terraform apply`.
+Go to the `vault` folder, create a `terraform.tfvars` and fill it with the required variables. The `vault_root_token` may be found in the previously generated `cluster-keys.json`file. Then do a `terraform init`, followed by `terraform plan`, then `terraform apply`.
 
 **Congratulations! Your Hashicorp Vault is now ready to use, enjoy!**
