@@ -23,7 +23,7 @@ var_files=("$directory/variables.tf" "$directory/variables-common.tf")
 tfvars_file="$directory/terraform.tfvars"
 
 # Ensure docker is installed and running
-read -p "Please make sure you have docker installed and running. Press any key to continue..." -n 1 -r
+read -p "Please make sure you have docker installed and running. Press any key to continue..." -n 1 -r -s
 echo
 
 # Create and clean the $all_variables file
@@ -102,6 +102,7 @@ done
 
 # Loop through variables with no default values first
 for i in "${!non_default_variables[@]}"; do
+    continue
     var_name=${non_default_variables[i]}
     var_desc=${non_default_descs[i]}
     var_type=${non_default_types[i]}
@@ -158,6 +159,15 @@ for i in "${!default_variables[@]}"; do
     var_desc=${default_descs[i]}
     var_default=${default_defaults[i]}
     var_type=${default_types[i]}
+
+    if [ "$var_name" == "issuers" ]; then
+        read -p "Let's encrypt email (default \"admin@admin.com\", leave blank): " letsencrypt_email
+        if [ -z "$letsencrypt_email" ]; then
+            letsencrypt_email="admin@admin.com"
+        fi
+        sed_inplace "s%^    email *= *\".*\"%    email=\"$letsencrypt_email\"%" "$tfvars_file"
+        continue
+    fi
 
     # Add (true/false) to the description if the variable is a boolean
     if [ "$var_type" == "bool" ]; then

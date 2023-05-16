@@ -15,6 +15,19 @@ argocd_repo_url             = ""
 k8s_cluster_name            = ""
 k8s_pool                    = ""
 main_cluster_issuer_name    = ""
+issuers = [
+  {
+    name                    = "letsencrypt-prod"
+    server                  = "https://acme-v02.api.letsencrypt.org/directory"
+    email                   = "",
+    private_key_secret_name = "letsencrypt-prod"
+    }, {
+    name                    = "letsencrypt-staging"
+    server                  = "https://acme-staging-v02.api.letsencrypt.org/directory"
+    email                   = ""
+    private_key_secret_name = "letsencrypt-staging"
+  }
+]
 velero_s3_bucket_name       = ""
 velero_s3_bucket_region     = ""
 velero_s3_bucket_endpoint   = ""
