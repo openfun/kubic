@@ -6,7 +6,7 @@ resource "ovh_cloud_project_kube_nodepool" "pool" {
   monthly_billed = var.k8s_nodepool_monthly_billed
   min_nodes      = var.k8s_nodepool_min_nodes
   max_nodes      = var.k8s_nodepool_max_nodes
-  desired_nodes = var.k8s_nodepool_desired_nodes
+  desired_nodes  = var.k8s_nodepool_desired_nodes
   autoscale      = var.k8s_nodepool_autoscale
 
   timeouts {
