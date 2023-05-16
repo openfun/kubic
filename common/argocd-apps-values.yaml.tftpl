@@ -22,7 +22,7 @@ applicationsets:
             name: avp-helm
             env:
               - name: HELM_ARGS
-                value: "{{ range $i, $value := .valueFiles }}{{ if $i }} {{ end }}-f ../../apps/{{ index $.path.segments 1 }}/{{ $value }}{{ end }}"
+                value: "{{ range $i, $value := .valuesFiles }}{{ if $i }} {{ end }}-f ../../apps/{{ index $.path.segments 1 }}/{{ $value }}{{ end }}"
               - name: AVP_SECRET
                 value: '{{ default "default-vault-credentials" .vaultCredentials }}'
         destination:
