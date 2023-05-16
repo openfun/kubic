@@ -1,0 +1,7 @@
+# Default values for secret-helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+secret1: <path:kv/data/secret-helm#secret1>
+secret2: ""
+secret3: ""
