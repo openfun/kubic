@@ -22,6 +22,17 @@ services:
     volumes:
       - ./ovh:/app/ovh
       - ./common:/app/common
+  tf-bucket-ovh:
+    image: hashicorp/terraform:1.4.5
+    user: ${DOCKER_USER:-1000}
+    working_dir: /app/state_bucket
+    environment:
+      # Without this value, the Helm provider fails to fetch chart repository data
+      - XDG_CACHE_HOME=/tmp
+      - AWS_ACCESS_KEY_ID="no_need_to_define_an_access_key"
+      - AWS_SECRET_ACCESS_KEY="no_need_to_define_a_secret_key"
+    volumes:
+      - ./state_bucket:/app/state_bucket
   bash:
     image: bash
     user: ${DOCKER_USER:-1000}

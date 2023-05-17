@@ -1,0 +1,8 @@
+ovh_public_cloud_project_id = ""
+application_key             = ""
+application_secret          = ""
+consumer_key                = ""
+s3_region                   = ""
+s3_endpoint                 = ""
+user_desc_prefix            = ""
+bucket_name                 = ""
