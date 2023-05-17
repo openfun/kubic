@@ -34,4 +34,4 @@ services:
     user: ${DOCKER_USER:-1000}
     working_dir: /app
     volumes:
-      - ~/.kube:/app/.kube
+      - ./vault/.kube:/app/.kube
