@@ -21,7 +21,7 @@ resource "null_resource" "kubeconfig" {
   }
 }
 
-output "kube_config" {
+output "kubeconfig" {
   value       = scaleway_k8s_cluster.k8s_cluster.kubeconfig[0].config_file
   description = "kubeconfig for kubectl access."
   sensitive   = true
