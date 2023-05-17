@@ -45,3 +45,5 @@ The k8s backend has read-access on the path `kv/*`.
 Go to the `vault` folder, create a `terraform.tfvars` and fill it with the required variables. The `vault_root_token` may be found in the previously generated `cluster-keys.json`file. Then do a `terraform init`, followed by `terraform plan`, then `terraform apply`.
 
 **Congratulations! Your Hashicorp Vault is now ready to use, enjoy!**
+
+Next step → [Configure ArgoCD](./argocd.md)
