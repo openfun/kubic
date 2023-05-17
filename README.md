@@ -170,7 +170,7 @@ Valid examples:
 ```
 
 If the version is omitted (first example), the latest version of the secret is retrieved.
-By default, Vault creates a KV-V2 backends. For KV-V2 backends, the path needs to be specified as `<path:${vault-kvv2-backend-path}/data/{path-to-secret}>` where `vault-kvv2-backend-path` is the path to the KV-V2 backend and `path-to-secret` is the path to the secret in Vault.
+By default, Vault creates a KV-V2 backend. For KV-V2 backends, the path needs to be specified as `<path:${vault-kvv2-backend-path}/data/{path-to-secret}>` where `vault-kvv2-backend-path` is the path to the KV-V2 backend and `path-to-secret` is the path to the secret in Vault.
 
 Again, **it is highly recommended to read the [placeholders documentation](https://argocd-vault-plugin.readthedocs.io/en/stable/howitworks/) of the plugin before using it**.
 
