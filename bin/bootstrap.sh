@@ -131,7 +131,7 @@ for i in "${!non_default_variables[@]}"; do
         # if the variable is a boolean and if the user imput is not true or false, prompt again
         if [ "$var_type" == "bool" ]; then
             while [ "$var_value" != "true" ] && [ "$var_value" != "false" ]; do
-                read -p "Your value has to be true or flase: " var_value
+                read -p "Your value has to be true or false: " var_value
             done
         fi
 
