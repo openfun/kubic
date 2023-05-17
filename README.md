@@ -13,3 +13,4 @@ The cluster can be deployed either on OVHCloud or on Scaleway.
 - [Create your cluster](docs/cluster.md)
 - [Configure HashicorpVault](docs/hashicorp-vault.md)
 - [Configure ArgoCD](docs/argocd.md)
+
