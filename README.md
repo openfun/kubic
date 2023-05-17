@@ -150,13 +150,13 @@ The repostiory structure is the following :
 ### Usage
 
 1. Create a new repository with the same structure as the mono-repo
-2. Create read credentials for the repository
-3. Configure accordingly the Terraform variables `argocd_repo_url`, `argocd_repo_username` and `argocd_repo_password` (see [variables.tf](common/variables.tf))
+2. Create read credentials for the repository (see [here](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/#access-token) for different providers)
+3. Configure accordingly the Terraform variables `argocd_repo_url`, `argocd_repo_username` and `argocd_repo_password` (see [variables.tf](common/variables.tf)). **Terraform expects HTTP git credentials, not SSH.**
 4. Define the variables `argocd_hostname` and `argocd_password` (see [variables.tf](common/variables.tf)). The variable `argocd_password` is used to define the password of the `admin` user of ArgoCD. Terraform expects a **hash** of the password. To generate it, you can use the following command : `argocd account bcrypt --password P@$sw0rd` after installing ArgoCD CLI.
 
 ### ArgoCD Vault Plugin
 
-The ArgoCD Vault Plugin is a plugin for ArgoCD which allows to use secrets stored in Hashicorp Vault in your applications. It is installed by default on the cluster. You can fine tune its version by changing the variable `argocd_avp_version` (see [variables.tf](common/variables.tf)). It is highly recommended to read the [documentation](http://argocd-vault-plugin.readthedocs.io) of the plugin before using it as many undocumented here features are available and may suit your needs.
+The ArgoCD Vault Plugin is a plugin for ArgoCD which allows to use secrets stored in Hashicorp Vault in your applications. It is installed by default on the cluster. You can fine tune its version by changing the variable `argocd_avp_version` (see [variables.tf](common/variables.tf)). It is highly recommended to read the [documentation](http://argocd-vault-plugin.readthedocs.io) of the plugin before using it as it has many undocumented features in this README that may suit your needs.
 
 By default, ArgoCD Vault Plugin is configured to use the Kubernetes auth backend of Vault. The authentication is done with the Kubernetes service account of ArgoCD in the `argocd` namespace. The service account has read access on the path `kv/*`. We'll see later how to restrict the access to the secrets for specific applications.
 
