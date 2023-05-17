@@ -179,7 +179,7 @@ for i in "${!default_variables[@]}"; do
     # if the variable is a boolean and if the user imput is not true or false or nothing, prompt again
     if [ "$var_type" == "bool" ]; then
         while [ "$var_value" != "true" ] && [ "$var_value" != "false" ] && [ -n "$var_value" ]; do
-            read -p "Your value has to be true or flase, leave blank for the default value: " var_value
+            read -p "Your value has to be true or false, leave blank for the default value: " var_value
         done
     fi
 
