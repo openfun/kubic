@@ -178,12 +178,12 @@ Again, **it is highly recommended to read the [placeholders documentation](https
 
 #### Basic example - hello-world application
 
-This example shows how to deploy a simple application with ArgoCD. The application is a simple nginx server. The application is deployed in 3 environments : staging, preprod and prod. The application is deployed in 3 different namespaces, one namespace per application and per environment.
+This example shows how to deploy a simple application with ArgoCD. The application is a simple nginx server. The application is deployed in 3 environments: staging, preprod and prod. The application is deployed in 3 different namespaces, one namespace per application and per environment.
 
 The application is deployed with the following instructions :
 
 - Add the `hello-world` helm chart to the `helm` folder of the mono-repo
-- Declare the application in the `apps` folder of the mono-repo by creating a folder named `hello-world`. Beware of the name of the folder, it must be the same as the name of the helm chart
+- Declare the application in the `apps` folder of the mono-repo by creating a folder named `hello-world`. **Beware of the name of the folder, it must be the same as the name of the helm chart.**
 - Add a JSON file per environnement and name the file according to the following pattern : `<environment>.json`. For instance, for the staging environment, the file must be named `staging.json`. This file **must be a valid JSON file and must contain at least** :
 
 ```json
@@ -192,9 +192,9 @@ The application is deployed with the following instructions :
 
 #### ArgoCD Vault Plugin example - secret-helm application
 
-This example shows how to use the ArgoCD Vault Plugin to deploy a helm chart with secrets stored in Hashicorp Vault. The application is a simple chart which creates a secret with with various keys and values. The application is deployed in 2 environments : dev and prod. The application is deployed in 2 different namespaces, one namespace per application and per environment.
+This example shows how to use the ArgoCD Vault Plugin to deploy a helm chart with secrets stored in Hashicorp Vault. The application is a simple chart which creates a secret with with various keys and values. The application is deployed in 2 environments: dev and prod. The application is deployed in 2 different namespaces, one namespace per application and per environment.
 
-The application configuration refers to specific helm values per environment. The used value files are declared for each environment using the JSON file. The JSON file must contain the following :
+The application configuration refers to specific helm values per environment. The used value files are declared for each environment using the JSON file. The JSON file must contain the following:
 
 ```json
 {
@@ -202,7 +202,7 @@ The application configuration refers to specific helm values per environment. Th
 }
 ```
 
-For instance, the prod environment uses the `prod.json` file with :
+For instance, the prod environment uses the `prod.json` file with:
 
 ```json
 {
@@ -212,9 +212,9 @@ For instance, the prod environment uses the `prod.json` file with :
 
 #### Multi-tenancy example - external-app application
 
-This example shows how to deploy an application in a multi-tenant environment. The cluster administrator is responsible of declaring the application on the cluster and the developers are responsible of maintaining the application helm chart. This is achieved by specifying the `externalRepoURL` in the JSON file.
+This example shows how to deploy an application in a multi-tenant environment. The cluster administrator is responsible for declaring the application on the cluster and the developers are responsible for maintaining the application helm chart. This is achieved by specifying the `externalRepoURL` in the JSON file.
 
-For instance, the test environment uses the `test.json` file with :
+For instance, the test environment uses the `test.json` file with:
 
 ```json
 {
@@ -224,7 +224,7 @@ For instance, the test environment uses the `test.json` file with :
 
 Beware the distant repository must be public or the cluster must have access to it. Please refer to the [ArgoCD documentation](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories) for more information.
 
-Please also note that the distant repository must have the exact same structure as the mono-repo. The distant repository must contain a `helm` folder with the helm charts and an `apps` folder with the application configuration :
+Please also note that the distant repository must have the exact same structure as the mono-repo. The distant repository must contain a `helm` folder with the helm charts and an `apps` folder with the application configuration:
 
 ```bash
 .
@@ -240,12 +240,12 @@ Please also note that the distant repository must have the exact same structure 
         └── values.yaml
 ```
 
-Just like that, the developer who controls the helm chart might resquest any secret contained in the vault just by using the correct path
+Just like that, the developer who controls the helm chart is able to request any secret contained in the vault just by using the correct path
 of a secret in the vault. Therefore, the cluster administrator must restrict the access to the secrets for specific applications. This is achieved by following this procedure :
 
 1. Create a specific policy in Vault for the application which only gives access to the secrets needed by the application
 2. Attach the policy to the Vault Authentication Method
-3. Create an ArgoCD Vault Plugin configuration secret which uses the Vault Authentication Method. Please refer to the [ArgoCD Vault Plugin backend documentation](https://argocd-vault-plugin.readthedocs.io/en/stable/backends/) and the [ArgoCD Vault Plugin configuration documentation](https://argocd-vault-plugin.readthedocs.io/en/stable/config/) for more information. Here is an example of a configuration secret for AppRole authentication :
+3. Create an ArgoCD Vault Plugin configuration secret which uses the Vault Authentication Method. Please refer to the [ArgoCD Vault Plugin backend documentation](https://argocd-vault-plugin.readthedocs.io/en/stable/backends/) and the [ArgoCD Vault Plugin configuration documentation](https://argocd-vault-plugin.readthedocs.io/en/stable/config/) for more information. Here is an example of a configuration secret for AppRole authentication:
 
 ```yaml
 apiVersion: v1
@@ -264,7 +264,7 @@ stringData:
 
 Beware, the secret **must** be created in the `argocd` namespace.
 
-4. Finally, reference the vault credentials secret in the JSON file :
+4. Finally, reference the vault credentials secret in the JSON file:
 
 ```json
 {
@@ -272,4 +272,4 @@ Beware, the secret **must** be created in the `argocd` namespace.
 }
 ```
 
-Please note that if you do not want to use external repositories, you can still declare a helm chart in the mono-repo which call an external chart which has to be stored on a helm repository.
+Please note that if you do not want to use external repositories, you can still declare a helm chart in the mono-repo which calls an external chart which has to be stored on a helm repository.
