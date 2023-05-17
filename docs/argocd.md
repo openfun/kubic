@@ -1,6 +1,8 @@
 
 # ArgoCD
 
+**Before reading this section, please note that disabling the installation of Hashicorp Vault will also disable the installation of ArgoCD Vault Plugin. You are still able to use ArgoCD the way you want but you will have to use your own repo structure.**
+
 ## The mono-repo
 
 The mono-repo is a git repository containing all the applications you want to deploy on your cluster. It is used by ArgoCD to deploy your applications. It is a good practice to have a mono-repo for each cluster you have.
