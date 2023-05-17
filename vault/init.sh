@@ -3,13 +3,13 @@
 # Define a function kubectl that imitate the real kubectl command by calling it from a docker container
 function kubectld() {
     DOCKER_USER="$(id -u):$(id -g)" \
-        docker-compose run --rm kubectld "$@" --kubeconfig=/app/.kube
+        docker-compose run --rm kubectld "$@" --kubeconfig=/app/.kube/config
 }
 
 printf "    __  __           __    _                     \n   / / / /___ ______/ /_  (_)________  _________ \n  / /_/ / __ \`/ ___/ __ \/ / ___/ __ \/ ___/ __ \\n / __  / /_/ (__  ) / / / / /__/ /_/ / /  / /_/ /\n/_/ /_/\__,_/____/_/ /_/_/\___/\____/_/  / .___/ \n _    _____   __  ____  ______          /_/     \n | |  / /   | / / / / / /_  __/                   \n| | / / /| |/ / / / /   / /                      \n| |/ / ___ / /_/ / /___/ /                       \n|___/_/  |_\____/_____/_/\n\n\n"
 printf "This script will allow you to initialize your Hashicorp Vault. In order to do so, the following requirements are needed:
   * an uninitialized Hashicorp Vault
-  * the kubectl command line tool configured to access your Kubernetes cluster, on which the Vault is installed.
+  * the kubeconfig file of the cluster you want to use placed in the vault/.kube/config file, you can have it by running the command : bin/get-kube-config.sh (your-provider) > vault/.kube/config 
 
 If these requirements are met, the script will initialize the Vault and unseal it. The Vault's encryption algorithm is (by default) Shamir's algorithm. \e[1mn\e[0m keys (with n > 0) are generated, and \e[1mm\e[0m keys (with \e[1m0 < m <= n\e[0m) are needed to unseal the vault. The script will generate a cluster-keys.json file containing the keys and a root token to authenticate to the Vault. (which you may need for the next steps of the tutorial).
 
