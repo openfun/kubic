@@ -1,14 +1,19 @@
-# Create a pre-setup k8s cluster with OVHcloud & ScaleWay
+# SharedKube
+
+## Overview 
 
 This Terraform aims at creating a k8s cluster setup with :
 
 - NGINX Ingress Controller
 - Cert-manager
 - ArgoCD
+- Prometheus / Grafana
+- Velero for backuping the cluster
+- Hashicorp Vault if needed
 
 The cluster can be deployed either on OVHCloud or on Scaleway.
 
-# Repository architecture
+## Repository architecture
 
 ```bash
 .
@@ -25,7 +30,7 @@ The cluster can be deployed either on OVHCloud or on Scaleway.
 ```
 
 All files contained in the folder `common` are symbolicaly linked in the folders `ovh` and `scaleway` to avoid code duplication.
-# Installation
+## Getting started
 
 - [Create your cluster](docs/cluster.md)
 - [Configure HashicorpVault](docs/hashicorp-vault.md)
