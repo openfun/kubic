@@ -95,3 +95,32 @@ The k8s backend has read-access on the path `kv/*`.
 Go to the `vault` folder, create a `terraform.tfvars` and fill it with the required variables. The `vault_root_token` may be found in the previously generated `cluster-keys.json`file. Then do a `terraform init`, followed by `terraform plan`, then `terraform apply`.
 
 **Congratulations! Your Hashicorp Vault is now ready to use, enjoy!**
+
+## Velero
+
+Velero is a backup and restore tool for Kubernetes. It is used to backup the cluster's resources, and to restore them in case of disaster. It is also used to migrate the cluster to another provider.
+
+### Configuration
+
+**Installation**
+
+Before you run the `terraform apply`command, update your `terraform.tfvars` file with the following variables :
+```velero_version              = YOUR_VELERO_VERSION
+velero_s3_bucket_endpoint   = YOUR_S3_BUCKET_ENDPOINT
+velero_s3_bucket_region     = YOUR_S3_BUCKET_REGION
+velero_s3_bucket_name       = YOUR_S3_BUCKET_NAME
+velero_s3_access_key_id     = YOUR_S3_ACCESS_KEY_ID
+velero_s3_secret_access_key = YOUR_S3_SECRET_ACCESS_KEY
+```
+
+**Manual backup**
+
+To backup the cluster, you need to create a backup file. This is done with the following command : `velero backup create BACKUP_NAME`. You can list your backups with `velero backup get`.
+
+**Schedule a backup**
+
+To schedule a backup of your namespace, just refer to the template `common/Schedlule-template.yaml.template` and fill it with the correct values. Then apply it with `kubectl apply -f Schedlule-template.yaml`.
+
+**Restore from backup**
+
+To restore from a backup, run the following command, with *BACKUP_NAME* being the name of the backup you want to restore from : `velero restore --from-backup BACKUP_NAME`.
