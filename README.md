@@ -33,8 +33,8 @@ All files contained in the folder `common` are symbolicaly linked in the folders
 ## Getting started
 
 - Create you cluster:
-  - [Automatic deployment](docs/cluster-auto.md)
   - [Manual deployment](docs/cluster-manual.md)
+  - [Automatic deployment](docs/cluster-auto.md)
 - [Configure HashicorpVault](docs/hashicorp-vault.md)
 - [Configure ArgoCD](docs/argocd.md)
 
