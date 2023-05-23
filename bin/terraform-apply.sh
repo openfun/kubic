@@ -28,4 +28,4 @@ for domain in $(grep -Eo '^[^=]+hostname[^=]*=([^=]*)' $directory/terraform.tfva
     echo " - $domain"
 done
 echo ""
-echo "You may now get your kubeconfig file using the following command : 'bin/get-kube-config.sh "$directory"."
+echo "You may now get your kubeconfig file using the following command : 'bin/get-kube-config.sh "$directory"'."
