@@ -197,4 +197,6 @@ for i in "${!default_variables[@]}"; do
 done
 
 # Ensure suppression of the temporary files if the script ends successfully
+echo "Congratulations! Your terraform.tfvars file has been written down to $tfvars_file."
+
 trap 'rm -f $all_variables' EXIT
