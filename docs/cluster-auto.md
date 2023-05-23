@@ -1,4 +1,4 @@
-# Deployment steps
+# [SCRIPT] Deployment steps
 _Every command must be run at the root of the repository_
 
 ## Create Terraform's state
@@ -45,3 +45,5 @@ At the end of the script, please make the needed changes on your DNS (adding the
 ### Destroy the cluster
 
 With: `bin/terraform-destroy <your provider>`. **Warning: there is no confirmation, it will destroy the cluster immediately.**
+
+Next step → [Configure HashicorpVault](./hashicorp-vault.md)
