@@ -22,6 +22,7 @@ DOCKER_USER="$(id -u):$(id -g)" \
 ingress_ip=$(DOCKER_USER="$(id -u):$(id -g)" \
     docker-compose run --rm tf-$directory output -raw ingress_ip)
 
+echo ""
 echo "Your ingress is now running and available at $ingress_ip, please update your DNS accordingly, at least for the following domains:"
 for domain in $(grep -Eo '^[^=]+hostname[^=]*=([^=]*)' $directory/terraform.tfvars | cut -d '"' -f 2); do
     echo " - $domain"
