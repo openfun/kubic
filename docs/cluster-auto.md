@@ -1,4 +1,4 @@
-# [SCRIPT] Deployment steps
+# [AUTOMATIC] Deployment steps
 _Every command must be run at the root of the repository_
 
 ## Create Terraform's state
