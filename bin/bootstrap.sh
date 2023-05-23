@@ -51,9 +51,6 @@ if [ -f "$tfvars_file" ]; then
 fi
 cat "${tfvars_file}.template" >"$tfvars_file"
 
-# Add a mandatory empty line at the end of the file
-echo "" >>$all_variables
-
 # Retrieving the names of variables declared in the file
 varnames=$(grep "^variable" $all_variables | sed 's/^.*variable "\(.*\)".*$/\1/p' | awk '!a[$0]++')
 
