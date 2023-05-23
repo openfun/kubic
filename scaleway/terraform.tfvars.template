@@ -30,7 +30,6 @@ grafana_hostname            = ""
 grafana_admin_password      = ""
 vault_server_hostname       = ""
 install_hashicorp_vault     = 
-vault_data_storage_size     = ""
 vault_ui                    = 
 velero_version              = ""
 velero_s3_bucket_name       = ""
