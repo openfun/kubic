@@ -42,7 +42,7 @@ The Vault may be automatically initialized and unsealed. This is done by executi
 This part is not mandatory. It deploys the Key/Value engine on the Vault, as well as a Kubernetes backend for authentication (for instance used by the argocd-vault plugin).
 The k8s backend has read-access on the path `kv/*`.
 
-Go to the `vault` folder, create a `terraform.tfvars` and fill it with the required variables. The `vault_root_token` may be found in the previously generated `cluster-keys.json`file. Then do a `terraform init`, followed by `terraform plan`, then `terraform apply`.
+Go to the `vault` folder, copy `terraform.tfvars.template` to `terraform.tfvars` and fill it with the required variables. (description may be found in the `variables.tf` file). The `vault_root_token` may be found in the previously generated `cluster-keys.json` file. Then do a `terraform init`, followed by `terraform plan`, then `terraform apply`.
 
 **Congratulations! Your Hashicorp Vault is now ready to use, enjoy!**
 
