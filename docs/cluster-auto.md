@@ -29,6 +29,9 @@ Terraform needs a few variables to create your cluster, please run `bin/bootstra
 - The hostname for several services : ArgoCD, Grafana, Vault (if installed)
 - A S3 bucket for Velero
 - ArgoCD needs a Git repository with HTTPS credentials for access. You can use a private repository, or a public one. If you use a private repository, you will need to provide the HTTPS credentials (username and password). If you use a public repository, you can leave the username and password empty.
+- API keys for your provider:
+  - For OVH, see [here](https://help.ovhcloud.com/csm/en-api-getting-started-ovhcloud-api?id=kb_article_view&sysparm_article=KB0042777#advanced-usage-pair-ovhcloud-apis-with-an-application)
+  - For Scaleway, see [here](https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/)
 
 **The script will prompt for the most common variables. By default, some variables are not prompted (and their default value is then used). If you wish, you can look into the `variables.tf` and the `variables-common.tf` files to see all the variables that can be set. Simply add them to the `terraform.tfvars` file.**
 
