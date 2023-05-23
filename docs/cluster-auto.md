@@ -30,6 +30,8 @@ Terraform needs a few variables to create your cluster, please run `bin/bootstra
 - A S3 bucket for Velero
 - ArgoCD needs a Git repository with HTTPS credentials for access. You can use a private repository, or a public one. If you use a private repository, you will need to provide the HTTPS credentials (username and password). If you use a public repository, you can leave the username and password empty.
 
+**The script will prompt for the most common variables. By default, some variables are not prompted (and their default value is then used). If you wish, you can look into the `variables.tf` and the `variables-common.tf` files to see all the variables that can be set. Simply add them to the `terraform.tfvars` file.**
+
 ### Deploy the cluster
 
 After your `terraform.tfvars` file has been successfully created, you can now deploy the cluster. Run `bin/terraform-init.sh <your provider>` to initialize Terraform. After this, run `bin/terraform-plan.sh <your provider>`, the output shows you what Terraform will do. If you are satisfied with the plan, run `bin/terraform-apply.sh <your provider>` to deploy the cluster. _(Please ignore the output of the command beginning with 'To perform exactly these actions...')_
