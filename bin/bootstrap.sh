@@ -110,7 +110,7 @@ for i in "${!non_default_variables[@]}"; do
             read -p "You have to specify a value for \"argocd_password\": " argocd_password
         done
         DOCKER_USER="$(id -u):$(id -g)" \
-        argocd_password_hashed="$(docker-compose run --quiet-pull --rm argocd-cli argocd account bcrypt --password $argocd_password)"
+        argocd_password_hashed="$(docker-compose run --rm argocd-cli argocd account bcrypt --password $argocd_password)"
 
         # Store the variable name and value in the $tfvars_file file if the variable is declared in the file
         if $(grep -q "argocd_password" "$tfvars_file"); then
