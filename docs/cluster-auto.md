@@ -29,3 +29,17 @@ Terraform needs a few variables to create your cluster, please run `bin/bootstra
 - The hostname for several services : ArgoCD, Grafana, Vault (if installed)
 - A S3 bucket for Velero
 - ArgoCD needs a Git repository with HTTPS credentials for access. You can use a private repository, or a public one. If you use a private repository, you will need to provide the HTTPS credentials (username and password). If you use a public repository, you can leave the username and password empty.
+
+### Deploy the cluster
+
+After your `terraform.tfvars` file has been successfully created, you can now deploy the cluster. Run `bin/terraform-init.sh <your provider>` to initialize Terraform. After this, run `bin/terraform-plan.sh <your provider>`, the output shows you what Terraform will do. If you are satisfied with the plan, run `bin/terraform-apply.sh <your provider>` to deploy the cluster. _(Please ignore the output of the command beginning with 'To perform exactly these actions...')_
+
+While running, the `terraform-apply.sh` script may crash (especially with OVH). If so, analyze the error. If it is related to timeouts or server errors, simply re-run the script. (if you encounter errors re-running `terraform-apply.sh`, try running `terraform-plan.sh` before). The script may last more than 10 minutes, please be patient.
+
+**Warning: If the script were to crash, make sure Terraform has not been creating ressources (e.g. a k8s cluster) in the background (which has not been linked to the state due to the crash). If so, you will have to delete them manually.**
+
+At the end of the script, please make the needed changes on your DNS (adding the ingress IP to the needed domains), you may be able to retrieve your Kubeconfig file with the following command: `bin/get-kube-config.sh <your provider>`. 
+
+### Destroy the cluster
+
+With: `bin/terraform-destroy <your provider>`. **Warning: there is no confirmation, it will destroy the cluster immediately.**
