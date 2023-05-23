@@ -113,14 +113,19 @@ velero_s3_access_key_id     = YOUR_S3_ACCESS_KEY_ID
 velero_s3_secret_access_key = YOUR_S3_SECRET_ACCESS_KEY
 ```
 
+**Set persistent volumes backup**
+
+We use the opt-in approach from Velero to backup persistent volumes (more information [here](https://velero.io/docs/main/file-system-backup/)). This means that you need to add the following annotation to your pods, when you want its PVC to be saved : `backup.velero.io/backup-volumes: <volumes_names>, ...`. This will backup the persistent volume claim and the persistent volume associated with it.
+
+
 **Manual backup**
 
 To backup the cluster, you need to create a backup file. This is done with the following command : `velero backup create BACKUP_NAME`. You can list your backups with `velero backup get`.
 
-**Schedule a backup**
+**Auto backup**
 
 To schedule a backup of your namespace, just refer to the template `common/Schedlule-template.yaml.template` and fill it with the correct values. Then apply it with `kubectl apply -f Schedlule-template.yaml`.
 
 **Restore from backup**
 
-To restore from a backup, run the following command, with *BACKUP_NAME* being the name of the backup you want to restore from : `velero restore --from-backup BACKUP_NAME`.
+To restore from a backup, run the following command, with *BACKUP_NAME* being the name of the backup you want to restore from : `velero restore create --from-backup BACKUP_NAME`.
