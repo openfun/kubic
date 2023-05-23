@@ -2,7 +2,7 @@
 
 ## Overview 
 
-This Terraform aims at creating a k8s cluster setup with :
+This Terraform aims at creating a managed k8s cluster setup with :
 
 - NGINX Ingress Controller
 - Cert-manager
@@ -11,7 +11,7 @@ This Terraform aims at creating a k8s cluster setup with :
 - Velero for backuping the cluster
 - Hashicorp Vault if needed
 
-The cluster can be deployed either on OVHCloud or on Scaleway.
+The cluster can be deployed either on OVHCloud or on Scaleway. New provider can be added by creating a new folder in the root of the repository, and by following the same architecture as the existing providers.
 
 ## Repository architecture
 
@@ -32,7 +32,9 @@ The cluster can be deployed either on OVHCloud or on Scaleway.
 All files contained in the folder `common` are symbolicaly linked in the folders `ovh` and `scaleway` to avoid code duplication.
 ## Getting started
 
-- [Create your cluster](docs/cluster.md)
+- Create you cluster:
+  - [Automatic deployment](docs/cluster-auto.md)
+  - [Manual deployment](docs/cluster-manual.md)
 - [Configure HashicorpVault](docs/hashicorp-vault.md)
 - [Configure ArgoCD](docs/argocd.md)
 

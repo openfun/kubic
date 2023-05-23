@@ -1,4 +1,4 @@
-# Deployment steps
+# [MANUAL] Deployment steps
 
 ## Create Terraform's state
 
@@ -41,4 +41,4 @@ Next :
 
 _Using the OVH provider, you may encounter timeouts, or other errors. (coming from OVH) If so, simply re-run the `terraform apply` command. It will continue where it stopped and will eventually complete._
 
-Next step → [Configure HashicorpVault](./hashicorp-vault.md)
+Next step → [Scripted cluster creation](./cluster-auto.md)
