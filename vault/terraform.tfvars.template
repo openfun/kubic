@@ -1,0 +1,3 @@
+vault_root_token=""
+vault_url=""
+kubernetes_api_url=""
