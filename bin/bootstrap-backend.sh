@@ -53,3 +53,5 @@ echo "endpoint = \"$endpoint\"" >>$directory/backend.conf
 echo "skip_region_validation = $skip_region_validation" >>$directory/backend.conf
 
 echo "skip_credentials_validation = $skip_credentials_validation" >>$directory/backend.conf
+
+echo "Congratulations! Your backend configuration has been written down to "$directory"/backend.conf"."
