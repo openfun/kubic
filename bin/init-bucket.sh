@@ -6,6 +6,10 @@ echo "Initializing terraform..."
 DOCKER_USER="$(id -u):$(id -g)" \
     docker-compose run --rm tf-bucket-ovh init -input=false -reconfigure
 
+# Set AWS credentials to dummy values (needed by OVH provider)
+export AWS_ACCESS_KEY_ID="no_need_to_define_an_access_key"
+export AWS_SECRET_ACCESS_KEY="no_need_to_define_a_secret_key"
+
 echo "Planning bucket creation and configuration..."
 # Launch terraform plan
 DOCKER_USER="$(id -u):$(id -g)" \
