@@ -39,3 +39,16 @@ All files contained in the folder `common` are symbolicaly linked in the folders
 - [Configure ArgoCD](docs/argocd.md)
 - [Configure Velero](docs/velero.md)
 - [Standalone use](docs/standalone.md)
+
+## Contributing
+
+Currently, only OVH and Scaleway are supported as providers. Here are the guidelines to add a new provider:
+- Create a new folder in the root of the repository, with the name of the provider;
+- Create a symlink for all files in `common` to your new folder;
+- Create a `terraform.tf` file containing:
+  - Terraform configuration with a `s3` backend;
+  - The `helm`, `kubernetes` and `kubectl` providers along with the provider(s) you need, correctly configured;
+- A `kubernetes.tf` file creating the cluster, with an output named `kubeconfig` that contains the actual kubeconfig for the cluster;
+- A `ingress-nginx.tf` file, deploying the [ingress-nginx ingress controller](https://kubernetes.github.io/ingress-nginx) and configuring it with an external IP (you may need to create a load balancer on your provider). The ingress IP should be a Terraform output named `ingress_ip`;
+  - This must also create a `null_resource` named `ingress-nginx` that will `depends_on` on the node pool of your cluster (this is to get a consistent dependency chain for Terraform)
+- Edit the `docker-compose.yaml` and create a service (adapt merely the code) for your provider. 
