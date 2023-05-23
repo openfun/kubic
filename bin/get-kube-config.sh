@@ -11,4 +11,4 @@ if [ ! -d "$directory" ]; then
 fi
 
 DOCKER_USER="$(id -u):$(id -g)" \
-    docker-compose run --rm tf-$directory output -raw kube_config
+    docker-compose run --rm tf-$directory output -raw kubeconfig
