@@ -27,3 +27,5 @@ echo "Your ingress is now running and available at $ingress_ip, please update yo
 for domain in $(grep -Eo '^[^=]+hostname[^=]*=([^=]*)' $directory/terraform.tfvars | cut -d '"' -f 2); do
     echo " - $domain"
 done
+echo ""
+echo "You may now get your kubeconfig file using the following command : 'bin/get-kube-config.sh "$directory"."
