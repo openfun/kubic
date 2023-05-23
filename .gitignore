@@ -3,6 +3,7 @@ env/
 *.env
 *.conf
 .vscode
+.kube
 
 # Local .terraform directories
 **/.terraform/*
