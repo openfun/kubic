@@ -33,6 +33,7 @@ all_variables=$(mktemp)
 for var_file in "${var_files[@]}"; do
     if [ -f "$var_file" ]; then
         cat "$var_file" >>$all_variables
+        echo "" >>$all_variables
     fi
 done
 
