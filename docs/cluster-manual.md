@@ -1,5 +1,6 @@
 # [MANUAL] Deployment steps
 
+_This assumes you have the Terraform CLI installed on your computer._
 ## Create Terraform's state
 
 First, we need a s3 bucket to store the Terraform's state, so that it can be available everywhere (and not only on your computer). If you already have a bucket, you can skip this step.
@@ -7,7 +8,7 @@ First, we need a s3 bucket to store the Terraform's state, so that it can be ava
 This repository provides a Terraform to create a bucket on OVH. For this step, you will need OVH API credentials (`application key`, `secret key` and `consumer key`, as well as the project id in which you will create the bucket, see [here if you do not know how to get them](https://help.ovhcloud.com/csm/en-api-getting-started-ovhcloud-api?id=kb_article_view&sysparm_article=KB0042777#advanced-usage-pair-ovhcloud-apis-with-an-application)).
 
 - Go to `/state_bucket`, and do a `terraform init`
-- Provide the correct variables in a `terraform.tfvars` file. (the needed variables are listed in the `variables.tf` file)
+- Copy the `terraform.tfvars.template` into `terraform.tfvars` and provide the correct variables in it. (description of the vars is available in the `variables.tf` file)
 - At this step, we need to do a tiny trick coming from [OVH](https://github.com/yomovh/tf-at-ovhcloud/blob/main/s3_bucket_only/README.md) :
 
 _If you have AWS CLI already configured, you are good to go !_
@@ -34,9 +35,9 @@ Next :
 
 - Provide the correct variables in a `terraform.tfvars` file. List of variables is available in the `variables.tf` file and in the `variables-common.tf` file, along with description and default values;
   - For Hashicorp Vault: if you do not have a custom certificate, just leave the following variables empty: `vault_api_signed_certificate`, `vault_api_private_key`, `vault_api_ca_bundle`.
-- Copy the `credentials.auto.tfvars.json.template` to `credentials.auto.tfvars.json` and fill it with the corresponding credentials (you need to create API keys from your providers). Terraform will automaticaly generate a certificate and use it for the vault;
-  - For OVH, see [here](https://help.ovhcloud.com/csm/en-api-getting-started-ovhcloud-api?id=kb_article_view&sysparm_article=KB0042777#advanced-usage-pair-ovhcloud-apis-with-an-application)
-  - For Scaleway, see [here](https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/)
+  - You will need API credentials for the provider you choose:
+    - For OVH, see [here](https://help.ovhcloud.com/csm/en-api-getting-started-ovhcloud-api?id=kb_article_view&sysparm_article=KB0042777#advanced-usage-pair-ovhcloud-apis-with-an-application)
+    - For Scaleway, see [here](https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/)
 - Do a `terraform init -backend-config=backend.conf`, then `terraform plan` then `terraform apply` to create your cluster. Doing so, your Terraform state will be saved in the s3 bucket.
 
 _Using the OVH provider, you may encounter timeouts, or other errors. (coming from OVH) If so, simply re-run the `terraform apply` command. It will continue where it stopped and will eventually complete._
