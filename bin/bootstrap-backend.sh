@@ -20,7 +20,7 @@ if [ -e "$directory/backend.conf" ]; then
 fi
 
 # Ask for the required values
-read -p "Bucket: " bucket
+read -p "Bucket name: " bucket
 read -p "Region: " region
 read -p "Access Key: " access_key
 read -p "Secret Key: " secret_key
