@@ -29,7 +29,7 @@ read -p "Skip Region Validation (true/false): " skip_region_validation
 read -p "Skip Credentials Validation (true/false): " skip_credentials_validation
 
 echo "The key used will be terraform.tfstate by default."
-read -p "Would you like to use a differents key? (y/n): " -n 1 -r
+read -p "Would you like to use a different key? (y/n): " -n 1 -r
 echo
 if [[ ! $REPLY =~ ^[Nn]$ ]]; then
     read -p "State key: " key2
