@@ -12,7 +12,7 @@ fi
 
 # Ensure tfplan file exists
 if [ ! -f "$directory/tfplan" ]; then
-    echo "The tfplan file does not exist. Please run terraform plan first."
+    echo "The tfplan file does not exist. Please run terraform plan first, with the following command: 'bin/terraform-plan.sh "$directory"'."
     exit 1
 fi
 
