@@ -6,9 +6,14 @@ echo "Initializing terraform..."
 DOCKER_USER="$(id -u):$(id -g)" \
     docker-compose run --rm tf-bucket-ovh init -input=false -reconfigure
 
-# Set AWS credentials to dummy values (needed by OVH provider)
-export AWS_ACCESS_KEY_ID="no_need_to_define_an_access_key"
-export AWS_SECRET_ACCESS_KEY="no_need_to_define_a_secret_key"
+# Set AWS credentials to dummy values if not already defined (needed by OVH provider)
+
+if [ -z "$AWS_ACCESS_KEY_ID" ]; then
+    export AWS_ACCESS_KEY_ID="no_need_to_define_an_access_key"
+fi
+if [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
+    export AWS_SECRET_ACCESS_KEY="no_need_to_define_a_secret_key"
+fi
 
 echo "Planning bucket creation and configuration..."
 # Launch terraform plan
@@ -36,3 +41,13 @@ echo "Here are your credentials:"
 echo " - Bucket name: $bucket_name"
 echo " - Access key: $access_key"
 echo " - Secret key: $secret_key"
+
+echo "You can now use these credentials to configure your S3 client."
+
+# Unset AWS credentials if they were not defined before
+if [ "$AWS_ACCESS_KEY_ID" = "no_need_to_define_an_access_key" ]; then
+    unset AWS_ACCESS_KEY_ID
+fi
+if [ "$AWS_SECRET_ACCESS_KEY" = "no_need_to_define_a_secret_key" ]; then
+    unset AWS_SECRET_ACCESS_KEY
+fi
