@@ -175,3 +175,5 @@ Beware, the secret **must** be created in the `argocd` namespace.
 ```
 
 Please note that if you do not want to use external repositories, you can still declare a helm chart in the mono-repo which calls an external chart which has to be stored on a helm repository.
+
+Next step → [Use Velero](./velero.md)
