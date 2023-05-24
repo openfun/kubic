@@ -51,4 +51,18 @@ Currently, only OVH and Scaleway are supported as providers. Here are the guidel
 - A `kubernetes.tf` file creating the cluster, with an output named `kubeconfig` that contains the actual kubeconfig for the cluster;
 - A `ingress-nginx.tf` file, deploying the [ingress-nginx ingress controller](https://kubernetes.github.io/ingress-nginx) and configuring it with an external IP (you may need to create a load balancer on your provider). The ingress IP should be a Terraform output named `ingress_ip`;
   - This must also create a `null_resource` named `ingress-nginx` that will `depends_on` on the node pool of your cluster (this is to get a consistent dependency chain for Terraform)
+  - The controller must have at least the following configuration:
+```yaml
+controller:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      additionalLabels:
+        release: prometheus
+      enabled: true
+  extraArgs:
+    enable-ssl-passthrough: true
+  admissionWebhooks:
+    timeoutSeconds: 30
+```
 - Edit the `docker-compose.yaml` and create a service (adapt merely the code) for your provider. 
