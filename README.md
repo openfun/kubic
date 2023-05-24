@@ -1,6 +1,17 @@
-# SharedKube
+# Kubic - Kubernetes Infrastructure as Code
 
-## Overview 
+![Kubernetes](https://img.shields.io/static/v1?style=for-the-badge&message=Kubernetes&color=326CE5&logo=Kubernetes&logoColor=FFFFFF&label=)
+![NGINX](https://img.shields.io/static/v1?style=for-the-badge&message=NGINX&color=009639&logo=NGINX&logoColor=FFFFFF&label=)
+![Argo](https://img.shields.io/static/v1?style=for-the-badge&message=Argo&color=EF7B4D&logo=Argo&logoColor=FFFFFF&label=)
+![Vault](https://img.shields.io/static/v1?style=for-the-badge&message=Vault&color=000000&logo=Vault&logoColor=FFFFFF&label=)
+[![Terraform](https://img.shields.io/static/v1?style=for-the-badge&message=Terraform&color=7B42BC&logo=Terraform&logoColor=FFFFFF&label=)](https://www.terraform.io)
+
+Available on:
+
+![Scaleway](https://img.shields.io/static/v1?style=for-the-badge&message=Scaleway&color=4F0599&logo=Scaleway&logoColor=FFFFFF&label=)
+![OVH](https://img.shields.io/static/v1?style=for-the-badge&message=OVH&color=123F6D&logo=OVH&logoColor=FFFFFF&label=)
+
+## Overview
 
 This Terraform aims at creating a managed k8s cluster setup with :
 
@@ -26,10 +37,11 @@ The cluster can be deployed either on OVHCloud or on Scaleway. New provider can 
 ├── examples              # Folder containing examples of applications to deploy with ArgoCD
 ├── .gitignore
 ├── LICENSE
-└── README.md                      
+└── README.md
 ```
 
 All files contained in the folder `common` are symbolicaly linked in the folders `ovh` and `scaleway` to avoid code duplication.
+
 ## Getting started
 
 - Create you cluster:
@@ -43,6 +55,7 @@ All files contained in the folder `common` are symbolicaly linked in the folders
 ## Contributing
 
 Currently, only OVH and Scaleway are supported as providers. Here are the guidelines to add a new provider:
+
 - Create a new folder in the root of the repository, with the name of the provider;
 - Create a symlink for all files in `common` to your new folder;
 - Create a `terraform.tf` file containing:
@@ -52,6 +65,7 @@ Currently, only OVH and Scaleway are supported as providers. Here are the guidel
 - A `ingress-nginx.tf` file, deploying the [ingress-nginx ingress controller](https://kubernetes.github.io/ingress-nginx) and configuring it with an external IP (you may need to create a load balancer on your provider). The ingress IP should be a Terraform output named `ingress_ip`;
   - This must also create a `null_resource` named `ingress-nginx` that will `depends_on` on the node pool of your cluster (this is to get a consistent dependency chain for Terraform)
   - The controller must have at least the following configuration:
+
 ```yaml
 controller:
   metrics:
@@ -65,4 +79,5 @@ controller:
   admissionWebhooks:
     timeoutSeconds: 30
 ```
-- Edit the `docker-compose.yaml` and create a service (adapt merely the code) for your provider. 
+
+- Edit the `docker-compose.yaml` and create a service (adapt merely the code) for your provider.
