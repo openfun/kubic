@@ -1,4 +1,6 @@
 resource "helm_release" "velero" {
+  count = (var.install_velero) ? 1 : 0
+
   name             = "velero"
   namespace        = "velero"
   create_namespace = true
