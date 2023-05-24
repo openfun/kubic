@@ -1,6 +1,6 @@
 # Standalone use
 
-If you already have a cluster (with another provider or whatever), you can still use this Terraform to deploy all the mentioned tools on it. For this, you will need a `kubeconfig` file to access your cluster. (or your credentials, if so, you will have to modify by yourself the `terraform.tf` file).
+If you already have a cluster (with another provider or whatever), you can still use this Terraform to deploy all the mentioned tools on it, **iff you use ingress-nginx as your ingress controller**. For this, you will need a `kubeconfig` file to access your cluster. (or your credentials, if so, you will have to modify by yourself the `terraform.tf` file).
 
 This part will install :
 - Cert-manager, provisionned with issuers
@@ -8,6 +8,22 @@ This part will install :
 - ArgoCD provisionned with a default repository
 - Velero
 - Hashicorp Vault
+
+## Requirements
+
+Ingress-nginx must be configured with some values:
+
+```yaml
+controller:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      additionalLabels:
+        release: prometheus
+      enabled: true
+  extraArgs:
+    enable-ssl-passthrough: true
+```
 
 ## Steps
 
