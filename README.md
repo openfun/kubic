@@ -1,26 +1,29 @@
 # Kubic - Kubernetes Infrastructure as Code
 
-![Kubernetes](https://img.shields.io/static/v1?style=for-the-badge&message=Kubernetes&color=326CE5&logo=Kubernetes&logoColor=FFFFFF&label=)
-![NGINX](https://img.shields.io/static/v1?style=for-the-badge&message=NGINX&color=009639&logo=NGINX&logoColor=FFFFFF&label=)
-![Argo](https://img.shields.io/static/v1?style=for-the-badge&message=Argo&color=EF7B4D&logo=Argo&logoColor=FFFFFF&label=)
-![Vault](https://img.shields.io/static/v1?style=for-the-badge&message=Vault&color=000000&logo=Vault&logoColor=FFFFFF&label=)
+[![Kubernetes](https://img.shields.io/static/v1?style=for-the-badge&message=Kubernetes&color=326CE5&logo=Kubernetes&logoColor=FFFFFF&label=)](https://kubernetes.io)
+[![NGINX](https://img.shields.io/static/v1?style=for-the-badge&message=NGINX&color=009639&logo=NGINX&logoColor=FFFFFF&label=)](https://kubernetes.github.io/ingress-nginx/)
+[![ArgoCD](https://img.shields.io/static/v1?style=for-the-badge&message=ArgoCD&color=EF7B4D&logo=Argo&logoColor=FFFFFF&label=)](https://argo-cd.readthedocs.io)
+[![Vault](https://img.shields.io/static/v1?style=for-the-badge&message=Vault&color=000000&logo=Vault&logoColor=FFFFFF&label=)](https://www.vaultproject.io)
 [![Terraform](https://img.shields.io/static/v1?style=for-the-badge&message=Terraform&color=7B42BC&logo=Terraform&logoColor=FFFFFF&label=)](https://www.terraform.io)
 
 Available on:
 
-![Scaleway](https://img.shields.io/static/v1?style=for-the-badge&message=Scaleway&color=4F0599&logo=Scaleway&logoColor=FFFFFF&label=)
-![OVH](https://img.shields.io/static/v1?style=for-the-badge&message=OVH&color=123F6D&logo=OVH&logoColor=FFFFFF&label=)
+[![Scaleway](https://img.shields.io/static/v1?style=for-the-badge&message=Scaleway&color=4F0599&logo=Scaleway&logoColor=FFFFFF&label=)](https://www.scaleway.com)
+[![OVH](https://img.shields.io/static/v1?style=for-the-badge&message=OVH&color=123F6D&logo=OVH&logoColor=FFFFFF&label=)](https://www.ovh.com)
 
 ## Overview
+
+Kubic is a cutting edge, ready for production and multi cloud provider Kubernetes infrastructure as code. It integates an ingress controller, a certificate manager, a monitoring stack, a GitOps tool with complete secret management and a backup tool.
 
 This Terraform aims at creating a managed k8s cluster setup with :
 
 - NGINX Ingress Controller
 - Cert-manager
-- ArgoCD
 - Prometheus / Grafana
-- Velero for backuping the cluster
+- ArgoCD
 - Hashicorp Vault if needed
+- ArgoCD Vault Plugin if Vault is deployed
+- Velero for backuping the cluster
 
 The cluster can be deployed either on OVHCloud or on Scaleway. New provider can be added by creating a new folder in the root of the repository, and by following the same architecture as the existing providers.
 
@@ -47,7 +50,7 @@ All files contained in the folder `common` are symbolicaly linked in the folders
 - Create you cluster:
   - [Manual deployment](docs/cluster-manual.md)
   - [Automatic deployment](docs/cluster-auto.md)
-- [Configure HashicorpVault](docs/hashicorp-vault.md)
+- [Configure Hashicorp Vault](docs/hashicorp-vault.md)
 - [Configure ArgoCD](docs/argocd.md)
 - [Configure Velero](docs/velero.md)
 - [Standalone use](docs/standalone.md)
