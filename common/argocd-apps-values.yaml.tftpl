@@ -11,7 +11,7 @@ applicationsets:
     goTemplate: true
     template:
       metadata:
-        name: '{{ index .path.segments 1 }}-{{ index (splitList "." .path.filename) 0 }}'
+        name: '{{ index .path.segments 1 }}{{ if ne (index .path.segments 1) (index (splitList "." .path.filename) 0) }}-{{ index (splitList "." .path.filename) 0 }}{{ end }}'
       spec:
         project: default
         source:
@@ -27,7 +27,7 @@ applicationsets:
                 value: '{{ default "default-vault-credentials" .vaultCredentials }}'
         destination:
           server: https://kubernetes.default.svc
-          namespace: '{{ index .path.segments 1 }}-{{ index (splitList "." .path.filename) 0 }}'
+          namespace: '{{ index .path.segments 1 }}{{ if ne (index .path.segments 1) (index (splitList "." .path.filename) 0) }}-{{ index (splitList "." .path.filename) 0 }}{{ end }}'
         syncPolicy:
           automated:
             prune: true
