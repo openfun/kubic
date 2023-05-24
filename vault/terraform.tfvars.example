@@ -1,0 +1,9 @@
+#########################################################################################
+#                                                                                       #
+#         This file contains example values to help during manual configuration         #
+#                                                                                       #
+#########################################################################################
+
+vault_root_token="hvs.KBaq5iFce5wqKYY5hPGoPvES"
+vault_url="https://vault.kubic.example"
+kubernetes_api_url="https://aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee.api.k8s.fr-par.scw.cloud:6443"
