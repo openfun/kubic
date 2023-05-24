@@ -2,20 +2,10 @@
 
 Velero is a backup and restore tool for Kubernetes. It is used to backup the cluster's resources, and to restore them in case of disaster. It is also used to migrate the cluster to another provider.
 
-## Configuration
-
 Before using Velero, all you need is an external S3 bucket to store your backups. You can use any S3 compatible storage provider. 
+When creating the cluster, all velero variables are to be set either manualy in the `terraform.tfvars` file or during the automatic setup, according to the type of installation you choose.
 
-**Installation**
-
-Before you run the `terraform apply`command, update your `terraform.tfvars` file with the following variables, according to your S3 provider :
-```velero_version              = YOUR_VELERO_VERSION
-velero_s3_bucket_endpoint   = YOUR_S3_BUCKET_ENDPOINT
-velero_s3_bucket_region     = YOUR_S3_BUCKET_REGION
-velero_s3_bucket_name       = YOUR_S3_BUCKET_NAME
-velero_s3_access_key_id     = YOUR_S3_ACCESS_KEY_ID
-velero_s3_secret_access_key = YOUR_S3_SECRET_ACCESS_KEY
-```
+## Configuration
 
 **Set persistent volumes backup**
 
