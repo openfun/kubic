@@ -1,0 +1,48 @@
+#########################################################################################
+#                                                                                       #
+#         This file contains example values to help during manual configuration         #
+#                                                                                       #
+#########################################################################################
+
+application_key             = "a73f55cccbff3fdb"
+application_secret          = "3cfec173af31c5686298c0c149b3b4ad"
+consumer_key                = "359f134dfafaa3894b75c212113f7705"
+ovh_public_cloud_project_id = "2b33cd4c4eb3c1c7d8e9a95541aef0dd"
+k8s_cluster_name            = "my_cluster"
+k8s_cluster_region          = "SBG5"
+k8s_cluster_version         = "1.26"
+k8s_nodepool_name           = "default-pool"
+k8s_nodepool_flavor         = "d2-4"
+k8s_nodepool_monthly_billed = false
+k8s_nodepool_min_nodes      = "2"
+k8s_nodepool_max_nodes      = "10"
+argocd_hostname             = "argocd.kubic.example"
+argocd_password             = "$2a$10$QAlYJhAr2QMETwDeqyEKReXttl3P1BUbMvoukKCL9nZwauYbg0mN6"
+argocd_repo_url             = "https://github.com/example/argocd.git"
+argocd_repo_username        = "argocd"
+argocd_repo_password        = "access_token"
+main_cluster_issuer_name    = "letsencrypt-prod"
+issuers = [
+  {
+    name                    = "letsencrypt-prod"
+    server                  = "https://acme-v02.api.letsencrypt.org/directory"
+    email                   = "",
+    private_key_secret_name = "letsencrypt-prod"
+    }, {
+    name                    = "letsencrypt-staging"
+    server                  = "https://acme-staging-v02.api.letsencrypt.org/directory"
+    email                   = ""
+    private_key_secret_name = "letsencrypt-staging"
+  }
+]
+grafana_hostname            = "grafana.kubic.example"
+grafana_admin_password      = "change_me"
+vault_server_hostname       = "vault.kubic.example"
+install_hashicorp_vault     = true
+vault_ui                    = true
+velero_version              = "4.0.2"
+velero_s3_bucket_name       = "velero_bucket"
+velero_s3_bucket_region     = "gra"
+velero_s3_bucket_endpoint   = "https://s3.gra.io.cloud.ovh.net"
+velero_s3_access_key_id     = "acb2c7815132b7157b881b83a002b3f"
+velero_s3_secret_access_key = "2d0f550387fa8a2073f3a8fc2062e28"

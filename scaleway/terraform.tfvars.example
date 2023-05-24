@@ -1,0 +1,45 @@
+#########################################################################################
+#                                                                                       #
+#         This file contains example values to help during manual configuration         #
+#                                                                                       #
+#########################################################################################
+
+scaleway_access_key         = "SCWXXXXXXXXXXXXXXXXX"
+scaleway_secret_key         = "3caf2873-0ff0-4626-a174-73620869c8d4"
+scaleway_project_id         = "23d0332d-4917-43e3-bdb5-ff43e9e57ba4"
+scaleway_region             = "fr-par"
+k8s_cluster_name            = "my_cluster"
+k8s_cluster_version         = "1.27.1"
+k8s_nodepool_name           = "my_pool"
+k8s_nodepool_flavor         = "DEV1-M"
+k8s_nodepool_size           = "1"
+argocd_hostname             = "argocd.kubic.example"
+argocd_password             = "$2a$10$QAlYJhAr2QMETwDeqyEKReXttl3P1BUbMvoukKCL9nZwauYbg0mN6"
+argocd_repo_url             = "https://github.com/example/argocd.git"
+argocd_repo_username        = "argocd"
+argocd_repo_password        = "access_token"
+main_cluster_issuer_name    = "letsencrypt-prod"
+issuers = [
+  {
+    name                    = "letsencrypt-prod"
+    server                  = "https://acme-v02.api.letsencrypt.org/directory"
+    email                   = "",
+    private_key_secret_name = "letsencrypt-prod"
+    }, {
+    name                    = "letsencrypt-staging"
+    server                  = "https://acme-staging-v02.api.letsencrypt.org/directory"
+    email                   = ""
+    private_key_secret_name = "letsencrypt-staging"
+  }
+]
+grafana_hostname            = "grafana.kubic.example"
+grafana_admin_password      = "change_me"
+vault_server_hostname       = "vault.kubic.example"
+install_hashicorp_vault     = true
+vault_ui                    = true
+velero_version              = "4.0.2"
+velero_s3_bucket_name       = "velero_bucket"
+velero_s3_bucket_region     = "gra"
+velero_s3_bucket_endpoint   = "https://s3.gra.io.cloud.ovh.net"
+velero_s3_access_key_id     = "acb2c7815132b7157b881b83a002b3f"
+velero_s3_secret_access_key = "2d0f550387fa8a2073f3a8fc2062e28"
