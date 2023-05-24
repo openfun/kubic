@@ -1,0 +1,27 @@
+site_name: Kubic
+site_url: https://openfun.github.io/kubic/
+site_description: A Kubernetes deployment as code to OVH or Scaleway, with Prometheus, ArgoCD and Hashicorp Vault
+site_author: Open FUN (France Universite Numerique)
+
+repo_name: openfun/kubic
+repo_url: https://github.com/openfun/kubic/
+
+copyright: 2023-present France Université Numérique
+
+theme:
+  name: material
+  palette:
+    primary: deep purple
+
+nav:
+  - Getting started: "index.md"
+  - Deployments:
+      - Automatic: "cluster-auto.md"
+      - Manual: "cluster-manual.md"
+  - AgroCD: "argocd.md"
+  - Standalone: "standalone.md"
+  - Velero: "velero.md"
+  - Hashicorp Vault: "hashicorp-vault.md"
+
+plugins:
+  - search
