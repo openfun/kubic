@@ -37,4 +37,5 @@ All files contained in the folder `common` are symbolicaly linked in the folders
   - [Automatic deployment](docs/cluster-auto.md)
 - [Configure HashicorpVault](docs/hashicorp-vault.md)
 - [Configure ArgoCD](docs/argocd.md)
+- [Configure Velero](docs/velero.md)
 
