@@ -2,7 +2,7 @@
 
 Velero is a backup and restore tool for Kubernetes. It is used to backup the cluster's resources, and to restore them in case of disaster. It is also used to migrate the cluster to another provider.
 
-Before using Velero, all you need is an external S3 bucket to store your backups. You can use any S3 compatible storage provider. 
+Before using Velero, all you need is an external S3 bucket to store your backups. You can use any S3 compatible storage provider.
 When creating the cluster, all velero variables are to be set either manualy in the `terraform.tfvars` file or during the automatic setup, according to the type of installation you choose.
 
 ## Configuration
@@ -25,6 +25,6 @@ To schedule a backup of your namespace, just refer to the template `common/Sched
 
 **Restore from backup**
 
-To restore from a backup, run the following command, with *BACKUP_NAME* being the name of the backup you want to restore from : `velero restore create --from-backup BACKUP_NAME`.
+To restore from a backup, run the following command, with _BACKUP_NAME_ being the name of the backup you want to restore from : `velero restore create --from-backup BACKUP_NAME`.
 
 Next step → [Standalone use](./standalone.md)
