@@ -23,18 +23,18 @@ Now we've got our s3 bucket, we have to setup Terraform's backend, where it stor
 
 Run `bin/bootstrap-backend.sh <your provider>` to create the backend. It will create a `backend.conf` file, which will be used by Terraform to store its state in the s3 bucket. Replace `<your provider>` either with `ovh` or `scaleway`.
 
-If you used the previous script to generate the bucket, here are some information you need :
+If you used the previous script to generate the bucket, here are some information you need:
 
-- Region : `gra`
-- Endpoint : `https://s3.gra.io.cloud.ovh.net/`
-- Skip region validation : `true`
-- Skip credentials validation : `true`
+- Region: `gra`
+- Endpoint: `https://s3.gra.io.cloud.ovh.net/`
+- Skip region validation: `true`
+- Skip credentials validation: `true`
 
 ### Provide the correct information
 
-Terraform needs a few variables to create your cluster, please run `bin/bootstrap.sh <your-provider>` and provide the desired values for each parameter. You will need :
+Terraform needs a few variables to create your cluster, please run `bin/bootstrap.sh <your-provider>` and provide the desired values for each parameter. You will need:
 
-- The hostname for several services : ArgoCD, Grafana, Vault (if installed)
+- The hostname for several services: ArgoCD, Grafana, Vault (if installed)
 - A S3 bucket for Velero
 - ArgoCD needs a Git repository with HTTPS credentials for access. You can use a private repository, or a public one. If you use a private repository, you will need to provide the HTTPS credentials (username and password). If you use a public repository, you can leave the username and password empty.
 - API keys for your provider:
