@@ -1,4 +1,3 @@
-
 # ArgoCD
 
 **Before reading this section, please note that disabling the installation of Hashicorp Vault will also disable the installation of ArgoCD Vault Plugin. You are still able to use ArgoCD the way you want but you will have to use your own repo structure.**
@@ -86,7 +85,11 @@ The application is deployed with the following instructions :
 
 - Add the `hello-world` helm chart to the `helm` folder of the mono-repo
 - Declare the application in the `apps` folder of the mono-repo by creating a folder named `hello-world`. **Beware of the name of the folder, it must be the same as the name of the helm chart.**
-- Add a JSON file per environnement and name the file according to the following pattern : `<environment>.json`. For instance, for the staging environment, the file must be named `staging.json`. This file **must be a valid JSON file and must contain at least** :
+- Add a JSON file that fits your needs:
+  - Add a JSON file per environnement and name the file according to the following pattern : `<environment>.json`. For instance, for the staging environment, the file must be named `staging.json`.
+  - Add a JSON file named after the application folder. For instance `hello-world.json`. This will create a standalone application without any environment.
+
+This file **must be a valid JSON file and must contain at least** :
 
 ```json
 {}
