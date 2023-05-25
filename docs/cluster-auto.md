@@ -1,4 +1,5 @@
 # [AUTOMATIC] Deployment steps
+
 _Every command must be run at the root of the repository_
 
 ## Create Terraform's state
@@ -13,19 +14,22 @@ This repository provides a Terraform to create a bucket on OVH. For this step, y
 ## Create and provision the cluster
 
 ### Configure the backend
+
 Now we've got our s3 bucket, we have to setup Terraform's backend, where it stores its state. For this, we will use the s3 bucket we just created (or the one you already have).
 
 Run `bin/bootstrap-backend.sh <your provider>` to create the backend. It will create a `backend.conf` file, which will be used by Terraform to store its state in the s3 bucket. Replace `<your provider>` either with `ovh` or `scaleway`.
 
 If you used the previous script to generate the bucket, here are some information you need :
- - Region : `gra`
- - Endpoint : `https://s3.gra.io.cloud.ovh.net/`
- - Skip region validation : `true`
- - Skip credentials validation : `true`
+
+- Region : `gra`
+- Endpoint : `https://s3.gra.io.cloud.ovh.net/`
+- Skip region validation : `true`
+- Skip credentials validation : `true`
 
 ### Provide the correct information
 
 Terraform needs a few variables to create your cluster, please run `bin/bootstrap.sh <your-provider>` and provide the desired values for each parameter. You will need :
+
 - The hostname for several services : ArgoCD, Grafana, Vault (if installed)
 - A S3 bucket for Velero
 - ArgoCD needs a Git repository with HTTPS credentials for access. You can use a private repository, or a public one. If you use a private repository, you will need to provide the HTTPS credentials (username and password). If you use a public repository, you can leave the username and password empty.
@@ -43,10 +47,10 @@ While running, the `terraform-apply.sh` script may crash (especially with OVH). 
 
 **Warning: If the script were to crash, make sure Terraform has not been creating ressources (e.g. a k8s cluster) in the background (which has not been linked to the state due to the crash). If so, you will have to delete them manually.**
 
-At the end of the script, please make the needed changes on your DNS (adding the ingress IP to the needed domains), you may be able to retrieve your Kubeconfig file with the following command: `bin/get-kube-config.sh <your provider>`. 
+At the end of the script, please make the needed changes on your DNS (adding the ingress IP to the needed domains), you may be able to retrieve your Kubeconfig file with the following command: `bin/get-kube-config.sh <your provider>`.
 
 ### Destroy the cluster
 
 With: `bin/terraform-destroy <your provider>`. **Warning: there is no confirmation, it will destroy the cluster immediately.**
 
-Next step → [Configure HashicorpVault](./hashicorp-vault.md)
+Next step → [Configure Hashicorp Vault](./hashicorp-vault.md)
