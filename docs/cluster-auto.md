@@ -2,6 +2,10 @@
 
 _Every command must be run at the root of the repository_
 
+## Prerequisites
+
+Docker and docker-compose must be installed on your computer.
+
 ## Create Terraform's state
 
 First, we need a s3 bucket to store the Terraform's state, so that it can be available everywhere (and not only on your computer). If you already have a bucket, you can skip this step.
