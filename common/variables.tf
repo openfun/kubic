@@ -131,6 +131,12 @@ variable "vault_seal_method" {
   default     = "shamir"
 }
 
+variable "install_velero" {
+  type        = bool
+  description = "Install Velero"
+  default     = true
+}
+
 variable "velero_version" {
   type        = string
   description = "The version of Velero to install"
