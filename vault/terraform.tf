@@ -23,7 +23,6 @@ resource "vault_mount" "kvv2" {
 resource "vault_kv_secret_backend_v2" "example" {
   mount                = vault_mount.kvv2.path
   max_versions         = 5
-  delete_version_after = 12600
 }
 
 resource "vault_auth_backend" "kubernetes" {
