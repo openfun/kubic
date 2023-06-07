@@ -3,7 +3,7 @@
 # Define a function kubectl that imitate the real kubectl command by calling it from a docker container
 function kubectld() {
     DOCKER_USER="$(id -u):$(id -g)" \
-        docker-compose run --rm kubectld "$@" --kubeconfig=/app/.kube/config
+        docker-compose run --rm kubectld --kubeconfig=/app/.kube/config "$@"
 }
 
 printf "    __  __           __    _                     \n   / / / /___ ______/ /_  (_)________  _________ \n  / /_/ / __ \`/ ___/ __ \/ / ___/ __ \/ ___/ __ \\n / __  / /_/ (__  ) / / / / /__/ /_/ / /  / /_/ /\n/_/ /_/\__,_/____/_/ /_/_/\___/\____/_/  / .___/ \n _    _____   __  ____  ______          /_/     \n | |  / /   | / / / / / /_  __/                   \n| | / / /| |/ / / / /   / /                      \n| |/ / ___ / /_/ / /___/ /                       \n|___/_/  |_\____/_____/_/\n\n\n"
@@ -63,7 +63,7 @@ else
     kubectld exec -n hashicorp-vault hashicorp-vault-0 -- vault operator init \
         -key-shares=$key_nb \
         -key-threshold=$key_nd \
-        -format=json >cluster-keys.json
+        -format=json > cluster-keys.json
 fi
 
 # We get the m first keys to unseal the vault.
@@ -76,6 +76,7 @@ for ((j = 0; j < $nb_replicas; j++)); do
         sleep 2
     done
 done
+
 echo
 echo "Vault completely unsealed. You can now authenticate to the Vault with the root token in the cluster-keys.json file."
 exit 0
