@@ -28,3 +28,4 @@ velero_s3_bucket_region     = ""
 velero_s3_bucket_endpoint   = ""
 velero_s3_access_key_id     = ""
 velero_s3_secret_access_key = ""
+velero_default_volumes_to_fs_backup =
