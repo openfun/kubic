@@ -14,5 +14,6 @@ resource "helm_release" "velero" {
     velero_s3_bucket_endpoint   = var.velero_s3_bucket_endpoint
     velero_s3_access_key_id     = var.velero_s3_access_key_id
     velero_s3_secret_access_key = var.velero_s3_secret_access_key
+    velero_default_volumes_to_fs_backup = var.velero_default_volumes_to_fs_backup
   })]
 }

@@ -11,6 +11,8 @@ When creating the cluster, all velero variables are to be set either manualy in 
 
 We use the opt-in approach from Velero to backup persistent volumes (more information [here](https://velero.io/docs/main/file-system-backup/)). This means that you need to add the following annotation to your pods, when you want its PVC to be saved : `backup.velero.io/backup-volumes: <volumes_names>, ...`. This will backup the persistent volume claim and the persistent volume associated with it.
 
+You can use the opt-out approach by setting `velero_default_volumes_to_fs_backup` to `true` in the `terraform.tfvars`.
+
 ## Velero's CLI
 
 Velero comes with a CLI to manage the backups. You can install it [here](https://velero.io/docs/v1.6/basic-install/). To bind the CLI to your cluster, just set the `--kubeconfig` flag when you run a command. Otherwise, Velero will use your default kubeconfig file.

@@ -165,3 +165,8 @@ variable "velero_s3_secret_access_key" {
   sensitive   = true
 }
 
+variable "velero_default_volumes_to_fs_backup" {
+  type        = bool
+  description = "Enable volume filesystem backups by default"
+  default     = false
+}
