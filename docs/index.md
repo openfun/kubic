@@ -24,6 +24,7 @@ This Terraform aims at creating a managed k8s cluster setup with :
 - Hashicorp Vault if needed
 - ArgoCD Vault Plugin if Vault is deployed
 - Velero for backuping the cluster
+- Loki if enabled
 
 The cluster can be deployed either on OVHCloud or on Scaleway. New provider can be added by creating a new folder in the root of the repository, and by following the same architecture as the existing providers.
 
