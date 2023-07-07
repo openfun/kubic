@@ -182,3 +182,59 @@ variable "velero_default_volumes_to_fs_backup" {
   description = "Enable volume filesystem backups by default"
   default     = false
 }
+
+variable "promtail_version" {
+  type        = string
+  description = "The chart version of promtail to install"
+  default     = "6.11.5"
+}
+
+variable "loki_enabled" {
+  type        = bool
+  description = "Enable the log aggregation with Loki"
+  default     = false
+}
+
+variable "loki_version" {
+  type        = string
+  description = "The chart version of loki to install"
+  default     = "5.8.9"
+}
+
+variable "loki_s3_chunks_bucket_name" {
+  type        = string
+  description = "The name of the S3 chunks bucket to use for loki"
+}
+
+variable "loki_s3_ruler_bucket_name" {
+  type        = string
+  description = "The name of the S3 ruler bucket to use for loki"
+}
+
+variable "loki_s3_admin_bucket_name" {
+  type        = string
+  description = "The name of the S3 admin bucket to use for loki"
+}
+
+variable "loki_s3_bucket_region" {
+  type        = string
+  description = "The region of the S3 bucket to use for loki"
+}
+
+variable "loki_s3_bucket_endpoint" {
+  type        = string
+  description = "The endpoint of the S3 bucket to use for loki"
+  default     = "s3.amazonaws.com"
+}
+
+variable "loki_s3_access_key_id" {
+  type        = string
+  description = "The access key of the S3 bucket to use for loki"
+  sensitive   = true
+}
+
+variable "loki_s3_secret_access_key" {
+  type        = string
+  description = "The secret key of the S3 bucket to use for loki"
+  sensitive   = true
+}
