@@ -15,14 +15,22 @@ grafana:
         hosts:
           - ${hostname}
   adminPassword: ${grafana_admin_password}
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Loki
+          type: loki
+          url: http://loki-gateway.loki.svc.cluster.local
+
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
       providers:
-      - name: 'k8s'
-        orgId: 1
-        options:
-          path: /var/lib/grafana/dashboards/k8s
+        - name: "k8s"
+          orgId: 1
+          options:
+            path: /var/lib/grafana/dashboards/k8s
   dashboards:
     k8s:
       nginx:
