@@ -19,7 +19,7 @@ This Terraform aims at creating a managed k8s cluster setup with :
 
 - NGINX Ingress Controller
 - Cert-manager
-- Prometheus / Grafana
+- Prometheus / Grafana / Loki
 - ArgoCD
 - Hashicorp Vault if needed
 - ArgoCD Vault Plugin if Vault is deployed
