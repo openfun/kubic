@@ -49,7 +49,7 @@ services:
     user: ${DOCKER_USER:-1000}
     working_dir: /app
   argocd-cli:
-    image: argoproj/argocd:v2.6.11
+    image: argoproj/argocd:v2.6.15
     user: ${DOCKER_USER:-1000}
   kubectld:
     image: bitnami/kubectl:1.27.3
