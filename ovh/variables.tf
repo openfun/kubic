@@ -48,7 +48,7 @@ variable "k8s_nodepool_name" {
 variable "k8s_nodepool_flavor" {
   type        = string
   description = "The flavor to use for the nodepool"
-  default     = "d2-4"
+  default     = "d2-8"
 }
 
 variable "k8s_nodepool_monthly_billed" {
