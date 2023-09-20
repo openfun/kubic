@@ -23,6 +23,12 @@ variable "argocd_repo_password" {
   description = "ArgoCD applications repo password"
 }
 
+variable "argocd_version" {
+  type        = string
+  description = "The version of ArgoCD helm release to install"
+  default     = "5.33.1"
+}
+
 variable "argocd_avp_version" {
   type        = string
   description = "ArgoCD argo-vault-plugin version"
@@ -129,6 +135,12 @@ variable "vault_seal_method" {
   type        = string
   description = "The Vault seal method to use"
   default     = "shamir"
+}
+
+variable "vault_version" {
+  type        = string
+  description = "The version of Hashicorp vault helm release to install"
+  default     = "1.24.12"
 }
 
 variable "velero_version" {
