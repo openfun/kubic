@@ -16,6 +16,7 @@ resource "helm_release" "hashicorp-vault" {
 
   repository = "https://helm.releases.hashicorp.com"
   chart      = "vault"
+  version    = var.vault_version
 
   values = [templatefile("${path.module}/vault-values.yml", {
     kubernetes_secret_name_tls_ca    = kubernetes_secret.tls_ca.metadata.0.name

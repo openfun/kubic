@@ -6,6 +6,7 @@ resource "helm_release" "argocd" {
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
   timeout    = 600
+  version    = var.argocd_version
 
   values = [
     templatefile("${path.module}/argocd-values.yaml.tftpl",
