@@ -149,6 +149,27 @@ Just like that, the developer who controls the helm chart is able to request any
 of a secret in the vault. Therefore, the cluster administrator must restrict the access to the secrets for specific applications. This is achieved by following this procedure :
 
 1. Create a specific policy in Vault for the application which only gives access to the secrets needed by the application
+
+RW policy example :
+
+```hcl
+path "kv/metadata/my_app/*" {
+  capabilities = ["list", "read", "delete"]
+}
+path "kv/data/my_app/*" {
+  capabilities = ["create", "update", "read", "delete"]
+}
+path "kv/delete/my_app/*" {
+  capabilities = ["update"]
+}
+path "kv/undelete/my_app/*" {
+  capabilities = ["update"]
+}
+path "kv/destroy/my_app/*" {
+  capabilities = ["update"]
+}
+```
+
 2. Attach the policy to the Vault Authentication Method
 3. Create an ArgoCD Vault Plugin configuration secret which uses the Vault Authentication Method. Please refer to the [ArgoCD Vault Plugin backend documentation](https://argocd-vault-plugin.readthedocs.io/en/stable/backends/) and the [ArgoCD Vault Plugin configuration documentation](https://argocd-vault-plugin.readthedocs.io/en/stable/config/) for more information. Here is an example of a configuration secret for AppRole authentication:
 
