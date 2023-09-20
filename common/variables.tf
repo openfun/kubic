@@ -122,7 +122,7 @@ variable "vault_api_ca_bundle" {
 variable "vault_ui" {
   type        = bool
   description = "Enable the Vault UI"
-  default     = false
+  default     = true
 }
 
 variable "kubernetes_vault_ui_service_type" {
