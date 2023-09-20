@@ -10,10 +10,16 @@ Docker and docker-compose must be installed on your computer.
 
 First, we need a s3 bucket to store the Terraform's state, so that it can be available everywhere (and not only on your computer). If you already have a bucket, you can skip this step.
 
-This repository provides a Terraform to create a bucket on OVH. For this step, you will need OVH API credentials (`application key`, `secret key` and `consumer key`, as well as the project id in which you will create the bucket, see [here if you do not know how to get them](https://help.ovhcloud.com/csm/en-api-getting-started-ovhcloud-api?id=kb_article_view&sysparm_article=KB0042777#advanced-usage-pair-ovhcloud-apis-with-an-application)).
+This repository provides a Terraform to create a bucket on OVH, but not on Scaleway. For this step, you will need OVH API credentials (`application key`, `secret key` and `consumer key`, as well as the project id in which you will create the bucket, see [here to generate a token](https://www.ovh.com/auth/api/createToken)). You must add the following rights and replace {serviceName} by your OVH's Public Cloud project id :
 
-- Execute the corresponding script : `bin/init-bucket.sh`, after entering all the required information, it will create a bucket on OVH;
-- Save the provided credentials `access_key`, `secret_key` and `bucket_name`, you will need them for the next step.
+- GET /cloud/project/{serviceName}/\*
+- PUT /cloud/project/{serviceName}/\*
+- POST /cloud/project/{serviceName}/\*
+- DELETE /cloud/project/{serviceName}/\*
+
+Then execute the corresponding script : `bin/init-bucket.sh`, after entering all the required information, it will create a bucket on OVH;
+
+And finally, save the provided credentials `access_key`, `secret_key` and `bucket_name`, you will need them for the next step.
 
 ## Create and provision the cluster
 
@@ -35,10 +41,10 @@ If you used the previous script to generate the bucket, here are some informatio
 Terraform needs a few variables to create your cluster, please run `bin/bootstrap.sh <your-provider>` and provide the desired values for each parameter. You will need:
 
 - The hostname for several services: ArgoCD, Grafana, Vault (if installed)
-- A S3 bucket for Velero
+- A **already existing** S3 bucket for Velero (you can use the state_bucket terraform script to create a S3 bucket for Velero)
 - ArgoCD needs a Git repository with HTTPS credentials for access. You can use a private repository, or a public one. If you use a private repository, you will need to provide the HTTPS credentials (username and password). If you use a public repository, you can leave the username and password empty.
 - API keys for your provider:
-  - For OVH, see [here](https://help.ovhcloud.com/csm/en-api-getting-started-ovhcloud-api?id=kb_article_view&sysparm_article=KB0042777#advanced-usage-pair-ovhcloud-apis-with-an-application)
+  - For OVH, see [here](https://www.ovh.com/auth/api/createToken)
   - For Scaleway, see [here](https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/)
 
 **The script will prompt for the most common variables. By default, some variables are not prompted (and their default value is then used). If you wish, you can look into the `variables.tf` and the `variables-common.tf` files to see all the variables that can be set. Simply add them to the `terraform.tfvars` file.**
