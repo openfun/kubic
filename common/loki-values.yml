@@ -1,0 +1,14 @@
+loki:
+  auth_enabled: false
+  storage:
+    bucketNames:
+      chunks: ${loki_s3_chunks_bucket_name}
+      ruler: ${loki_s3_ruler_bucket_name}
+      admin: ${loki_s3_admin_bucket_name}
+    type: s3
+    s3:
+      endpoint: ${loki_s3_bucket_endpoint}
+      region: ${loki_s3_bucket_region}
+      secretAccessKey: ${loki_s3_secret_access_key}
+      accessKeyId: ${loki_s3_access_key_id}
+      s3ForcePathStyle: true
