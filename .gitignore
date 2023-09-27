@@ -42,3 +42,7 @@ terraform.rc
 
 # Hashicorp Vault keys file
 cluster-keys.json
+
+# standalone kubeconfig
+standalone/kubeconfig
+
