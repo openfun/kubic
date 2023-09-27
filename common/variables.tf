@@ -140,7 +140,7 @@ variable "vault_seal_method" {
 variable "vault_version" {
   type        = string
   description = "The version of Hashicorp vault helm release to install"
-  default     = "1.24.12"
+  default     = "0.24.1"
 }
 
 variable "velero_version" {
