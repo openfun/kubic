@@ -28,6 +28,8 @@ issuers = [
 ]
 grafana_hostname            = ""
 grafana_admin_password      = ""
+grafana_persistence_enabled =
+grafana_persistence_size    = ""
 vault_server_hostname       = ""
 install_hashicorp_vault     =
 vault_ui                    =
