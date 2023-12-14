@@ -22,6 +22,10 @@ grafana:
         - name: Loki
           type: loki
           url: http://loki-gateway.loki.svc.cluster.local
+  persistence:
+    enabled: ${grafana_persistence_enabled}
+    persistence:
+      size: ${grafana_persistence_size}
 
   dashboardProviders:
     dashboardproviders.yaml:

@@ -75,6 +75,18 @@ variable "grafana_admin_password" {
   sensitive   = true
 }
 
+variable "grafana_persistence_enabled" {
+  type        = bool
+  description = "Enable Grafana persistence"
+  default     = false
+}
+
+variable "grafana_persistence_size" {
+  type        = string
+  description = "Grafana persistence size"
+  default     = "10Gi"
+}
+
 variable "vault_server_hostname" {
   type        = string
   description = "The hostname to use for the Vault server ingress"
