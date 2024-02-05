@@ -87,6 +87,18 @@ variable "grafana_persistence_size" {
   default     = "10Gi"
 }
 
+variable "prometheus_persistence_enabled" {
+  type        = bool
+  description = "Enable Prometheus persistence"
+  default     = false
+}
+
+variable "prometheus_persistence_size" {
+  type        = string
+  description = "Prometheus persistence size"
+  default     = "20Gi"
+}
+
 variable "vault_server_hostname" {
   type        = string
   description = "The hostname to use for the Vault server ingress"
