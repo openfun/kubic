@@ -66,5 +66,14 @@ grafana:
       default_home_dashboard_path: /var/lib/grafana/dashboards/k8s/k8s-views-global.json
 prometheus:
   prometheusSpec:
+  %{ if prometheus_persistence_enabled }
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: ${prometheus_persistence_size}
+    %{ endif }
     podMonitorSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false

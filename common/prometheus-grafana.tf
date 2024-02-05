@@ -12,5 +12,7 @@ resource "helm_release" "kube-prometheus" {
     grafana_admin_password = var.grafana_admin_password
     grafana_persistence_enabled = var.grafana_persistence_enabled
     grafana_persistence_size = var.grafana_persistence_size
+    prometheus_persistence_enabled = var.prometheus_persistence_enabled
+    prometheus_persistence_size = var.prometheus_persistence_size
   })]
 }
