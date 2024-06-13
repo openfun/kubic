@@ -29,6 +29,12 @@ variable "argocd_version" {
   default     = "5.33.1"
 }
 
+variable "argocd_apps_version" {
+  type        = string
+  description = "ArgoCD apps version"
+  default     = "1.6.2"
+}
+
 variable "argocd_avp_version" {
   type        = string
   description = "ArgoCD argo-vault-plugin version"
