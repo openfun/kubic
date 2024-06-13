@@ -1,6 +1,7 @@
 ---
 applicationsets:
-  - name: apps
+  # See https://github.com/argoproj/argo-helm/commit/237493a4ab1478a0c33cb1253767f65ce4ec007c
+  %{ if tonumber(split(".", argocd_apps_version).0) < 2 }- name: apps%{ else }apps:%{ endif }
     namespace: argocd
     generators:
       - git:
