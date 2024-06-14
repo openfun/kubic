@@ -33,10 +33,13 @@ resource "helm_release" "argocd-apps" {
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argocd-apps"
 
+  version    = var.argocd_apps_version
+
   values = [
     templatefile("${path.module}/argocd-apps-values.yaml.tftpl",
       {
         repo_url = var.argocd_repo_url
+        argocd_apps_version = var.argocd_apps_version
       }
     )
   ]
