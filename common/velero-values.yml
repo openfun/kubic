@@ -6,7 +6,7 @@
 # enabling node-agent). Required.
 image:
   repository: velero/velero
-  tag: v1.11.0
+  tag: v1.13.0
 
 initContainers:
   - name: velero-plugin-for-aws
