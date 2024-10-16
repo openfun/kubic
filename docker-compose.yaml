@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   tf-scaleway:
-    image: hashicorp/terraform:1.5.7
+    image: hashicorp/terraform:1.9.8
     user: ${DOCKER_USER:-1000}
     working_dir: /app/scaleway
     environment:
@@ -12,7 +12,7 @@ services:
       - ./scaleway:/app/scaleway
       - ./common:/app/common
   tf-ovh:
-    image: hashicorp/terraform:1.5.7
+    image: hashicorp/terraform:1.9.8
     user: ${DOCKER_USER:-1000}
     working_dir: /app/ovh
     environment:
@@ -23,7 +23,7 @@ services:
       - ./ovh:/app/ovh
       - ./common:/app/common
   tf-standalone:
-    image: hashicorp/terraform:1.5.7
+    image: hashicorp/terraform:1.9.8
     user: ${DOCKER_USER:-1000}
     working_dir: /app/standalone
     environment:
@@ -34,7 +34,7 @@ services:
       - ./standalone:/app/standalone
       - ./common:/app/common
   tf-bucket-ovh:
-    image: hashicorp/terraform:1.5.7
+    image: hashicorp/terraform:1.9.8
     user: ${DOCKER_USER:-1000}
     working_dir: /app/state_bucket
     environment:
