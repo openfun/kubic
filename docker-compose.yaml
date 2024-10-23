@@ -52,7 +52,7 @@ services:
     image: argoproj/argocd:v2.6.15
     user: ${DOCKER_USER:-1000}
   kubectld:
-    image: bitnami/kubectl:1.29.2
+    image: bitnami/kubectl:1.31.2
     user: ${DOCKER_USER:-1000}
     working_dir: /app
     volumes:
